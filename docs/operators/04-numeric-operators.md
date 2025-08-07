@@ -375,7 +375,16 @@ Divides two Numbers.
 
 For intervals:
 - Centre is calculated as `centre(left) / centre(right)`
-- Radius is calculated as `max((centre(left) + radius(left)) / (centre(right) + radius(right)), (centre(left) + radius(left)) / (centre(right) - radius(right)), (centre(left) - radius(left)) / (centre(right) + radius(right)), (centre(left) - radius(left)) / (centre(right) - radius(right)))`
+- Radius is calculated as: 
+
+```
+max(
+    abs(centre(left) + radius(left)) / (centre(right) + radius(right)),
+    abs(centre(left) + radius(left)) / (centre(right) - radius(right)),
+    abs(centre(left) - radius(left)) / (centre(right) + radius(right)),
+    abs(centre(left) - radius(left)) / (centre(right) - radius(right))
+)
+```
 
 #### 4.3.4.5 Additional Constraints
 The denominator must be different to zero.

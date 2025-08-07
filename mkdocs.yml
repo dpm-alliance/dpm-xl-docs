@@ -3,7 +3,7 @@ site_description: Comprehensive documentation for the Data Point Model Expressio
 site_author: EBA and EIOPA
 repo_url: https://github.com/dpm-alliance/dpm-xl-docs
 repo_name: dpm-alliance/dpm-xl-docs
-edit_uri: blob/0.7/docs/
+edit_uri: blob/0.8/docs/
 
 theme:
   name: material

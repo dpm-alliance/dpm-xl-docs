@@ -32,18 +32,18 @@ The following table contains the applicability options for the if-then-else *Ope
 
 | Condition {#k} | Then {#k} | Else {#k} | Is allowed {#k} | Result structure {#f} | Remarks {#f} |
 |----------------|-----------|-----------|-----------------|----------------------|--------------|
-| *Scalar*         | *Scalar*    | None      | Yes             | *Scalar*               |              |
-| *Scalar*         | *Recordset* | None      | No              | -                    | Forbidden because the result structure would be unknown |
-| *Scalar*         | *Scalar*    | *Scalar*    | Yes             | *Scalar*               |              |
-| *Scalar*         | *Scalar*    | *Recordset* | No              | -                    | Forbidden because the result structure would be unknown |
-| *Scalar*         | *Recordset* | *Scalar*    | No              | -                    | Forbidden because the result structure would be unknown |
-| *Scalar*         | *Recordset* | *Recordset* | Yes             | *Recordset*            |              |
-| *Recordset*      | *Scalar*    | None      | Yes             | *Recordset*            |              |
-| *Recordset*      | *Recordset* | None      | Yes             | *Recordset*            |              |
-| *Recordset*      | *Scalar*    | *Scalar*    | Yes             | *Recordset*            |              |
-| *Recordset*      | *Scalar*    | *Recordset* | Yes             | *Recordset*            |              |
-| *Recordset*      | *Recordset* | *Scalar*    | Yes             | *Recordset*            |              |
-| *Recordset*      | *Recordset* | *Recordset* | Yes             | *Recordset*            |              |
+| *Scalar* | *Scalar* | None | Yes | *Scalar* | |
+| *Scalar* | *Recordset* | None | No | - | Forbidden because the result structure would be unknown |
+| *Scalar* | *Scalar* | *Scalar* | Yes | *Scalar* | |
+| *Scalar* | *Scalar* | *Recordset* | No | - | Forbidden because the result structure would be unknown |
+| *Scalar* | *Recordset* | *Scalar* | No | - | Forbidden because the result structure would be unknown |
+| *Scalar* | *Recordset* | *Recordset* | Yes | *Recordset* | |
+| *Recordset* | *Scalar* | None | Yes | *Recordset* | |
+| *Recordset* | *Recordset* | None | Yes | *Recordset* | |
+| *Recordset* | *Scalar* | *Scalar* | Yes | *Recordset* | |
+| *Recordset* | *Scalar* | *Recordset* | Yes | *Recordset* | |
+| *Recordset* | *Recordset* | *Scalar* | Yes | *Recordset* | |
+| *Recordset* | *Recordset* | *Recordset* | Yes | *Recordset* | |
 
 ### 8.1.6 Behaviour
 For conditionExpressions of the *Scalar* type, returns the *Operand* resulting from the thenExpression or the elseExpression.

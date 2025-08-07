@@ -15,6 +15,15 @@ For *Recordsets*, nulls may arise in a selection for two reasons:
 
 In any case, there are no differences in how implicit or explicit nulls are treated.
 
+### 4.2.1 Implicit Nulls Generation
+
+Generation of implicit nulls is necessary because of the default values. Whenever a set of *Variables* is selected, all the selected *Variables* need to be created, even if they have not been reported (implicit null).
+
+For **closed tables**, one *Record* shall be generated for each variable in the selection.
+
+For **open tables**, for each combination of *Keys* that has at least one value reported (including explicit nulls), one *Record* for each non existing *Variable* shall be generated.
+
+
 ## 4.3 Null Treatment
 
 In general, most of the *Operations* return null when any of their arguments is null.

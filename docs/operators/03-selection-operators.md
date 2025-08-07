@@ -8,11 +8,11 @@
   
 >> [**t**table | **v**variable | **o**operation]1
 
->> [**r**row [, **r**row]* | **r**row_init–row_end | **r***]*
+>> [**r**row [, **r**row]* | **r**row_init–row_end | **r*** ]*
 
->> [**c**col [, **c**col]*| **c**col_init–col_end | **c*** ]*
+>> [**c**col [, **c**col]* | **c**col_init–col_end | **c*** ]*
 
->> [**s**sheet [, **s**sheet]*| **s**sheet_init–sheet_end | **s***]*
+>> [**s**sheet [, **s**sheet]* | **s**sheet_init–sheet_end | **s*** ]*
 
 >> _interval_arithmetics_, _fallback_value_
 
@@ -56,8 +56,8 @@ Returns a *Recordset* with the following structure:
   - Sheet: If the selected table has ordinate sheets and more than one sheet is present in the selection. The name of the *Component* is "s".
 
 - DPM-ML
-  - X: If there is Column for DPM-XL.
-  - Y: If there is Row for DPM-XL.
+  - X: If there is Row for DPM-XL.
+  - Y: If there is Column for DPM-XL.
   - Z: If there is Sheet for DPM-XL.
 
 - A DPM *Key Component* for each *Key Variable* belonging to the *Key* associated to the selected *Variable*. The name of the *Component* is the *Code* of the Property associated to the *Key Variable*. The *Data Type* of the *Component* shall be the correspondent *Data Type* of the Metric or Property associated to the respective *Key Variable*.
@@ -67,6 +67,8 @@ Returns a *Recordset* with the following structure:
 *Attribute Components*: One *Component* for each *Attribute Variable* associated to the selected *Variable*. The name of the *Component* is the *Code* of the Property associated to the *Attribute Variable*. The *Data Type* of the *Component* shall be the correspondent *Data Type* of the Metric or Property associated to the respective *Attribute Variable*.
 
 The *Records* for the *Recordset* shall be obtained from the input data according to the selection.
+
+For ranges (e.g., r0010-0100), the selection is done based on the alphabetical order of the DPM *Header* codes. In the example, it selects all the *Headers* with a code between 0010 and 0100.
 
 ### 3.1.7 DPM-ML Metamodel Representation
 

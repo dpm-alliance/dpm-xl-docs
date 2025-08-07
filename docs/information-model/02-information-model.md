@@ -122,6 +122,8 @@ Each *Record* of the *Recordset* is individually identified by the combination o
 
 A *Recordset* having no *Key Components* behaves like a *Scalar*.
 
+A *Recordset* may have no records.
+
 #### 2.2.3.1 Key Components
 
 ```mermaid
@@ -304,7 +306,23 @@ The data types are:
 
 The DPM provides a wider list of data types. This is because greater granularity in the data typology may be useful for reporting or representation purposes (e.g., a monetary amount requires a currency attribute, while a pure number does not).
 
-For each DPM data type there is one, and only one DPM *Operations* data type.
+For each DPM data type there is one, and only one DPM-XL *Data type*.
+
+| **Code** | **Name**                        | **DPM-XL type** |
+| -------- | ------------------------------- | --------------- |
+| i        | integer                         | Integer         |
+| r        | decimal                         | Number          |
+| s        | string (non empty)              | String          |
+| b        | boolean                         | Boolean         |
+| t        | true                            | Boolean         |
+| dt       | date time                       | Date            |
+| d        | date                            | Date            |
+| e        | enumeration                     | Category Items  |
+| m        | monetary                        | Number          |
+| p        | percentage                      | Number          |
+| u        | URI                             | String          |
+| o        | ordinals                        | Integer         |
+| es       | string (including empty string) | String          |
 
 ### 2.3.2 Casting
 

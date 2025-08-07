@@ -24,7 +24,12 @@
 Changes the dates of the var *Component* of the *Recordset* op by adding (or subtracting) the numberPeriods of the period type.
 
 ### 10.1.5 Additional Constraints
-The *Component* var must belong to the *Recordset* op, and has to be of Time interval type.
+
+- If op is a *Recordset*, then 
+  - var must exist,
+  - must belong to the *Recordset* op, and
+  - must be of Time Interval type.
+- If var is an *Scalar*, then var cannot exist.
 
 The period must have one of the following values:
 
@@ -52,7 +57,7 @@ Considering the following *Recordset*, generated from the selection {tT1, r010-0
 | 2022Q2       | 020    | 010    | 700    |
 | 2022Q2       | 020    | 020    | 800    |
 
-`time_shift({tT1, r010-020, c010-020}, RefDate, Q, 1)` returns:
+`time_shift({tT1, r010-020, c010-020}, Q, 1, refPeriod)` returns:
 
 | RefDate {#k} | R {#k} | c {#k} | f {#f} |
 |--------------|--------|--------|--------|
@@ -65,7 +70,7 @@ Considering the following *Recordset*, generated from the selection {tT1, r010-0
 | 2022Q3       | 020    | 010    | 700    |
 | 2022Q3       | 020    | 020    | 800    |
 
-`time_shift({tT1, r010-020, c010-020}, RefDate, Q, -1)` returns:
+`time_shift({tT1, r010-020, c010-020}, Q, -1, refPeriod)` returns:
 
 | RefDate {#k} | r {#k} | c {#k} | f {#f} |
 |--------------|--------|--------|--------|

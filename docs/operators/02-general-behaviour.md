@@ -77,6 +77,7 @@ Binary *Operators* can only be applied to two *Recordsets* *Operands* if they ha
 
 1. exactly the same *Key Components*; or
 2. the *Key Components* of one *Recordset* (Reference *Recordset*) are a superset of the *Key Components* of the other *Recordset*.
+3. *Standard Keys* contain the same values. E.g., summing `{tT1, r010-020}` and `{tT1, r030-040}` is not possible, because there are no matches in the operands.
 
 #### 2.2.3.2 Structure
 
