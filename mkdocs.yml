@@ -1,0 +1,100 @@
+site_name: DPM Expression Language (DPM-XL) Documentation
+site_description: Comprehensive documentation for the Data Point Model Expression Language
+site_author: EBA and EIOPA
+repo_url: https://github.com/dpm-alliance/dpm-xl-docs
+repo_name: dpm-alliance/dpm-xl-docs
+edit_uri: blob/0.7/docs/
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.view
+
+plugins:
+  - search
+  - mermaid2:
+      version: 11.8.0
+  - with-pdf:
+      output_path: pdf/dpm-xl-documentation.pdf
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - attr_list
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+
+extra_css:
+  - style.css
+
+extra:
+  version:
+    provider: mike
+
+nav:
+  - Home: index.md
+  - Information Model:
+    - Introduction: information-model/01-introduction.md
+    - Information Model: information-model/02-information-model.md
+    - DPM-XL Data Selection: information-model/03-data-selection.md
+    - Null handling: information-model/04-null-treatment.md
+    - DPM-ML: information-model/05-dpm-ml.md
+  - Operators:
+    - Introduction: operators/01-introduction.md
+    - General behaviour: operators/02-general-behaviour.md
+    - Selection: operators/03-selection-operators.md
+    - Numeric: operators/04-numeric-operators.md
+    - Comparison: operators/05-comparison-operators.md
+    - Logical: operators/06-logical-operators.md
+    - Aggregate: operators/07-aggregate-operators.md
+    - Conditional: operators/08-conditional-operators.md
+    - String: operators/09-string-operators.md
+    - Time: operators/10-time-operators.md
+    - Clause: operators/11-clause-operators.md
+  - Grammar:
+    - Introduction: grammar/01-introduction.md
+
+
+
+
+
