@@ -2,7 +2,7 @@
 
 ## 5.1 Operation and OperationVersion
 
-![image](../immages/dpm-ml-01.png)
+![image](../images/dpm-ml-01.png)
 
 *Operations* have a code and can be grouped.
 
@@ -33,7 +33,7 @@ Groups of *Operations* refer to the cases where users define a parent validation
 
 ## 5.2 Operation Tree
 
-![image](../immages/dpm-ml-02.png)
+![image](../images/dpm-ml-02.png)
 
 ### 5.2.1 Operation Nodes
 
@@ -146,7 +146,7 @@ Note that the *Operations* shall be applied to the *Variables* having the same i
 
 ## 5.3 Operation Scope
 
-![image](../immages/dpm-ml-03.png)
+![image](../images/dpm-ml-03.png)
 
 Each *Operation* version can be applied in different scopes. An *Operation* scope refers to the individual module versions or sets of module versions (for cross-module validations) to which the *Operation* logically applies.
 
@@ -158,6 +158,6 @@ For each *Operation* scope, there may be different values for the attributes:
 
 ## 5.4 Variable Calculation
 
-![image](../immages/dpm-ml-04.png)
+![image](../images/dpm-ml-04.png)
 
 For calculations (i.e., *Operations* that serve to calculate values for *Variables*), it is necessary to link the *Operation* to the actual *Variable* that is generated. This is done with the *VariableCalculation* table, which links to the *Variable* and the Module. The link to the Module is necessary due to the fact that a *Variable* can be used in several Modules, being calculated in some cases and not calculated in other cases.

@@ -110,8 +110,8 @@ None
 - [Numeric *Operators'* standard behaviour](./04-numeric-operators.md#41-numeric-operators-general-behaviour).
 
 #### 4.2.3.7 Examples
-- `Abs(-1)` results in `1`
-- `Abs(3)` results in `3`
+- `abs(-1)` results in `1`
+- `abs(3)` results in `3`
 
 ### 4.2.4 Exponential (exp)
 
@@ -387,7 +387,7 @@ max(
 ```
 
 #### 4.3.4.5 Additional Constraints
-The denominator must be different to zero.
+The denominator must be different from zero.
 
 #### 4.3.4.6 Behaviour
 
@@ -430,8 +430,8 @@ None.
 
 #### 4.3.5.7 Examples
 
-- `Max(1, 3, -5)` results in `3`
-- `Max(1, 3, null)` results in `null`
+- `max(1, 3, -5)` results in `3`
+- `max(1, 3, null)` results in `null`
 
 ### 4.3.6 Minimum (min)
 
@@ -466,8 +466,8 @@ None.
 
 #### 4.3.6.7 Examples
 
-- `Min(1, 3, -5)` results in `-5`
-- `Min(1, 3, null)` results in `null`
+- `min(1, 3, -5)` results in `-5`
+- `min(1, 3, null)` results in `null`
 
 ### 4.3.7 Power
 
@@ -477,9 +477,9 @@ None.
 
 #### 4.3.7.2 Input Parameters
 
-> num: rset | scal <num\>
+> base: rset | scal <num\>
 
-> den: rset | scal <num\>
+> exponent: rset | scal <num\>
 
 #### 4.3.7.3 Output
 

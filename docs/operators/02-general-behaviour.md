@@ -37,7 +37,7 @@ This general behaviour is applied whenever an *Operator* takes as input two *Ope
 
 - [Arithmetic Binary Operators](./04-numeric-operators.md#43-binary-arithmetic-operators)
 - [Comparison Operators](./05-comparison-operators.md#51-comparison-operators-general-behaviour) 
-- [Logical Binary Operators](./06-logical-operators.md#6-logical)
+- [Logical Binary Operators](./06-logical-operators.md#6-logical-operators)
 
 Unless explicitly specified differently, the behaviour for the binary *Operators* is as follows.
 

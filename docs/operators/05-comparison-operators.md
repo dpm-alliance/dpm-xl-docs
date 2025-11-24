@@ -76,7 +76,7 @@ None.
 
 ### 5.3.1.3 Output
 
-rset | scal <boo\>
+> rset | scal <boo\>
 
 ### 5.3.1.4 Semantics
 Returns `false` if left is equal to right and `true` otherwise.
@@ -245,7 +245,7 @@ None.
 
 ### 5.8.1.2 Input Parameters
 
-> op: rset | scal <num\>
+> op: rset | scal <*\>
 
 > set: scalar_set <*> | subcategory
 
@@ -322,5 +322,5 @@ None.
 
 ### 5.10.1.6 Behaviour
 
-- [Binary *Operators'* standard behaviour](./02-general-behaviour.md#22-binary-operators).
+- [Unary *Operators'* standard behaviour](./02-general-behaviour.md#21-unary-operators).
 - [Comparison *Operators'* standard behaviour](#51-comparison-operators-general-behaviour).

@@ -11,7 +11,7 @@ classDiagram
     class Operator
     class LanguageArtifact
     class Output
-    Class Input
+    class Input
     
     Script *-- Operation
     Operation --> "1..1" Result : Produces
@@ -206,7 +206,7 @@ The name for the DPM *Attribute Components* is the Code of the Property associat
 
 For instance, taking as an example EBA's Table F 01.01:
 
-![image](../immages/information-model-01.png)
+![image](../images/information-model-01.png)
 
 ```
 {tF_01.01, r0010, c0010}
@@ -222,7 +222,7 @@ In the context of data with multiple dates and/or reference dates, and supposing
 
 #### 2.2.4.2 Open Variable Selection
 
-![image](../immages/information-model-02.png)
+![image](../images/information-model-02.png)
 
 ```
 {F 40.01 c0031}
@@ -240,7 +240,7 @@ The following table represents the *Recordset*:
 
 #### 2.2.4.3 Variable Set Selection
 
-![image](../immages/information-model-03.png)
+![image](../images/information-model-03.png)
 
 ```
 {F 20.05 r0020-0030, c0010}
@@ -268,7 +268,7 @@ Note that the important thing for DPM-ML to be consistent is that all the *Recor
 
 #### 2.2.4.4 Key Variable Selection
 
-![image](../immages/information-model-04.png)
+![image](../images/information-model-04.png)
 
 ```
 {F 40.01 c0015}

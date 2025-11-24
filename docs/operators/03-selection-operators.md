@@ -78,12 +78,13 @@ There is no metamodel representation for the selection *Operator*. It is used to
 
 ### 3.2.1 Syntax
 
-> **with** partial_selection: _expression_
+> **with** partial_selection [where_expression]<sup>1</sup>: _expression_
 
 ### 3.2.2 Input Parameters
 
 - **partial_selection**: A selection expression (see Selection *Operator*)
-- **expression**: A expression including selection *Operators*
+- **expression**: An expression including selection *Operators*
+- **where_expression**: An expression with a [`where` operator](./11-clause-operators.md#111-where)
 
 ### 3.2.3 Output
 
@@ -91,11 +92,13 @@ Does not generate output; modifies the selections of the expression after the co
 
 ### 3.2.4 Semantics
 
-Serves to simplify expressions by adding a single context that may apply to all the *Operands* in the expression.
+Serves to simplify expressions by adding a single context that may apply to all the [selection operators](#31-selection-operator) in the expression.
 
 ### 3.2.5 Additional Constraints
 
-None
+In case *where_expression* is used:
+
+- All the operands rising from selection operators have a `where` or a `sub` clause applicable, the one in the with, or the one overriding it. This implies that it is not possible to have a selection with a table that does not have open keys.
 
 ### 3.2.6 Behaviour
 
@@ -103,35 +106,180 @@ The selection parameters in the partial selection applies to all the selections 
 
 Therefore, in a selection inside the expression, whenever one of the parameters of the selection expression is not present, but that parameter is present on the partial selection, the parameter of the partial selection applies.
 
+In case *where_expression* is used, the overriding mechanism works as follows:
+
+- Any `where` clause used inside the expression fully overrides the *where_expression*, even if the properties used in the `where` clause inside the expression are different.
+- A `sub` clause used inside the expression fully overrides the *where_expression*.
+
 ### 3.2.7 Examples
 
+#### Example 1
+
 ```
-With {F 01.01 c0010, default:0, interval:false}:
+with {F 01.01 c0010, default:0, interval:false}:
 {r0010} = {r0020} + {r0030} + {r0040}
 ```
 
 The partial selection applies to all the selections in the expression
 
+#### Example 2
+
 ```
-With {F 01.01 c0010, default:0, interval:false}:
+with {F 01.01 c0010, default:0, interval:false}:
 {r0010} + {r0040} = {F04.01 r0010, c0010}
 ```
 
 The partial selection applies to the two selections that do not refer to a table. Regarding the other selection, the default and intervals apply
 
+#### Example 3
+
 ```
-With {F 01.01 c0010, default:0, interval:false}:
+with {F 01.01 c0010, default:0, interval:false}:
 {F 01.01 r0010} + {F 01.01 r0040} = {F04.01 r0010, c0010 default:null}
 ```
 
 The partial selection applies to the two selections that refer to the same table referred to in the partial selection. Regarding the other selection, interval argument in the partial selection applies, but the default is overridden.
 
+#### Example 4
+
 ```
-With {c0010, default:0, interval:false}:
+with {c0010, default:0, interval:false}:
 {F 01.01 r0010} + {F 01.01 r0040} = {F04.01 r0010}
 ```
 
 The partial selection applies to all the selections in the expression.
+
+#### Example 5
+
+```
+with {tEXM, r0010}[where id1="ABC" and id2=5]:
+  {c0010} = {c0020} + {c0030}
+```
+
+Where:
+
+- **tEXM** has two *Key Components*: *id1* and *id2*
+
+The clauses applying to each selection are:
+
+| Selection   | Clause                       |
+|-------------|------------------------------|
+|`{c0010}`    |`[where id1="ABC" and id2=5]` |
+|`{c0020}`    |`[where id1="ABC" and id2=5]` |
+|`{c0030}`    |`[where id1="ABC" and id2=5]` |
+
+#### Example 6
+
+```
+with {tEXM, r0010}[where id1="ABC" and id2=5]:
+  {c0010} = {c0020} + {tEXM_02, c0030}[where id1="ABC"]
+```
+
+
+Where:
+
+- **tEXM** has two *Key Components*: *id1* and *id2*
+- **tEXM_02** has one *Key Component2*: *id1*
+
+The clauses applying to each selection are:
+
+| Selection   | Clause                       |
+|-------------|------------------------------|
+|`{c0010}`    |`[where id1="ABC" and id2=5]` |
+|`{c0020}`    |`[where id1="ABC" and id2=5]` |
+|`{tEXM_02, c0030}`|    `[where id1="ABC"]`  |
+
+
+#### Example 7
+
+```
+with {r0010}[where id1="ABC"]:
+  {tEXM, c0010} = {tEXM, c0020} + {tEXM_02, c0030}
+```
+
+Where:
+
+- **tEXM** has two *Key Components*: *id1* and *id2*
+- **tEXM_02** has one *Key Component*: *id1*
+
+The clauses applying to each selection are:
+
+| Selection         | Clause              |
+|-------------------|---------------------|
+|`{tEXM, c0010}`    |`[where id1="ABC"]`  |
+|`{tEXM, c0020}`    |`[where id1="ABC"]`  |
+|`{tEXM_02, c0030}` |`[where id1="ABC"]`  |
+
+
+#### Example 8
+
+```
+with {default: 0, interval: true}[where qEEA = [eba_qAE:qx2010]]:
+if
+    sum({tC_08.01.a, r0070, c0255}) 
+       =
+    sum({tC_08.01.a, r0010, c0255})
+then
+    sum
+       ( filter ({tC_08.02, c0255}, {tC_08.02, c0010} = 1)) 
+        =
+    sum({tC_09.02, r0090, c0120} [where CEG = [eba_GA:qx2014]]) 
+endif
+```
+
+Where:
+
+- **C_08.01.a** has one *Key Component*: *qEEA*
+- **C_08.02** has two *Key Components*: *qEEA* and *OGR*
+- **C_09.02** has one*Key Component*: *CEG*
+
+The clauses applying to each selection are:
+
+| Selection                  | Clause                           |
+|----------------------------|----------------------------------|
+|`{tC_08.01.a, r0070, c0255}`|`[where qEEA = [eba_qAE:qx2010]]` |
+|`{tC_08.01.a, r0010, c0255}`|`[where qEEA = [eba_qAE:qx2010]]` |
+|`{tC_08.02, c0255}`         |`[where qEEA = [eba_qAE:qx2010]]` |
+|`{tC_08.02, c0010}`         |`[where qEEA = [eba_qAE:qx2010]]` |
+|`{tC_09.02, r0090, c0120}`  |`[where CEG = [eba_GA:qx2014]]`   |
+
+
+#### Example 9
+
+```
+with {tEXM, r0010}[where id1="ABC" and id2=5]:
+  {c0010} = {c0020} + {tEXM_02, c0030}[sub id1="ABC"]
+```
+
+Where:
+
+- **tEXM** has two *Key Components*: *id1* and *id2*
+- **tEXM_02** has one *Key Component2*: *id1*
+
+The clauses applying to each selection are:
+
+| Selection         | Clause                      |
+|------------------|------------------------------|
+|`{c0010}`         |`[where id1="ABC" and id2=5]` |
+|`{c0020}`         |`[where id1="ABC" and id2=5]` |
+|`{tEXM_02, c0030}`|`[sub id1="ABC"]`             |
+
+Note that the `sub` clause overrides the `where` in the `with` in the partial_selection.
+
+#### Example 10
+
+```
+with {tEXM, r0010}[where id1="ABC" and id2=5]:
+  {c0010} = {c0020} + {tEXM_03, c0030}
+```
+
+Where:
+
+- **tEXM** has two *Key Components*: *id1* and *id2*
+- **tEXM_03** does not have any key component
+
+This expression raises a *Semantic Error*, because the where clause applies to the operand `{tEXM_03, c0030}`, and this table doesnt have the referred *Key Components*.
+
 
 ### 3.2.8 Metamodel Representation
 

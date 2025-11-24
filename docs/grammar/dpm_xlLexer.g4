@@ -97,6 +97,7 @@ WHERE:                  'where';
 GET:                    'get';
 RENAME:                 'rename';
 TO:                     'to';
+SUB:                    'sub';
 
 // Reference date
 TIME_SHIFT:             'time_shift';
@@ -222,6 +223,8 @@ fragment
 OPERATION_REF_PREFIX:   'o';
 fragment
 PRECONDITION_PREFIX:      'v_';
+fragment
+PARAMETER_PREFIX:         '$';
 
 
 // Codes
@@ -358,6 +361,7 @@ CLAUSE_WHERE:                  'where' -> type(WHERE);
 CLAUSE_GET:                    'get' -> type(GET);
 CLAUSE_RENAME:                 'rename' -> type(RENAME);
 CLAUSE_TO:                     'to' -> type(TO);
+CLAUSE_SUB:                    'sub' -> type(SUB);
 
 // Reference date
 CLAUSE_TIME_SHIFT:             'time_shift' -> type(TIME_SHIFT);
@@ -392,6 +396,7 @@ CLAUSE_TIME_PERIOD_LITERAL:    '#' TIME_PERIOD_FORMAT '#' -> type(TIME_PERIOD_LI
 
 ITEM_SIGNATURE:             [A-Za-z]([A-Za-z0-9_-]*[:][A-Za-z0-9._-]*[A-Za-z0-9])+;
 PROPERTY_CODE:              CODE;
+GLOBAL_PARAMETER:           PARAMETER_PREFIX CODE;
 
 CLAUSE_WS:                     [ \t\r\n\u000C]+ -> channel(2);
 

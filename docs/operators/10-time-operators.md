@@ -25,10 +25,12 @@ Changes the dates of the var *Component* of the *Recordset* op by adding (or sub
 
 ### 10.1.5 Additional Constraints
 
-- If op is a *Recordset*, then 
+- If op is a *Recordset*, then
+
   - var must exist,
   - must belong to the *Recordset* op, and
   - must be of Time Interval type.
+
 - If var is an *Scalar*, then var cannot exist.
 
 The period must have one of the following values:
@@ -46,7 +48,7 @@ Returns a *Recordset* with the same data structure and number of *Records* as th
 ### 10.1.7 Examples
 Considering the following *Recordset*, generated from the selection {tT1, r010-020, c010-020}:
 
-| RefDate {#k} | r {#k} | c {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | c {#k} | f {#f} |
 |--------------|--------|--------|--------|
 | 2022Q1       | 010    | 010    | 100    |
 | 2022Q1       | 010    | 020    | 200    |
@@ -59,7 +61,7 @@ Considering the following *Recordset*, generated from the selection {tT1, r010-0
 
 `time_shift({tT1, r010-020, c010-020}, Q, 1, refPeriod)` returns:
 
-| RefDate {#k} | R {#k} | c {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | c {#k} | f {#f} |
 |--------------|--------|--------|--------|
 | 2022Q2       | 010    | 010    | 100    |
 | 2022Q2       | 010    | 020    | 200    |
@@ -72,7 +74,7 @@ Considering the following *Recordset*, generated from the selection {tT1, r010-0
 
 `time_shift({tT1, r010-020, c010-020}, Q, -1, refPeriod)` returns:
 
-| RefDate {#k} | r {#k} | c {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | c {#k} | f {#f} |
 |--------------|--------|--------|--------|
 | 2021Q4       | 010    | 010    | 100    |
 | 2021Q4       | 010    | 020    | 200    |

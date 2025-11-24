@@ -30,7 +30,7 @@ Returns a *Recordset* with the same data structure as the input *Operand*, and w
 ### 11.1.7 Examples
 Considering the following *Recordset*, generated from the selection `{tT1, r010-020}`:
 
-| RefDate {#k} | r {#k} | CNT {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | CNT {#k} | f {#f} |
 |--------------|--------|----------|--------|
 | 2022Q1       | 010    | ES       | 100    |
 | 2022Q1       | 010    | PT       | 200    |
@@ -43,7 +43,7 @@ Considering the following *Recordset*, generated from the selection `{tT1, r010-
 
 `{tT1, r010-020}[where CNT in {"ES", "PT"}]` returns:
 
-| RefDate {#k} | r {#k} | CNT {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | CNT {#k} | f {#f} |
 |--------------|--------|----------|--------|
 | 2022Q1       | 010    | ES       | 100    |
 | 2022Q1       | 010    | PT       | 200    |
@@ -54,7 +54,7 @@ Considering the following *Recordset*, generated from the selection `{tT1, r010-
 
 ### 11.2.1 Syntax
 
-> op **[rename** compFrom to compTo **]**
+> op **[rename** compFrom to compTo {, compFrom to compTo}* **]**
 
 ### 11.2.2 Input Parameters
 
@@ -86,7 +86,7 @@ Returns a *Recordset* with the same data structure as the input *Operand*, excep
 ### 11.2.7 Examples
 Considering the following *Recordset*, generated from the selection `{tT1, r010-020}`:
 
-| RefDate {#k} | r {#k} | CNT {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | CNT {#k} | f {#f} |
 |--------------|--------|----------|--------|
 | 2022Q1       | 010    | ES       | 100    |
 | 2022Q1       | 010    | PT       | 200    |
@@ -99,7 +99,7 @@ Considering the following *Recordset*, generated from the selection `{tT1, r010-
 
 `{tT1, r010-020}[rename CNT to country]` returns:
 
-| RefDate {#k} | r {#k} | country {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | country {#k} | f {#f} |
 |--------------|--------|--------------|--------|
 | 2022Q1       | 010    | ES           | 100    |
 | 2022Q1       | 010    | PT           | 200    |
@@ -140,7 +140,7 @@ Returns a *Recordset* with the same data structure as the input *Operand*. The *
 ### 11.3.7 Examples
 Considering the following *Recordset*, generated from the selection `{tT1, r010-020}`:
 
-| RefDate {#k} | r {#k} | CNT {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | CNT {#k} | f {#f} |
 |--------------|--------|----------|--------|
 | 2022Q1       | 010    | ES       | 100    |
 | 2022Q1       | 010    | PT       | 200    |
@@ -153,7 +153,7 @@ Considering the following *Recordset*, generated from the selection `{tT1, r010-
 
 `{tT1, r010-020}[get CNT]` returns:
 
-| RefDate {#k} | r {#k} | CNT {#k} | f {#f} |
+| refPeriod {#k} | r {#k} | CNT {#k} | f {#f} |
 |--------------|--------|----------|--------|
 | 2022Q1       | 010    | ES       | ES     |
 | 2022Q1       | 010    | PT       | PT     |
@@ -163,3 +163,51 @@ Considering the following *Recordset*, generated from the selection `{tT1, r010-
 | 2022Q2       | 020    | PT       | PT     |
 | 2022Q2       | 020    | DE       | DE     |
 | 2022Q2       | 020    | IT       | IT     |
+
+## 11.4 sub 
+
+### 11.4.1 Syntax
+
+> op **[sub** key_component = value {, key_component = value}* **]**
+
+### 11.4.2 Input Parameters
+
+> op: rset <*>
+
+> key_component: scal <prop\>
+
+> value: scal <*>
+
+### 11.4.3 Output
+
+> rset <*>
+
+### 11.4.4 Semantics
+Filters a *Recordset* based on the value of a *Key Component*, and then drops the *Key Component*.
+
+### 11.4.5 Additional Constraints
+The value needs to have the same *Data type* as the key_component.
+
+### 11.4.6 Behaviour
+Returns a *Recordset* with the same data structure as the input *Operand*, except the *Key Components* dropped, and with the *Records* resulting from the evaluation of the filtering condition. When the condition evaluates to true, the *Record* is kept, otherwise (including null), the *Record* is not kept.
+
+### 11.4.7 Examples
+Considering the following *Recordset*, generated from the selection `{tT1, r010-020}`:
+
+| refPeriod {#k} | r {#k} | CNT {#k} | f {#f} |
+|--------------|--------|----------|--------|
+| 2022Q1       | 010    | ES       | 100    |
+| 2022Q1       | 010    | PT       | 200    |
+| 2022Q1       | 010    | DE       | 300    |
+| 2022Q1       | 010    | IT       | 400    |
+| 2022Q2       | 020    | ES       | 500    |
+| 2022Q2       | 020    | PT       | 600    |
+| 2022Q2       | 020    | DE       | 700    |
+| 2022Q2       | 020    |          | 800    |
+
+`{tT1, r010-020}[sub CNT = "PT"]` returns:
+
+| refPeriod {#k} | r {#k} | f {#f} |
+|--------------|--------|--------|
+| 2022Q1       | 010    | 200    |
+| 2022Q2       | 020    | 600    |

@@ -15,7 +15,8 @@ Logical *Operators* describe operations involving two *Operands* with Boolean *D
 > right: rset | scal <boo\>
 
 ### 6.1.1.3 Output
-rset | scal <boo>
+
+> rset | scal <boo\>
 
 ### 6.1.1.4 Semantics
 Returns `true` if both *Operands* are `true`, otherwise `false`.

@@ -33,7 +33,7 @@ The following table contains the applicability options for the if-then-else *Ope
 | Condition {#k} | Then {#k} | Else {#k} | Is allowed {#k} | Result structure {#f} | Remarks {#f} |
 |----------------|-----------|-----------|-----------------|----------------------|--------------|
 | *Scalar* | *Scalar* | None | Yes | *Scalar* | |
-| *Scalar* | *Recordset* | None | No | - | Forbidden because the result structure would be unknown |
+| *Scalar* | *Recordset* | None | Yes | - | *Recordset*, with the structure of the thenExpression applying as well to the else |
 | *Scalar* | *Scalar* | *Scalar* | Yes | *Scalar* | |
 | *Scalar* | *Scalar* | *Recordset* | No | - | Forbidden because the result structure would be unknown |
 | *Scalar* | *Recordset* | *Scalar* | No | - | Forbidden because the result structure would be unknown |
