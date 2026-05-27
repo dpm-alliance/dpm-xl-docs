@@ -180,16 +180,16 @@ Considering the following *Recordset*, generated from the selection `{tT1, r010-
 
 ### 11.4.3 Output
 
-> rset <*>
+> rset | scal <*>
 
 ### 11.4.4 Semantics
-Filters a *Recordset* based on the value of a *Key Component*, and then drops the *Key Component*.
+Filters a *Recordset* based on the value of a *Key Component*, and then drops the *Key Component*. If all *Key Components* are substituted, the result is a *Scalar*.
 
 ### 11.4.5 Additional Constraints
 The value needs to have the same *Data type* as the key_component.
 
 ### 11.4.6 Behaviour
-Returns a *Recordset* with the same data structure as the input *Operand*, except the *Key Components* dropped, and with the *Records* resulting from the evaluation of the filtering condition. When the condition evaluates to true, the *Record* is kept, otherwise (including null), the *Record* is not kept.
+Returns a *Recordset* with the same data structure as the input *Operand*, except the *Key Components* dropped, and with the *Records* resulting from the evaluation of the filtering condition. When the condition evaluates to true, the *Record* is kept, otherwise (including null), the *Record* is not kept. If no *Key Components* remain after the substitution, the result is a *Scalar*.
 
 ### 11.4.7 Examples
 Considering the following *Recordset*, generated from the selection `{tT1, r010-020}`:

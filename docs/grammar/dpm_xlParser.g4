@@ -1,38 +1,51 @@
 parser grammar dpm_xlParser;
+
 options { tokenVocab=dpm_xlLexer ;}
+
 // Added rule for expr management and EOF
 start:
     statement ((EOL statements) | EOL?) EOF
     ;
+
 statements:
     (statement EOL)+
     ;
+
 statement:
-    persistentAssignmentExpression                                                                 #persistentAssignmentExpr
+    expressionWithoutAssignment                                                                      #exprWithoutAssignment
     | temporaryAssignmentExpression                                                                  #assignmentExpr
-    | expressionWithoutAssignment                                                                      #exprWithoutAssignment
     ;
+
+persistentExpression:
+    persistentAssignmentExpression
+    | expressionWithoutAssignment
+    ;
+
 expressionWithoutAssignment:
     expression                                                                  #exprWithoutPartialSelection
     | WITH partialSelection
     (SQUARE_BRACKET_LEFT WHERE expression SQUARE_BRACKET_RIGHT)?
     COLON expression                                                            #exprWithSelection
     ;
+
 partialSelection:
     CURLY_BRACKET_LEFT cellRef CURLY_BRACKET_RIGHT                              #partialSelect
     ;
+
 temporaryAssignmentExpression:
-    temporaryIdentifier ASSIGN expressionWithoutAssignment
+    temporaryIdentifier ASSIGN persistentExpression
     ;
+
 persistentAssignmentExpression:
-    select PERSISTENT_ASSIGN expressionWithoutAssignment
+    varID PERSISTENT_ASSIGN expressionWithoutAssignment
     ;
+
 expression:
     LPAREN expression RPAREN                                                                            #parExpr
     | functions                                                                                         #funcExpr
     | expression SQUARE_BRACKET_LEFT clauseOperators SQUARE_BRACKET_RIGHT                               #clauseExpr
     | op=(PLUS|MINUS) expression                                                                        #unaryExpr
-    | op=NOT LPAREN expression RPAREN                                                                   #notExpr
+    | op=NOT expression                                                                                 #notExpr
     | left=expression op=(MULT|DIV) right=expression                                                    #numericExpr
     | left=expression op=(PLUS|MINUS) right=expression                                                  #numericExpr
     | left=expression op=CONCAT right=expression                                                        #concatExpr
@@ -47,13 +60,16 @@ expression:
     | literal                                                                                           #literalExpr
     | select                                                                                            #selectExpr
     ;
+
 setOperand:
     CURLY_BRACKET_LEFT setElements CURLY_BRACKET_RIGHT
     ;
+
 setElements:
     itemReference (COMMA itemReference)*
     | literal (COMMA literal)*
     ;
+
 functions:
     aggregateOperators                                              #aggregateFunctions
     | numericOperators                                              #numericFunctions
@@ -63,27 +79,34 @@ functions:
     | timeOperators                                                 #timeFunctions
     | stringOperators                                               #stringFunctions
 ;
+
 numericOperators:
     op=(ABS|EXP|LN|SQRT) LPAREN expression RPAREN                                 #unaryNumericFunctions
     | op=(POWER|LOG) LPAREN left=expression COMMA right=expression RPAREN         #binaryNumericFunctions
     | op=(MAX|MIN) LPAREN expression (COMMA expression)+ RPAREN                   #complexNumericFunctions
     ;
+
 comparisonFunctionOperators:
     MATCH LPAREN expression COMMA literal RPAREN                    #matchExpr
     | ISNULL LPAREN expression RPAREN                               #isnullExpr
 ;
+
 filterOperators:
     FILTER LPAREN expression COMMA expression RPAREN
     ;
+
 timeOperators:
-    TIME_SHIFT LPAREN expression COMMA TIME_PERIOD COMMA INTEGER_LITERAL (COMMA propertyCode)? RPAREN #timeShiftFunction
+    TIME_SHIFT LPAREN expression COMMA TIME_PERIOD COMMA expression (COMMA propertyCode)? RPAREN #timeShiftFunction
     ;
+
 conditionalOperators:
     NVL LPAREN expression COMMA expression RPAREN           #nvlFunction
     ;
+
 stringOperators:
     LEN LPAREN expression RPAREN          #unaryStringFunction
     ;
+
 aggregateOperators:
     op=(MAX_AGGR
         |MIN_AGGR
@@ -92,12 +115,15 @@ aggregateOperators:
         |AVG
         |MEDIAN) LPAREN expression (groupingClause)? RPAREN        #commonAggrOp
     ;
+
 groupingClause:
     GROUP_BY keyNames (COMMA keyNames)*
 ;
+
 // Dimension management and members
 itemSignature: ITEM_SIGNATURE;
 itemReference: SQUARE_BRACKET_LEFT itemSignature SQUARE_BRACKET_RIGHT;
+
 // Cell Address and table management
 rowElem:
     ROW
@@ -117,20 +143,25 @@ sheetElem:
 rowHandler:
     rowElem
     | LPAREN ROW (COMMA ROW)* RPAREN;
+
 colHandler:
     colElem
     | LPAREN COL (COMMA COL)* RPAREN;
+
 sheetHandler:
     sheetElem
     | LPAREN SHEET (COMMA SHEET)* RPAREN
 ;
+
 interval:
     INTERVAL COLON BOOLEAN_LITERAL
 ;
+
 default:
     DEFAULT COLON literal
     | DEFAULT COLON NULL_LITERAL
 ;
+
 argument:
     rowHandler                          #rowArg
     | colHandler                        #colArg
@@ -138,47 +169,60 @@ argument:
     | interval                          #intervalArg
     | default                           #defaultArg
 ;
+
 select:
     CURLY_BRACKET_LEFT selectOperand CURLY_BRACKET_RIGHT
     ;
+
 selectOperand:
     cellRef
     | varRef
     | operationRef
-    | preconditionElem
     ;
+
 varID:
     CURLY_BRACKET_LEFT varRef CURLY_BRACKET_RIGHT
     ;
+
 cellRef:
     address=cellAddress
     ;
-preconditionElem:
-    PRECONDITION_ELEMENT
-    ;
+
 varRef:
     VAR_REFERENCE
     ;
+
 operationRef:
     OPERATION_REFERENCE
     ;
+
 cellAddress:
-    tableReference (COMMA argument)*               #tableRef
-    | argument (COMMA argument)*                   #compRef;
+    tableReference (COMMA argument)*                        #tableRef
+    | operationRef COMMA argument (COMMA argument)*         #opRef
+    | argument (COMMA argument)*                            #compRef;
+
 tableReference:
     TABLE_REFERENCE
     | TABLE_GROUP_REFERENCE
     ;
+
 clauseOperators:
     WHERE expression                                             #whereExpr
     | GET keyNames                                               #getExpr
     | RENAME renameClause (COMMA renameClause)*                  #renameExpr
-    | SUB propertyCode EQ (literal | select | itemReference)     #subExpr
+    | SUB subAssignment (COMMA subAssignment)*                   #subExpr
     ;
+
 // Always on grammar, not on tokens. Order is important (top ones should be the enclosing ones)
-renameClause:
-    keyNames TO keyNames
+
+subAssignment:
+    propertyCode EQ (literal | select | itemReference)
     ;
+
+renameClause:
+    propertyCode TO propertyCode
+    ;
+
 comparisonOperators:
     EQ
     |NE
@@ -186,6 +230,7 @@ comparisonOperators:
     |LT
     |GE
     |LE;
+
 literal:
     INTEGER_LITERAL
     | DECIMAL_LITERAL
@@ -193,23 +238,27 @@ literal:
     | STRING_LITERAL
     | BOOLEAN_LITERAL
     | DATE_LITERAL
-    | TIME_INTERVAL_LITERAL
-    | TIME_PERIOD_LITERAL
     | EMPTY_LITERAL
 ;
+
 keyNames:
     ROW_COMPONENT
     | COL_COMPONENT
     | SHEET_COMPONENT
-    | GLOBAL_PARAMETER
     | PROPERTY_CODE
+    | ESCAPED_IDENTIFIER
 ;
+
 propertyReference:
     SQUARE_BRACKET_LEFT propertyCode SQUARE_BRACKET_RIGHT;
+
 propertyCode:
     PROPERTY_CODE
     | CODE
+    | ESCAPED_IDENTIFIER
     ;
+
 temporaryIdentifier:
     CODE
+    | ESCAPED_IDENTIFIER
     ;

@@ -116,7 +116,7 @@ classDiagram
 
 *Recordsets* are collections of *Records* that share a same *Structure*. Technically, *Recordsets* are two-dimensional labelled data structures (tabular), which can be assimilated to Relational Tables or Data Frames. The columns (fields) of the *Recordset* are provided by the *Components* of its *Structure*. The rows of the *Recordset* are its composing *Records*.
 
-The *Structure* of the *Recordset* is a collection of *Components*, which can have one of three roles: *Key*, *Fact* or *Attribute*. Each *Component* has a name, which must be unique within the *Recordset*. *Key* and *Attribute Components* are defined on a *Data Type*. *Fact Components* may be defined on more than one *Data Type*, when more than one *Variable* is selected. In any case, the *Data Type* is known for each selected *Variable*.
+The *Structure* of the *Recordset* is a collection of *Components*, which can have one of three roles: *Key*, *Fact* or *Attribute*. Each *Component* has a name, which must be unique within the *Recordset*. *Key*, *Fact* and *Attribute Components* are each defined on a single *Data Type*. For *Fact Components*, the *Data Type* is determined by the *Data Type* of the selected *Variables*, as described in §2.2.3.2.
 
 Each *Record* of the *Recordset* is individually identified by the combination of the values for its *Key Components*.
 
@@ -184,9 +184,32 @@ Regarding the DPM-ML, the *Standard Components* are three indexes, which do not 
 
 The name for the *DPM Key Components* is the Code of the Property associated to the DPM *Key Variable*.
 
+##### 2.2.3.1.4 Contextual Key Components
+
+There are two contextual dimensions that are always latent in every *Recordset*:
+
+- **refPeriod**: Identifies the reference period of the data. It is defined on the *Date* *Data Type*.
+- **entityID**: Identifies the reporting entity. It is defined on the *String* *Data Type*.
+
+At compile-time, refPeriod and entityID are assumed to always exist, so they can always be referenced in expressions (e.g., as the `var` parameter in `time_shift`). At runtime, whether they effectively act as *Key Components* depends on the input data: if the data contains multiple reference periods or entities, they become distinguishing dimensions in the *Recordset*.
+
+A *Scalar* in DPM-XL is a *Recordset* with no *Key Components* other than the contextual ones. Within each instance (i.e., for each combination of refPeriod and entityID), it behaves as a single value. Therefore, "scalar" means "one value per instance", which is the only meaningful scope for a calculation.
+
 #### 2.2.3.2 Fact Component
 
 A *Recordset* has one mandatory, and only one, *Fact Component*. The name for the *Component* is "f". Its *Data Type* depends on the *Data Type* of the selected *Variables*.
+
+When a selection includes *Variables* of the same *Data Type*, the *Fact Component* has that *Data Type*. When a selection includes *Variables* of different *Data Types*, the *Data Type* of the *Fact Component* is the maximum common *Data Type*, determined by applying implicit casting (see section 2.3.2). The implicit casting hierarchy is as follows:
+
+- Integer → Number → String
+- Date → String
+- Boolean → String
+- Item → String
+- Subcategory → String
+
+The maximum common *Data Type* is the most specific type to which all the selected *Variables* can be implicitly cast. For example, if a selection includes Integer and Number *Variables*, the *Fact Component* has *Data Type* Number. If a selection includes Number and Boolean *Variables*, the *Fact Component* has *Data Type* String.
+
+Selections resulting in implicit casting to a common *Data Type* should raise a warning, as the casting may cause a loss of operational capability (e.g., a *Recordset* cast to String cannot be used with arithmetic *Operators*).
 
 If a DPM *Key Variable* is selected, the resulting *Recordset* will have the values for that *Variable* in the *Fact Component*, on top of having them in their corresponding *Key Component*. See example in section 2.2.4.4.
 
@@ -212,11 +235,11 @@ For instance, taking as an example EBA's Table F 01.01:
 {tF_01.01, r0010, c0010}
 ```
 
-In the context of a single instance (i.e., disregarding the "ref_date" and the "subject"), selects a *Recordset* without *Key Components*, which works as a *Scalar* with value 100.
+In the context of a single instance (i.e., disregarding the "refPeriod" and the "entityID"), selects a *Recordset* without *Key Components*, which works as a *Scalar* with value 100.
 
-In the context of data with multiple dates and/or reference dates, and supposing that the data refer to the subject with code "id123" and to the date 31/12/2020, and that it has been reported with a 1 precision (attribute):
+In the context of data with multiple dates and/or entities, and supposing that the data refer to the entity with code "id123" and to the date 31/12/2020, and that it has been reported with a 1 precision (attribute):
 
-| subject  {#k} | ref_date {#k}| f {#f}| p {#a} |
+| entityID  {#k} | refPeriod {#k}| f {#f}| p {#a} |
 |---------|----------|---|---|
 | id123 | 2020-12-31 | 100 | 1 |
 
@@ -225,7 +248,7 @@ In the context of data with multiple dates and/or reference dates, and supposing
 ![image](../images/information-model-02.png)
 
 ```
-{F 40.01 c0031}
+{tF_40.01, c0031}
 ```
 
 Selects an Open *Variable*. In this illustrative example, yields a *Recordset* with three *Records*. The *Recordset*, in the context of a single instance, has two DPM *Key Components*, because the selected *Variable* (the one rendered in Column 0031 of Report Table F 40.01) is associated in the DPM to a *Key* with two *Key Variables*. These *Key Variables* are associated to Properties with codes "LIN" (rendered in Column 0011) and "TYC" (rendered in Column 0015).
@@ -243,7 +266,7 @@ The following table represents the *Recordset*:
 ![image](../images/information-model-03.png)
 
 ```
-{F 20.05 r0020-0030, c0010}
+{tF_20.05, r0020-0030, c0010}
 ```
 
 This case selects a set of *Variables* because the selection includes more than one Row. This implies that the *Row Key Component* applies to this *Recordset*. Besides, the selected *Variables* are associated to a *Key* with a single *Key Variable*, which is associated to a property with code "RCP".
@@ -271,7 +294,7 @@ Note that the important thing for DPM-ML to be consistent is that all the *Recor
 ![image](../images/information-model-04.png)
 
 ```
-{F 40.01 c0015}
+{tF_40.01, c0015}
 ```
 
 Selects an Open *Key Variable*. The *Recordset*, in the context of a single instance, has two DPM *Key Components*, because the selected *Variable* (the one rendered in Column 0015 of Report Table F 40.01) is associated in the DPM to a *Key* with two *Key Variables* (in fact, it is part of the *Key*). These *Key Variables* are associated to Properties with codes "LIN" (rendered in Column 0011) and "TYC" (rendered in Column 0015).
@@ -293,14 +316,11 @@ DPM *Operations* data types are defined with the principle: Create only a data t
 The data types are:
 
 - **String**: Sequence of alphanumeric characters of any length.
-- **Number**: Is a rational number of any magnitude and precision, also used as approximation of a real number. Numbers can be treated as points or as intervals. Intervals are defined as a centre plus and minus a radius (c ± r). The centre is the input value provided. The radius is calculated based on the precision of the number as `10⁻ᵖ/2`.
+- **Number**: Is a rational number of any magnitude and precision, also used as approximation of a real number. Numbers can be treated as points or as intervals. Intervals are defined as a centre plus and minus a radius (c ± r). The centre is the input value provided. The radius is calculated based on the precision of the number as `10⁻ᵖ/2`. This specification does not mandate a specific representation standard for numbers. The choice of representation (e.g., IEEE 754 binary or decimal floating-point, arbitrary-precision decimals) is left to implementers, who should balance precision, performance, and the requirements of their technology stack.
   - **Integer**: Positive and negative integer numbers and zero. It Is a subtype of the type Number. As Number subtypes, Integers can be treated as intervals.
-- **Time interval** denotes time intervals of any duration and expressed with a precision. According to ISO 8601 (ISO standard for the representation of dates and times), a time interval is the intervening time between two time points.
-  - **Date** is a subtype of the type Time which denotes time points expressed at any precision, which are time intervals starting and ending in the same time point (i.e., intervals of zero duration). A value of type Date includes all the parts needed to identify a time point at the desired precision, like the year, the month, the day, the hour, the minute and so on (for example, 2018-04-05 is the fifth of April 2018, at the precision of the day).
-  - **Time period** is a subtype of the type Time, and denotes non-overlapping time intervals having a regular duration (for example the years, the quarters of years, the months, the weeks and so on). A value of the type Time Period is composite and must include all the parts needed to identify a regular time period at the desired precision; in particular, the Time Period type includes the explicit indication of the kind of regular period considered (e.g., "day", "week", "month", "quarter" …). For example, the value 2018M04, assuming that "M" stands for "month", denotes the month n.4 of the 2018 (April 2018). Moreover, 2018Q2, assuming that "Q" stands for "quarter", denotes the second quarter of 2018. In these examples, the letters M and Q are used to denote the kind of period through its duration.
+- **Date**: Represents a time reference following ISO 8601, written as a specific date (e.g., `#2022-01-15#`).
 - **Boolean**: denotes a logical binary state, meaning either `true` or `false`.
 - **Category items**: A reference to the code of a Category Item.
-- **Subcategories**: A reference to the code of a Subcategory.
 
 ### 2.3.1 Correspondences with DPM Data Types
 
@@ -328,29 +348,65 @@ For each DPM data type there is one, and only one DPM-XL *Data type*.
 
 The casting between data types is possible. Casting can be done explicitly, if the cast *Operator* is used, or implicitly when it is allowed. The following table contains all the casting options.
 
-|  | String | Number | Integer | Time interval | Date | Time period | Duration | Boolean | Item | Subcategory |
-|---|---|---|---|---|---|---|---|---|---|---|
-| **String** | | Explicit | Explicit | Explicit | Explicit | Explicit | Explicit | Explicit | Explicit | Explicit |
-| **Number** | Implicit | | Explicit | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible |
-| **Integer** | Implicit | Implicit | | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible |
-| **Time interval** | Implicit | Not possible | Not possible | | Explicit | Explicit | Not possible | Not possible | Not possible | Not possible |
-| **Date** | Implicit | Not possible | Not possible | Implicit | | Explicit | Not possible | Not possible | Not possible | Not possible |
-| **Time period** | Implicit | Not possible | Not possible | Implicit | Not possible | | Not possible | Not possible | Not possible | Not possible |
-| **Duration** | Implicit | Not possible | Not possible | Not possible | Not possible | Not possible | | Not possible | Not possible | Not possible |
-| **Boolean** | Implicit | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | | Not possible | Not possible |
-| **Item** | Implicit | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | | Not possible |
-| **Subcategory** | Implicit | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | Not possible | |
+|  | String | Number | Integer | Date | Boolean | Item | Subcategory |
+|---|---|---|---|---|---|---|---|
+| **String** | | Explicit | Explicit | Explicit | Explicit | Explicit | Explicit |
+| **Number** | Implicit | | Explicit | Not possible | Not possible | Not possible | Not possible |
+| **Integer** | Implicit | Implicit | | Not possible | Not possible | Not possible | Not possible |
+| **Date** | Implicit | Not possible | Not possible | | Not possible | Not possible | Not possible |
+| **Boolean** | Implicit | Not possible | Not possible | Not possible | | Not possible | Not possible |
+| **Item** | Implicit | Not possible | Not possible | Not possible | Not possible | | Not possible |
+| **Subcategory** | Implicit | Not possible | Not possible | Not possible | Not possible | Not possible | |
 
-### 2.3.3 Conventions to Write Scalars
+## 2.4 Language Conventions
+
+### 2.4.1 Case Sensitivity
+
+DPM-XL is case insensitive for keywords. The keywords listed in this specification (e.g., `if`, `then`, `sum`, `where`) can be written in any combination of upper and lower case.
+
+Identifiers (table codes, property codes, operation names) are case insensitive: `CNT`, `cnt`, and `Cnt` refer to the same identifier.
+
+### 2.4.2 Conventions to Write Scalars
 
 To the effects of DPM-XL, when writing *Scalars*, the following conventions should be followed:
 
-- **String**: Between double quotes ("this is a string") or single quotes ('this is also a string')
+- **String**: Between double quotes ("this is a string") or single quotes ('this is also a string'). Empty strings are represented as "" or ''.
 - **Number**: Sequence of numeric digits. Dot (".") shall be used to separate the decimal and the integer part.
   - **Integer**: Sequence of numeric digits.
-- **Time** Follows ISO 8601 (ISO standard for the representation of dates and times). Dates shall be written between hashes (#). A valid time representation is #2021-11-25/2021-12-25#
-  - **Date** #2021-11-25#.
-  - **Time period** #2021Q4#.
-- **Duration** Following ISO8601: P[n]Y[n]M[n]DT[n]H[n]M[n]S. E.g.,: #P3Y6M4DT12H30M5S#
+- **Date**: Written between hashes (#), following ISO 8601 (e.g., #2021-11-25#).
 - **Boolean**: true or false.
-- **DPM objects**: A string between brackets with two arguments, first the type and second the code. E.g., [item, eba_RT:x11], [subcategory, eba_CU:iso_currencies]
+- **Items**: An item signature between square brackets, in the format [namespace:code]. E.g., [eba_RT:x11], [eba_CU:iso_currencies]. Item signatures are assumed to be unique within a given DPM release.
+
+### 2.4.3 Reserved Words
+
+The following words are reserved in DPM-XL and cannot be used as identifiers unless escaped:
+
+**Logical operators:** `true`, `false`, `and`, `or`, `xor`, `not`
+
+**Arithmetic and numeric operators:** `abs`, `exp`, `ln`, `sqrt`, `power`, `log`, `max`, `min`
+
+**Aggregate operators:** `max_aggr`, `min_aggr`, `sum`, `count`, `avg`, `median`
+
+**Comparison and set operators:** `match`, `isnull`, `in`
+
+**Conditional operators:** `if`, `endif`, `then`, `else`, `nvl`, `filter`
+
+**Clause operators:** `where`, `get`, `rename`, `to`, `sub`, `group by`
+
+**Selection and assignment:** `with`, `null`
+
+**Time operators:** `time_shift`
+
+**String operators:** `len`
+
+**Time period codes:** `A`, `S`, `Q`, `M`, `W`, `D`
+
+**Contextual identifiers:** `refPeriod` and `entityID` are reserved identifiers with special meaning (see section 2.2.3.1.4). They cannot be used as regular property codes or operation names.
+
+**Selection mode keywords:** `interval` and `default` are reserved within selection expressions (inside `{}`).
+
+### 2.4.4 Escaping Reserved Words
+
+If a DPM identifier (e.g., a property code or table code) conflicts with a reserved word, it can be escaped using backticks. For example, if a property is named `sum`, it can be referenced as `` `sum` `` to distinguish it from the `sum` operator.
+
+Escaped identifiers are case sensitive: `` `Sum` `` and `` `sum` `` refer to different identifiers.

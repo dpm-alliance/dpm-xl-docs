@@ -18,7 +18,7 @@ If any *Operand* is null, then the result is also null.
 
 Numeric *Operators* can be applied to any numeric type (_Number interval_, _Number_, or _Integer_) and combination of them, in which case casting to the highest type shall apply.
 
-If the type of *Operands* is _Integer_ then the result has type _Integer_. If any of the *Operands* is of type _Number_, and there are no _Number intervals_, then the result has type _Number_. If any *Operand* is of _Number Interval_ type, the result has type Number Interval.
+If the type of all *Operands* is _Integer_ then the result has type _Integer_, unless the *Operator*'s declared *Output* type does not include _Integer_ (as is the case for division, `exp`, `ln`, `log`, `sqrt`, and `power`), in which case the result is implicitly promoted to _Number_ (or _Number Interval_). For example, `7 / 2` returns `3.5`, not `3`. If any of the *Operands* is of type _Number_, and there are no _Number intervals_, then the result has type _Number_. If any *Operand* is of _Number Interval_ type, the result has type _Number Interval_.
 
 ## 4.2 Unary Arithmetic Operators
 
@@ -38,6 +38,8 @@ If the type of *Operands* is _Integer_ then the result has type _Integer_. If an
 
 #### 4.2.1.4 Semantics
 Returns the *Operand* unchanged.
+
+For intervals, returns the interval unchanged (both centre and radius are preserved).
 
 #### 4.2.1.5 Additional Constraints
 None
@@ -131,7 +133,7 @@ None
 Returns `e` (base of the natural logarithm) raised to the op power.
 
 #### 4.2.4.5 Additional Constraints
-None
+Number Interval operands are not supported. The operator only accepts Number and Integer types.
 
 #### 4.2.4.6 Behaviour
 
@@ -162,6 +164,8 @@ Calculates the natural logarithm of a Number.
 
 #### 4.2.5.5 Additional Constraints
 The numeric values must be greater than 0.
+
+Number Interval operands are not supported. The operator only accepts Number and Integer types.
 
 #### 4.2.5.6 Behaviour
 
@@ -194,6 +198,8 @@ Calculates the square root of a Number.
 #### 4.2.6.5 Additional Constraints
 The numeric values must be greater than or equal to 0.
 
+Number Interval operands are not supported. The operator only accepts Number and Integer types.
+
 #### 4.2.6.6 Behaviour
 
 - [Unary *Operators'* standard behaviour](./02-general-behaviour.md#21-unary-operators).
@@ -222,10 +228,12 @@ The numeric values must be greater than or equal to 0.
 > rset | scal <num\>
 
 #### 4.2.7.4 Semantics
-Calculates the logarithm of base op.
+Calculates the logarithm of op in the given base.
 
 #### 4.2.7.5 Additional Constraints
-op numeric values must be greater than 1. base numeric values must be greater than 0.
+op numeric values must be greater than 0. base numeric values must be greater than 1.
+
+Number Interval operands are not supported. The operator only accepts Number and Integer types.
 
 #### 4.2.7.6 Behaviour
 
@@ -339,7 +347,7 @@ Returns the product of two Numbers.
 For intervals:
 
 - Centre is calculated as `centre(left) * centre(right)`
-- Radius is calculated as `(centre(left) * radius(right)) + abs(radius(left) * centre(right)) + (radius(left) * radius(right))`
+- Radius is calculated as `abs(centre(left) * radius(right)) + abs(radius(left) * centre(right)) + (radius(left) * radius(right))`
 
 #### 4.3.3.5 Additional Constraints
 None.
@@ -362,32 +370,32 @@ None.
 
 #### 4.3.4.2 Input Parameters
 
-> num: rset | scal <num\>
+> num: rset | scal <num + interval\>
 
-> den: rset | scal <num\>
+> den: rset | scal <num + interval\>
 
 #### 4.3.4.3 Output
 
-> rset | scal <num\>
+> rset | scal <num + interval\>
 
 #### 4.3.4.4 Semantics
 Divides two Numbers.
 
 For intervals:
-- Centre is calculated as `centre(left) / centre(right)`
-- Radius is calculated as: 
+- Centre is calculated as `centre(num) / centre(den)`
+- Radius is calculated as:
 
 ```
 max(
-    abs(centre(left) + radius(left)) / (centre(right) + radius(right)),
-    abs(centre(left) + radius(left)) / (centre(right) - radius(right)),
-    abs(centre(left) - radius(left)) / (centre(right) + radius(right)),
-    abs(centre(left) - radius(left)) / (centre(right) - radius(right))
-)
+    abs(centre(num) + radius(num)) / (centre(den) + radius(den)),
+    abs(centre(num) + radius(num)) / (centre(den) - radius(den)),
+    abs(centre(num) - radius(num)) / (centre(den) + radius(den)),
+    abs(centre(num) - radius(num)) / (centre(den) - radius(den))
+) - abs(centre(num) / centre(den))
 ```
 
 #### 4.3.4.5 Additional Constraints
-The denominator must be different from zero.
+The denominator interval must not contain zero, i.e., `0` must not be in the range `[centre(den) - radius(den), centre(den) + radius(den)]`.
 
 #### 4.3.4.6 Behaviour
 
@@ -397,6 +405,7 @@ The denominator must be different from zero.
 
 #### 4.3.4.7 Examples
 - `24 / 6` results in `4`
+- `7 / 2` results in `3.5`
 - `-18 / 2` results in `-9`
 
 ### 4.3.5 Maximum (max)
@@ -419,8 +428,9 @@ The denominator must be different from zero.
 Calculates the maximum value from a set of *Operands*.
 
 For intervals:
-- Centre is calculated as the maximum centre value from all the intervals.
-- Radius is the radius of the interval with maximum centre.
+
+- Centre is the maximum of the centres of all the *Operands*.
+- Radius is the radius of the *Operand* with the maximum centre. If multiple *Operands* share the same maximum centre, the largest radius among them is taken.
 
 #### 4.3.5.5 Additional Constraints
 None.
@@ -454,8 +464,8 @@ Calculates the minimum value from a set of *Operands*.
 
 For intervals:
 
-- Centre is calculated as the minimum centre value from all the intervals.
-- Radius is the radius of the interval with minimum centre.
+- Centre is the minimum of the centres of all the *Operands*.
+- Radius is the radius of the *Operand* with the minimum centre. If multiple *Operands* share the same minimum centre, the largest radius among them is taken.
 
 #### 4.3.6.5 Additional Constraints
 None.
@@ -489,7 +499,7 @@ None.
 Raises the power to the exponent.
 
 #### 4.3.7.5 Additional Constraints
-None.
+Number Interval operands are not supported. The operator only accepts Number and Integer types.
 
 #### 4.3.7.6 Behaviour
 

@@ -256,6 +256,14 @@ None.
 ### 5.8.1.4 Semantics
 Returns `true` if op belongs to the set and `false` otherwise.
 
+`op in {v1, v2, ...}` is semantically equivalent to `op = v1 or op = v2 or ...`. Therefore, for intervals, this operator follows the interval semantics of the equality operator (`=`): the result is `true` if the interval overlaps (in the sense of `=`) with at least one element of the set.
+
+Since set elements are typically points, and the point-to-interval promotion rule (§2.2.4) converts each point `v` to an interval with centre `v` and radius `0`, this reduces to:
+
+`abs(centre(op) – v) <= radius(op)`
+
+for each element `v` in the set. The overall result is `true` if this condition holds for any element.
+
 ### 5.8.1.5 Additional Constraints
 op must be of the same *Data Type* as the values in the set (considering implicit casting)
 

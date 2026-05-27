@@ -31,6 +31,8 @@ The allowed *Data Types* depend on the specific *Operator* according to the foll
 | Average       | Number            | Number           |
 | Median        | Number            | Number           |
 
+For **Average** and **Median**, when all input values are _Integer_, the result is implicitly promoted to _Number_ — the result type is always _Number_, even on integer-only inputs (e.g., `avg(1, 2)` returns `1.5`; `median(1, 2, 3, 4)` returns `2.5`). For **Sum**, an _Integer_-only input yields an _Integer_ result. **Count** always returns _Integer_ by definition. **Min** and **Max** return one of the input values, so an _Integer_-only input yields an _Integer_ result.
+
 The *Components* in the grouping by clause shall be present in the *Operand*.
 
 ### 7.1.6 Behaviour
@@ -42,6 +44,8 @@ The result may be:
 
 - A *Recordset*, for which the resulting structure contains as *Key* dimensions the *Components* included in the group by clause.
 - A *Scalar*, if the grouping clause is omitted.
+
+Null values are excluded from the calculations. If all input values are null, the result is null.
 
 ### 7.1.7 Examples
 Supposing the following *Recordset* with name rs1:
@@ -89,7 +93,7 @@ Supposing the following *Recordset* with name rs1:
 
 ### 7.2.3 Output
 
-> rset | scal <num\>
+> rset | scal <num + interval\>
 
 ### 7.2.4 Semantics
 Returns the sum of the input values. Follows the general semantics of aggregate *Operators*.
@@ -146,15 +150,15 @@ Note: Aggregate *Operators* generally ignore null values. This behavior can be o
 
 ### 7.4.3 Output
 
-> rset | scal <num\>
+> rset | scal <*\>
 
 ### 7.4.4 Semantics
 Returns the minimum value of the input values. Follows the general semantics of aggregate *Operators*.
 
 For intervals:
 
-- The centre is calculated as the minimum value of the all the centers of the *Operands*.
-- The radius is the radius of the *Operand* that has the minimum centre.
+- Centre is the minimum of the centres of all the *Operands*.
+- Radius is the radius of the *Operand* with the minimum centre. If multiple *Operands* share the same minimum centre, the largest radius among them is taken.
 
 ### 7.4.5 Additional Constraints
 None.
@@ -176,14 +180,15 @@ None.
 
 ### 7.5.3 Output
 
-> rset | scal <num\>
+> rset | scal <*\>
 
 ### 7.5.4 Semantics
 Returns the maximum value of the input values. Follows the general semantics of aggregate *Operators*.
 
 For intervals:
-- The centre is calculated as the maximum value of the all the centers of the *Operands*.
-- The radius is the radius of the *Operand* that has the maximum centre.
+
+- Centre is the maximum of the centres of all the *Operands*.
+- Radius is the radius of the *Operand* with the maximum centre. If multiple *Operands* share the same maximum centre, the largest radius among them is taken.
 
 ### 7.5.5 Additional Constraints
 None.
@@ -199,16 +204,21 @@ None.
 
 ### 7.6.2 Input Parameters
 
-> op: rset <num\>
+> op: rset <num + interval\>
 
 > groupingId: scal <prop\>
 
 ### 7.6.3 Output
 
-> rset | scal <num\>
+> rset | scal <num + interval\>
 
 ### 7.6.4 Semantics
 Returns the average of the input values. Follows the general semantics of aggregate *Operators*.
+
+For intervals:
+
+- The centre is calculated as the average of the centres of all the *Operands*.
+- The radius is calculated as the average of the radii of all the *Operands*.
 
 ### 7.6.5 Additional Constraints
 None.
@@ -224,16 +234,24 @@ None.
 
 ### 7.7.2 Input Parameters
 
-> op: rset <num\>
+> op: rset <num + interval\>
 
 > groupingId: scal <prop\>
 
 ### 7.7.3 Output
 
-> rset | scal <num\>
+> rset | scal <num + interval\>
 
 ### 7.7.4 Semantics
 Returns the median of the input values. Follows the general semantics of aggregate *Operators*.
+
+For intervals, the centre is used as the ordering criterion. The result is defined as follows:
+
+- **Centre**: the median of the centres of all the *Operands* (using standard median arithmetic on the centre values).
+- **Radius**:
+    - If the median position corresponds to a single *Operand*, its radius is used.
+    - If multiple *Operands* share the same median centre (tie at the median position), the largest radius among them is taken.
+    - If the median is the arithmetic average of two *Operands* with distinct centres (even number of *Operands*), the radius is the arithmetic average of their radii.
 
 ### 7.7.5 Additional Constraints
 None.

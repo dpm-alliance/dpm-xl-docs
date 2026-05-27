@@ -26,8 +26,8 @@
 - **row, row_init, row_end**: A Reference to the code of a row of a DPM table.
 - **col, col_init, col_end**: A Reference to the code of a col of a DPM table.
 - **sheet, sheet_init, sheet_end**: A Reference to the code of a sheet of a DPM table.
-- **interval_arithmetics**: A Boolean value specifying whether interval arithmetics should apply. The default value, in case the parameter is omitted, is false.
-- **default_value**: A *Scalar* value specifying the value to be used in case of nulls.
+- **interval_arithmetics**: A Boolean value specifying whether interval arithmetics should apply. Only applicable to numeric types (Number, Integer). When true, numeric values are treated as intervals with centre equal to the value and radius calculated from the precision of the number. The default value, in case the parameter is omitted, is false.
+- **default_value**: A *Scalar* value specifying the value to be used in case of nulls. The value must be compatible with the *Data Type* of the selected *Variable*. The default value, in case the parameter is omitted, is null.
 
 ### 3.1.3 Output
 
@@ -43,6 +43,7 @@ Serves to select data as defined in the DPM model.
 2. *Operations* need to be defined in the same script.
 3. Rows, columns and sheets need to exist in the table or *Operation* on which they are defined.
 4. When the selection is done at *Variable* level, row, column and sheet parameters cannot exist.
+5. The interval parameter can only be set to true when the selected *Variable* has a numeric *Data Type* (Number or Integer).
 
 ### 3.1.6 Behaviour
 
@@ -68,7 +69,20 @@ Returns a *Recordset* with the following structure:
 
 The *Records* for the *Recordset* shall be obtained from the input data according to the selection.
 
-For ranges (e.g., r0010-0100), the selection is done based on the alphabetical order of the DPM *Header* codes. In the example, it selects all the *Headers* with a code between 0010 and 0100.
+Ranges (e.g., `r0010-0100`) select all *Headers* whose codes fall between the start and end codes, inclusive on both boundaries. The ordering is lexicographic, based on the string representation of the *Header* codes. In the example, all *Headers* with a code lexicographically between `0010` and `0100` are selected.
+
+When a table has a *Header* that is not open, the selection needs to have an explicit value for that *Header*. The wildcard `*` (e.g., `r*`, `c*`, `s*`) is used to select all *Headers* of the corresponding dimension.
+
+When an *Operation* is selected (using the `o` prefix), the resulting *Recordset* has the same structure as the output of the referenced *Operation*. The *Operation* must be defined in the same script, either as a named *Operation* in the DPM or via a non-persistent assignment (`:=`). Row, column, and sheet parameters can be used to further refine the selection on the *Operation* result.
+
+#### 3.1.6.1 Example: Using an Operation as Input
+
+```
+op1 := {tT1, r010-020, c010} * 10;
+{tO1, r010, c010} <- {oOp1, r010} + {tT1, r010, c020}
+```
+
+In this example, `op1` is assigned the result of multiplying the selection from table T1 by 10. The second statement selects row 010 from the result of `op1` (using the `o` prefix) and adds it to a selection from table T1. The structure of `{oOp1, r010}` is determined by the output of `op1`, filtered by row 010.
 
 ### 3.1.7 DPM-ML Metamodel Representation
 
@@ -116,7 +130,7 @@ In case *where_expression* is used, the overriding mechanism works as follows:
 #### Example 1
 
 ```
-with {F 01.01 c0010, default:0, interval:false}:
+with {tF_01.01, c0010, default: 0, interval: false}:
 {r0010} = {r0020} + {r0030} + {r0040}
 ```
 
@@ -125,8 +139,8 @@ The partial selection applies to all the selections in the expression
 #### Example 2
 
 ```
-with {F 01.01 c0010, default:0, interval:false}:
-{r0010} + {r0040} = {F04.01 r0010, c0010}
+with {tF_01.01, c0010, default: 0, interval: false}:
+{r0010} + {r0040} = {tF_04.01, r0010, c0010}
 ```
 
 The partial selection applies to the two selections that do not refer to a table. Regarding the other selection, the default and intervals apply
@@ -134,8 +148,8 @@ The partial selection applies to the two selections that do not refer to a table
 #### Example 3
 
 ```
-with {F 01.01 c0010, default:0, interval:false}:
-{F 01.01 r0010} + {F 01.01 r0040} = {F04.01 r0010, c0010 default:null}
+with {tF_01.01, c0010, default: 0, interval: false}:
+{tF_01.01, r0010} + {tF_01.01, r0040} = {tF_04.01, r0010, c0010, default: null}
 ```
 
 The partial selection applies to the two selections that refer to the same table referred to in the partial selection. Regarding the other selection, interval argument in the partial selection applies, but the default is overridden.
@@ -143,8 +157,8 @@ The partial selection applies to the two selections that refer to the same table
 #### Example 4
 
 ```
-with {c0010, default:0, interval:false}:
-{F 01.01 r0010} + {F 01.01 r0040} = {F04.01 r0010}
+with {c0010, default: 0, interval: false}:
+{tF_01.01, r0010} + {tF_01.01, r0040} = {tF_04.01, r0010}
 ```
 
 The partial selection applies to all the selections in the expression.

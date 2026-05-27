@@ -18,7 +18,7 @@ The *Operator* is applied to the values of all the facts of the *Recordset*.
 
 #### 2.1.2.1 Constraints
 
-1. The application of the *Operator* is only allowed if all the facts of the *Operand* *Recordset* are compatible with the *Operator*.
+1. The *Data Type* of the *Fact Component* of the *Operand* *Recordset* must be compatible with the *Operator*.
 
 #### 2.1.2.2 Structure
 
@@ -52,7 +52,7 @@ A binary *Operator* applied to a *Recordset* *Operand* and a *Scalar*, will resu
 #### 2.2.2.1 Examples
 
 ```
-0.25*{S.26.01, r0600, cNNN}
+0.25*{tS_26.01, r0600, cNNN}
 ```
 
 Supposing that the selection yields the following *Recordset*:
@@ -92,12 +92,12 @@ The *Operator* applies to the pairs of values resulting from performing an inner
 ##### 2.2.3.4.1 Same Identifiers
 
 ```
-{C 28.00 c040} + {C 28.00 c190}
+{tC_28.00, c040} + {tC_28.00, c190}
 ```
 
 Supposing that the selections yield:
 
-{C 28.00 c040}
+{tC_28.00, c040}
 
 | INC {#k} | f {#f} |
 |----------|--------|
@@ -105,7 +105,7 @@ Supposing that the selections yield:
 | 456      | 2000   |
 | 789      | 3000   |
 
-{C 28.00 c190}
+{tC_28.00, c190}
 
 | INC {#k} | f {#f} |
 |----------|--------|
@@ -124,12 +124,12 @@ The result would be:
 ##### 2.2.3.4.2 Subset of Identifiers
 
 ```
-{F 40.01 c0110} >= {F 40.02c0060}
+{tF_40.01, c0110} >= {tF_40.02, c0060}
 ```
 
 Supposing that the selections yield:
 
-{F 40.01 c0110}
+{tF_40.01, c0110}
 
 | LIN {#k} | TYC {#k} | f {#f} |
 |----------|----------|--------|
@@ -137,7 +137,7 @@ Supposing that the selections yield:
 | 456      | x1       | 0.8    |
 | 789      | x1       | 0.4    |
 
-{F 40.02 c0060}
+{tF_40.02, c0060}
 
 | LIN {#k} | TYC {#k} | STC {#k} | LHC {#k} | LHO {#k} | f {#f} |
 |----------|----------|----------|----------|----------|--------|

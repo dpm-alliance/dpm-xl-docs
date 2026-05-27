@@ -36,7 +36,7 @@ Comprehensive null handling, type system, and error management.
 Here's a simple DPM-XL expression:
 
 ```dpm-xl
-{F_01.01, r0010, c0010} = {F_01.01, r0020, c0010} + {F_01.01, r0030, c0010}
+{tF_01.01, r0010, c0010} = {tF_01.01, r0020, c0010} + {tF_01.01, r0030, c0010}
 ```
 
 This expression validates that the value in table F_01.01, row 0010, column 0010 equals the sum of rows 0020 and 0030 in the same column.
