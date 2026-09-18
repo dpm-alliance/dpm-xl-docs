@@ -119,7 +119,7 @@ Returns `true` if op is `false`, and `false` if op is `true`.
 None.
 
 ### 6.4.1.6 Behaviour
-- Binary *Operators'* standard behaviour.
+- [Unary *Operators'* standard behaviour](./02-general-behaviour.md#21-unary-operators).
 
 | Input {#k}     | Result {#k}  |
 |----------------|--------------|

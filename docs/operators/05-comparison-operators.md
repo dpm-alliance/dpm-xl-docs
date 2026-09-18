@@ -35,9 +35,9 @@ For comparison *Operators* implying an order (`>`, `>=`, `<`, `<=`), the followi
 
 ### 5.2.1.2 Input Parameters
 
-> left: rset | scal <*>
+> left: rset | scal | scalar_set <*>
 
-> right: rset | scal <*>
+> right: rset | scal | scalar_set <*> 
 
 ### 5.2.1.3 Output
 
@@ -48,8 +48,10 @@ Returns `true` if left is equal to right and `false` otherwise.
 
 For intervals: `abs(centre(left) – centre(right)) <= radius(left) + radius(right)`.
 
+When both *Operands* are set-valued (a set literal, a *Subcategory*, a `set-*` *Parameter*, or the result of a set *Operator*), `=` denotes set equality: it compares them as *Scalar Sets* and returns a single Boolean — see [Set Equality](./13-set-operators.md#137-set-equality).
+
 ### 5.2.1.5 Additional Constraints
-None.
+- A *Scalar Set* *Operand* may only be compared with another *Scalar Set*: both `left` and `right` must be set-valued. Comparing a *Scalar Set* with a *Scalar* or *Recordset* is not allowed.
 
 ### 5.2.1.6 Behaviour
 
@@ -70,9 +72,9 @@ None.
 
 ### 5.3.1.2 Input Parameters
 
-> left: rset | scal <*>
+> left: rset | scal | scalar_set <*>
 
-> right: rset | scal <*>
+> right: rset | scal | scalar_set <*>
 
 ### 5.3.1.3 Output
 
@@ -83,8 +85,10 @@ Returns `false` if left is equal to right and `true` otherwise.
 
 For intervals: `abs(centre(left) – centre(right)) > radius(left) + radius(right)`.
 
+When both *Operands* are set-valued (a set literal, a *Subcategory*, a `set-*` *Parameter*, or the result of a set *Operator*), `!=` denotes set inequality: it compares them as *Scalar Sets* and returns a single Boolean — see [Set Equality](./13-set-operators.md#137-set-equality).
+
 ### 5.3.1.5 Additional Constraints
-None.
+- A *Scalar Set* *Operand* may only be compared with another *Scalar Set*: both `left` and `right` must be set-valued. Comparing a *Scalar Set* with a *Scalar* or *Recordset* is not allowed.
 
 ### 5.3.1.6 Behaviour
 
@@ -249,6 +253,8 @@ None.
 
 > set: scalar_set <*> | subcategory
 
+The `set` *Operand* may be any set-valued expression: a set literal (`{v1, v2, ...}`), a *Subcategory*, a *Parameter* of a `set-*` type, or the result of a Set *Operator* — `set_of`, `union`, `intersect`, `setdiff` or `symdiff` (see [Set *Operators*](./13-set-operators.md)).
+
 ### 5.8.1.3 Output
 
 > rset | scal <boo\>
@@ -276,6 +282,8 @@ op must be of the same *Data Type* as the values in the set (considering implici
 
 - `5 in {1,3, 5}` results in `true`
 - `"abc" in {"def", "ghi"}` results in `false`
+- `5 in union({1, 2}, {3, 5})` results in `true`
+- `{tT1, r010, c010} in set_of({tT1, r010-020}[get CNT])` — tests membership against the set of distinct `CNT` values.
 
 ## 5.9 Match Characters (match)
 

@@ -79,7 +79,7 @@ DPM Expression Language calculations can operate on and generate as results thre
 
 ### 2.2.2 Scalar Sets
 
-*Scalar Sets* are sets of *Scalar* values defined on the same *Data Type*. *Scalar Sets* are typically used with the in operator.
+*Scalar Sets* are sets of *Scalar* values defined on the same *Data Type*. They are unordered and contain no duplicates. *Scalar Sets* are used with the in *Operator*, can be derived from a *Component* of a *Recordset* and combined through the Set *Operators* (see §13), and their cardinality is obtained with the count *Operator*.
 
 ### 2.2.3 Recordsets
 
@@ -193,6 +193,8 @@ There are two contextual dimensions that are always latent in every *Recordset*:
 
 At compile-time, refPeriod and entityID are assumed to always exist, so they can always be referenced in expressions (e.g., as the `var` parameter in `time_shift`). At runtime, whether they effectively act as *Key Components* depends on the input data: if the data contains multiple reference periods or entities, they become distinguishing dimensions in the *Recordset*.
 
+Being *Key Components*, refPeriod and entityID always have a value: a *Record* belonging to no reference period or to no entity cannot exist. The same contextual pattern applies to a set of *Attribute Components*, which are nullable instead; these are described in section 2.2.3.3.1.
+
 A *Scalar* in DPM-XL is a *Recordset* with no *Key Components* other than the contextual ones. Within each instance (i.e., for each combination of refPeriod and entityID), it behaves as a single value. Therefore, "scalar" means "one value per instance", which is the only meaningful scope for a calculation.
 
 #### 2.2.3.2 Fact Component
@@ -217,9 +219,39 @@ If a DPM *Key Variable* is selected, the resulting *Recordset* will have the val
 
 *Attribute Components* provide additional information to the *Fact* value.
 
+*Attribute Components* may be *DPM* or *Contextual*. Unlike *Key Components*, *Attribute Components* are nullable: they describe the *Fact*, they do not identify the *Record*.
+
 DPM *Attribute Components* are specific to how data is defined in the DPM. Arise when a *Variable* with associated *Attribute Variable* is selected. A *Recordset* will have one DPM *Attribute Component* per each Property or Metric associated to any *Attribute Variable* associated to the selected *Variables*.
 
 The name for the DPM *Attribute Components* is the Code of the Property associated to the DPM *Attribute Variable*.
+
+##### 2.2.3.3.1 Contextual Attribute Components
+
+Besides those arising from the DPM, there are several contextual *Attribute Components* that are always latent in every *Recordset*. They follow the same pattern as the contextual *Key Components* of section 2.2.3.1.4: they are carried by the instance rather than by the individual *Record*, so no selection declares them, and within a single instance every *Record* shares the same value.
+
+The contextual *Attribute Components* are:
+
+| *Component* | *Data Type* | Meaning |
+|-------------|-------------|---------|
+| `baseCurrency` | Item | The reporting currency of the instance. |
+| `decimalsInteger` | Integer | The declared precision of Integer *Facts* (DPM data type `i`). |
+| `decimalsMonetary` | Integer | The declared precision of monetary *Facts* (DPM data type `m`). |
+| `decimalsPercentage` | Integer | The declared precision of percentage *Facts* (DPM data type `p`). |
+| `decimalsDecimal` | Integer | The declared precision of plain Number *Facts* (DPM data type `r`). |
+
+At compile-time, these *Attribute Components* are assumed to always exist, so they can always be referenced in any expression that takes a *Component* as input (e.g., in the condition of `where`, or as the component parameter of `get`). At runtime, a contextual *Attribute Component* is added to the data structure of the *Recordset* only where an expression references it; where no expression references it, it need not be loaded.
+
+Being *Attribute Components*, they are nullable, and this is where their treatment differs from that of the contextual *Key Components*. A contextual *Key Component* always has a value, because a *Record* belonging to no reference period or to no entity cannot exist. A contextual *Attribute Component* only describes the *Fact*, and may be absent: where the instance declares no value for one of them, the *Component* takes the value null, which propagates according to the null semantics of part 4.
+
+Within a single instance, a contextual *Attribute Component* carries one value repeated across every *Record*. Where the *Recordset* spans several instances, i.e., several combinations of refPeriod and entityID, the value may vary from *Record* to *Record*, exactly as refPeriod and entityID do.
+
+The `decimals` *Components* give the declared precision of the reported *Fact*, one per numeric DPM data type (see section 2.3.1), following the convention that a negative value denotes precision to the left of the decimal point: `-3` means the value is accurate to thousands. They are the source of the precision used to derive the radius of a *Number* treated as an interval (see section 2.3), where interval arithmetics is requested. The precision is a property of the instance and is not overridden per *Fact*.
+
+Some examples:
+
+- `{tF_01.01}[where baseCurrency = [eba_CU:EUR]]` restricts the *Recordset* to the *Records* belonging to instances reported in euro. Evaluated over a single instance, this keeps either every *Record* or none.
+- `{tM_01.01}[where decimalsMonetary >= -3]` keeps the monetary *Facts* reported at least to thousands precision.
+- `{tF_01.01}[get baseCurrency]` promotes the reporting currency into the *Fact Component*, so that it can be compared or aggregated.
 
 ### 2.2.4 Examples
 
@@ -358,11 +390,13 @@ The casting between data types is possible. Casting can be done explicitly, if t
 | **Item** | Implicit | Not possible | Not possible | Not possible | Not possible | | Not possible |
 | **Subcategory** | Implicit | Not possible | Not possible | Not possible | Not possible | Not possible | |
 
+Although the Integer → Date cast is marked *Not possible*, a *Date* can be built from three Integers using the `date(year, month, day)` *Operator* (see [§10.3](../operators/10-time-operators.md#103-date-constructor-date)). Conversely, individual Integer components of a *Date* can be obtained with the extraction *Operators* in [§10.2](../operators/10-time-operators.md#102-date-component-extraction).
+
 ## 2.4 Language Conventions
 
 ### 2.4.1 Case Sensitivity
 
-DPM-XL is case insensitive for keywords. The keywords listed in this specification (e.g., `if`, `then`, `sum`, `where`) can be written in any combination of upper and lower case.
+DPM-XL keywords are **lowercase**. The keywords listed in this specification (e.g., `if`, `then`, `sum`, `where`) must be written in lowercase as defined in the grammar.
 
 Identifiers (table codes, property codes, operation names) are case insensitive: `CNT`, `cnt`, and `Cnt` refer to the same identifier.
 
@@ -370,10 +404,11 @@ Identifiers (table codes, property codes, operation names) are case insensitive:
 
 To the effects of DPM-XL, when writing *Scalars*, the following conventions should be followed:
 
-- **String**: Between double quotes ("this is a string") or single quotes ('this is also a string'). Empty strings are represented as "" or ''.
+- **String**: Between double quotes ("this is a string") or single quotes ('this is also a string'). Empty strings are represented as `""` or `''`. An empty string is a distinct String value and is **not** equivalent to `null`.
 - **Number**: Sequence of numeric digits. Dot (".") shall be used to separate the decimal and the integer part.
   - **Integer**: Sequence of numeric digits.
-- **Date**: Written between hashes (#), following ISO 8601 (e.g., #2021-11-25#).
+  - **Percent**: Written as an integer or decimal followed by `%` (e.g., `25%`, `0.5%`). A percent literal is stored as a Number equal to the written value divided by 100: `25%` is equivalent to `0.25`. There is no distinct Percent type.
+- **Date**: Written between hashes (#), following ISO 8601. Example: `#2021-11-25#`.
 - **Boolean**: true or false.
 - **Items**: An item signature between square brackets, in the format [namespace:code]. E.g., [eba_RT:x11], [eba_CU:iso_currencies]. Item signatures are assumed to be unique within a given DPM release.
 
@@ -385,9 +420,13 @@ The following words are reserved in DPM-XL and cannot be used as identifiers unl
 
 **Arithmetic and numeric operators:** `abs`, `exp`, `ln`, `sqrt`, `power`, `log`, `max`, `min`
 
-**Aggregate operators:** `max_aggr`, `min_aggr`, `sum`, `count`, `avg`, `median`
+**Aggregate operators:** `max_aggr`, `min_aggr`, `sum`, `count`, `avg`, `median`, `rank`
+
+**Analytical (windowing) keywords:** `over`, `partition by`, `order by`, `asc`, `desc`, `data points`, `range`, `between`, `unbounded` (reserved within the `over` clause)
 
 **Comparison and set operators:** `match`, `isnull`, `in`
+
+**Set operators:** `set_of`, `union`, `intersect`, `setdiff`, `symdiff`
 
 **Conditional operators:** `if`, `endif`, `then`, `else`, `nvl`, `filter`
 
@@ -395,15 +434,17 @@ The following words are reserved in DPM-XL and cannot be used as identifiers unl
 
 **Selection and assignment:** `with`, `null`
 
-**Time operators:** `time_shift`
+**Time operators:** `time_shift`, `annualise`, `year`, `semester`, `quarter`, `month`, `week`, `day`, `date`
 
 **String operators:** `len`
 
 **Time period codes:** `A`, `S`, `Q`, `M`, `W`, `D`
 
-**Contextual identifiers:** `refPeriod` and `entityID` are reserved identifiers with special meaning (see section 2.2.3.1.4). They cannot be used as regular property codes or operation names.
+**Contextual identifiers:** `refPeriod` and `entityID` (contextual *Key Components*, see section 2.2.3.1.4) and `baseCurrency`, `decimalsInteger`, `decimalsMonetary`, `decimalsPercentage` and `decimalsDecimal` (contextual *Attribute Components*, see section 2.2.3.3.1) are reserved identifiers with special meaning. They cannot be used as regular property codes or operation names.
 
-**Selection mode keywords:** `interval` and `default` are reserved within selection expressions (inside `{}`).
+**Selection mode keywords:** `interval`, `default`, the *Parameter Selection* scalar type names `number`, `integer`, `string`, `date`, `boolean`, `item`, and the set type names `set-number`, `set-integer`, `set-string`, `set-date`, `set-boolean`, `set-item` are reserved within selection expressions (inside `{}`). Outside selections, these words have no reserved meaning.
+
+**Selection prefixes:** The single letters `t`, `g`, `r`, `c`, `s`, `v`, `o`, `p` are reserved as selection prefixes (table, table group, row, column, sheet, variable, operation, parameter) at the start of an identifier inside `{}`. An optional underscore between the prefix and the code is allowed as a cosmetic separator (`tT1` ≡ `t_T1`). Codes that themselves start with an underscore are addressed by backtick-escaping the code, e.g. `` t`_meta` ``.
 
 ### 2.4.4 Escaping Reserved Words
 

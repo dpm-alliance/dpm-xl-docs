@@ -127,20 +127,22 @@ The representation in the DB would be as follows (only the relevant fields are s
 
 **OperandReference Table**
 
+The `x`, `y` and `z` columns hold the index of the *Variable* on the row, column and sheet axis respectively. In this expression the row is fixed on each *Operand*, so `x` is not used; the column and sheet axes vary, and are indexed by `y` and `z`.
+
 | NodeID | x | y | z | VariableID |
 |--------|---|---|---|------------|
-| 2 | 1 | 1 | 1 | 1 |
-| 2 | 2 | 1 | 1 | 4 |
-| 2 | 1 | 1 | 2 | 7 |
-| 2 | 2 | 1 | 2 | 10 |
-| 6 | 1 | 1 | 1 | 2 |
-| 6 | 2 | 1 | 1 | 5 |
-| 6 | 1 | 1 | 2 | 8 |
-| 6 | 2 | 1 | 2 | 11 |
-| 7 | 1 | 1 | 1 | 3 |
-| 7 | 2 | 1 | 1 | 6 |
-| 7 | 1 | 1 | 2 | 9 |
-| 7 | 2 | 1 | 2 | 12 |
+| 2 | | 1 | 1 | 1 |
+| 2 | | 2 | 1 | 4 |
+| 2 | | 1 | 2 | 7 |
+| 2 | | 2 | 2 | 10 |
+| 6 | | 1 | 1 | 2 |
+| 6 | | 2 | 1 | 5 |
+| 6 | | 1 | 2 | 8 |
+| 6 | | 2 | 2 | 11 |
+| 7 | | 1 | 1 | 3 |
+| 7 | | 2 | 1 | 6 |
+| 7 | | 1 | 2 | 9 |
+| 7 | | 2 | 2 | 12 |
 
 Note that the *Operations* shall be applied to the *Variables* having the same index. For instance, *Variable* 1 = 2 * (*Variable* 2 + *Variable* 3), because all of them have the index y=1 and z=1.
 

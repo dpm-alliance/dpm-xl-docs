@@ -313,6 +313,41 @@ If op1 and op2 are of the *Recordset* type, they need to have the same data stru
 
 ### 8.2.7 Examples
 
+**Scalar example**
+
+`nvl({tT1, r010, c010, s01}, 0)` returns `0` when the selected cell is null, otherwise returns the cell value.
+
+**Recordset example**
+
+Considering the following *Recordset* from `{tT1, r010}`:
+
+| CNT {#k} | f {#f} |
+|----------|--------|
+| ES       | 100    |
+| PT       | null   |
+| DE       | null   |
+| IT       | 400    |
+
+And the substitution *Recordset* (same structure, all zeros):
+
+| CNT {#k} | f {#f} |
+|----------|--------|
+| ES       | 0      |
+| PT       | 0      |
+| DE       | 0      |
+| IT       | 0      |
+
+`nvl({tT1, r010}, {tT1_default, r010})` returns:
+
+| CNT {#k} | f {#f} |
+|----------|--------|
+| ES       | 100    |
+| PT       | 0      |
+| DE       | 0      |
+| IT       | 400    |
+
+*Records* where op1 is not null are kept as-is; *Records* where op1 is null take the value from op2.
+
 ## 8.3 Filter
 
 ### 8.3.1 Syntax
@@ -341,3 +376,22 @@ Returns a *Recordset* with the same data structure as filteredOp.
 An inner join between filteredOp and filteringOp is performed. The *Records* in filteredOp that match to a *Record* in filteringOp with true value are returned.
 
 ### 8.3.7 Examples
+
+Considering the following *Recordset* from `{tT1, r010}`:
+
+| CNT {#k} | f {#f} |
+|----------|--------|
+| ES       | 100    |
+| PT       | 200    |
+| DE       | 300    |
+| IT       | 400    |
+
+`filter({tT1, r010}, {tT1, r010} > 150)` keeps only the *Records* whose fact value is greater than 150:
+
+| CNT {#k} | f {#f} |
+|----------|--------|
+| PT       | 200    |
+| DE       | 300    |
+| IT       | 400    |
+
+The filtering *Operand* `{tT1, r010} > 150` evaluates to a Boolean *Recordset* with the same *Key Components*. Only the *Records* where the Boolean value is `true` are retained; `false` and `null` values cause the corresponding *Record* to be excluded.

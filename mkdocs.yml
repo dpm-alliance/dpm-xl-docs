@@ -3,7 +3,7 @@ site_description: Comprehensive documentation for the Data Point Model Expressio
 site_author: EBA and EIOPA
 repo_url: https://github.com/dpm-alliance/dpm-xl-docs
 repo_name: dpm-alliance/dpm-xl-docs
-edit_uri: blob/0.10/docs/
+edit_uri: blob/0.11/docs/
 
 theme:
   name: material
@@ -95,6 +95,7 @@ nav:
     - Time: operators/10-time-operators.md
     - Clause: operators/11-clause-operators.md
     - Assignment: operators/12-assignment-operators.md
+    - Set: operators/13-set-operators.md
   - Grammar:
     - Introduction: grammar/01-introduction.md
 

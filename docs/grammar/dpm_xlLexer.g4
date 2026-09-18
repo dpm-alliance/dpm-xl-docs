@@ -49,6 +49,10 @@ MEDIAN:                         'median';
 // Grouping
 GROUP_BY:               'group by' -> pushMode(GROUPING_CLAUSE_MODE);
 
+// Analytical (windowing)
+RANK:                   'rank';
+OVER:                   'over' -> pushMode(ANALYTIC_CLAUSE_MODE);
+
 // Unary
 ABS:                    'abs';
 ISNULL:                 'isnull';
@@ -64,7 +68,7 @@ MAX:                            'max';
 MIN:                            'min';
 
 // Belonging
-IN:                     'in' -> pushMode(SET_OPERAND_MODE);
+IN:                     'in';
 
 // Punctuation elements
 COMMA:                  ',';
@@ -101,10 +105,30 @@ SUB:                    'sub';
 
 // Reference date
 TIME_SHIFT:             'time_shift';
+ANNUALISE:              'annualise';
+
+// Date-component extraction
+YEAR:                   'year';
+SEMESTER:               'semester';
+QUARTER:                'quarter';
+MONTH:                  'month';
+WEEK:                   'week';
+DAY:                    'day';
+
+// Date constructor
+DATE:                   'date';
+
+// Set operators
+SET_OF:                 'set_of';
+UNION:                  'union';
+INTERSECT:              'intersect';
+SETDIFF:                'setdiff';
+SYMDIFF:                'symdiff';
 
 // String
 LEN:                    'len';
 CONCAT:                 '&';
+SUBSTR:                 'substr';
 
 // Time periods
 
@@ -137,21 +161,21 @@ STRING_LITERAL:         '"' (~'"')+ '"' | '\'' (~'\'')+ '\'';
 EMPTY_LITERAL:          '\'\'' | '""';
 
 fragment
-YEAR:                   DIGITS0_9 DIGITS0_9 DIGITS0_9 DIGITS0_9;
+YYYY:                   DIGITS0_9 DIGITS0_9 DIGITS0_9 DIGITS0_9;
 
 fragment
-MONTH:                  '0' DIGITS1_9
+MM:                     '0' DIGITS1_9
                         | '1' [0-2]
                         ;
 
 fragment
-WEEK:                   '0' DIGITS1_9
+WW:                     '0' DIGITS1_9
                         | [1-4] DIGITS0_9
                         | '5' [0-2]
                         ;
 
 fragment
-DAY:                    [0-2] DIGITS0_9
+DD:                     [0-2] DIGITS0_9
                         | '3' [0-1];
 
 fragment
@@ -166,7 +190,7 @@ fragment
 SECONDS:                [0-5] DIGITS0_9;
 
 fragment
-DATE_FORMAT:            YEAR '-' MONTH '-' DAY ('T' HOURS COLON MINUTES COLON SECONDS)?;
+DATE_FORMAT:            YYYY '-' MM '-' DD ('T' HOURS COLON MINUTES COLON SECONDS)?;
 
 DATE_LITERAL:           '#' DATE_FORMAT '#';
 
@@ -184,10 +208,29 @@ SELECTION_MODE_COLON:        COLON -> type(COLON);
 SELECTION_MODE_LPAREN:                 LPAREN -> type(LPAREN);
 SELECTION_MODE_RPAREN:                 RPAREN -> type(RPAREN);
 
+SELECTION_MODE_CURLY_BRACKET_LEFT:     CURLY_BRACKET_LEFT -> type(CURLY_BRACKET_LEFT), pushMode(SELECTION_MODE);
 SELECTION_MODE_CURLY_BRACKET_RIGHT:    CURLY_BRACKET_RIGHT -> popMode, type(CURLY_BRACKET_RIGHT);
 
 INTERVAL: 'interval';
 DEFAULT: 'default';
+
+// Parameter data type keywords. STRING must precede the SHEET reference so
+// that the literal `string` is not lexed as `s` + `tring` (sheet ref);
+// likewise the SET_* keywords must precede SHEET_RANGE since e.g.
+// `set-number` would otherwise match `s` + `et` + `-` + `number`.
+SET_NUMBER:            'set-number';
+SET_INTEGER:           'set-integer';
+SET_STRING:            'set-string';
+SET_DATE:              'set-date';
+SET_BOOLEAN:           'set-boolean';
+SET_ITEM:              'set-item';
+
+NUMBER:                'number';
+INTEGER:               'integer';
+STRING:                'string';
+PARAM_DATE:            'date';
+BOOLEAN:               'boolean';
+ITEM:                  'item';
 
 SELECTION_MODE_NULL_LITERAL: NULL_LITERAL -> type(NULL_LITERAL);
 SELECTION_MODE_BOOLEAN_LITERAL: BOOLEAN_LITERAL -> type(BOOLEAN_LITERAL);
@@ -209,6 +252,8 @@ fragment
 VAR_REF_PREFIX:         'v';
 fragment
 OPERATION_REF_PREFIX:   'o';
+fragment
+PARAMETER_REF_PREFIX:   'p';
 
 // Codes
 
@@ -237,11 +282,16 @@ SHEET:                  SHEET_PREFIX CELL_COMPONENT_CODE;
 SHEET_RANGE:            SHEET_PREFIX CELL_COMPONENT_RANGE;
 SHEET_ALL:              SHEET_PREFIX [*];
 
-TABLE_REFERENCE:        TABLE_PREFIX TABLE_CODE;
-TABLE_GROUP_REFERENCE:  TABLE_GROUP_PREFIX TABLE_CODE;
+// Selection references. The optional `_` after the prefix is a cosmetic
+// separator: `tT1` ≡ `t_T1`, `vfoo` ≡ `v_foo`, etc. To address a code that
+// itself starts with an underscore (or any other character disallowed in
+// the bare code), backtick-escape the code, e.g. `` t`_meta` ``.
+TABLE_REFERENCE:        TABLE_PREFIX ('_'? TABLE_CODE | ESCAPED_IDENTIFIER);
+TABLE_GROUP_REFERENCE:  TABLE_GROUP_PREFIX ('_'? TABLE_CODE | ESCAPED_IDENTIFIER);
 
-VAR_REFERENCE:                VAR_REF_PREFIX (VAR_CODE | '_' TABLE_CODE);
-OPERATION_REFERENCE:          OPERATION_REF_PREFIX OPERATION_CODE;
+VAR_REFERENCE:                VAR_REF_PREFIX ('_'? VAR_CODE | ESCAPED_IDENTIFIER);
+OPERATION_REFERENCE:          OPERATION_REF_PREFIX ('_'? OPERATION_CODE | ESCAPED_IDENTIFIER);
+PARAMETER_REFERENCE:          PARAMETER_REF_PREFIX ('_'? VAR_CODE | ESCAPED_IDENTIFIER);
 
 SELECTION_MODE_INTEGER_LITERAL: INTEGER_LITERAL -> type(INTEGER_LITERAL);
 SELECTION_MODE_DECIMAL_LITERAL: DECIMAL_LITERAL -> type(DECIMAL_LITERAL);
@@ -251,6 +301,12 @@ SELECTION_MODE_STRING_LITERAL: STRING_LITERAL -> type(STRING_LITERAL);
 SELECTION_MODE_EMPTY_LITERAL: EMPTY_LITERAL -> type(EMPTY_LITERAL);
 
 SELECTION_MODE_DATE_LITERAL: DATE_LITERAL -> type(DATE_LITERAL);
+
+// Square brackets and item signatures, used inside selections for
+// `default: [ns:code]` on Item-typed parameters.
+SELECTION_MODE_SQUARE_BRACKET_LEFT:    SQUARE_BRACKET_LEFT -> type(SQUARE_BRACKET_LEFT);
+SELECTION_MODE_SQUARE_BRACKET_RIGHT:   SQUARE_BRACKET_RIGHT -> type(SQUARE_BRACKET_RIGHT);
+SELECTION_MODE_ITEM_SIGNATURE:         ITEM_SIGNATURE -> type(ITEM_SIGNATURE);
 
 SELECTION_MODE_WS:        WS -> channel(2);
 
@@ -293,6 +349,10 @@ CLAUSE_MEDIAN:                         'median' -> type(MEDIAN);
 // Grouping
 CLAUSE_GROUP_BY:               'group by' -> type(GROUP_BY), pushMode(GROUPING_CLAUSE_MODE);
 
+// Analytical (windowing)
+CLAUSE_RANK:                   'rank' -> type(RANK);
+CLAUSE_OVER:                   'over' -> type(OVER), pushMode(ANALYTIC_CLAUSE_MODE);
+
 // Unary
 CLAUSE_ABS:                    'abs' -> type(ABS);
 CLAUSE_ISNULL:                 'isnull' -> type(ISNULL);
@@ -308,7 +368,7 @@ CLAUSE_MAX:                            'max' -> type(MAX);
 CLAUSE_MIN:                            'min' -> type(MIN);
 
 // Belonging
-CLAUSE_IN:                     'in' -> pushMode(SET_OPERAND_MODE), type(IN);
+CLAUSE_IN:                     'in' -> type(IN);
 
 // Punctuation elements
 CLAUSE_COMMA:                  ',' -> type(COMMA);
@@ -345,9 +405,29 @@ CLAUSE_SUB:                    'sub' -> type(SUB);
 
 // Reference date
 CLAUSE_TIME_SHIFT:             'time_shift' -> type(TIME_SHIFT);
+CLAUSE_ANNUALISE:              'annualise' -> type(ANNUALISE);
+
+// Date-component extraction
+CLAUSE_YEAR:                   'year' -> type(YEAR);
+CLAUSE_SEMESTER:               'semester' -> type(SEMESTER);
+CLAUSE_QUARTER:                'quarter' -> type(QUARTER);
+CLAUSE_MONTH:                  'month' -> type(MONTH);
+CLAUSE_WEEK:                   'week' -> type(WEEK);
+CLAUSE_DAY:                    'day' -> type(DAY);
+
+// Date constructor
+CLAUSE_DATE:                   'date' -> type(DATE);
+
+// Set operators
+CLAUSE_SET_OF:                 'set_of'    -> type(SET_OF);
+CLAUSE_UNION:                  'union'     -> type(UNION);
+CLAUSE_INTERSECT:              'intersect' -> type(INTERSECT);
+CLAUSE_SETDIFF:                'setdiff'   -> type(SETDIFF);
+CLAUSE_SYMDIFF:                'symdiff'   -> type(SYMDIFF);
 
 // String
 CLAUSE_LEN:                    'len' -> type(LEN);
+CLAUSE_SUBSTR:                 'substr' -> type(SUBSTR);
 CLAUSE_CONCAT:                 '&' -> type(CONCAT);
 
 // Regex
@@ -389,6 +469,43 @@ GROUPING_PROPERTY_CODE:            CODE -> type(PROPERTY_CODE);
 GROUPING_ESCAPED_IDENTIFIER: '`' [A-Za-z0-9_.+]+ '`' -> type(ESCAPED_IDENTIFIER);
 
 GROUPING_WS:                     [ \t\r\n\u000C]+ -> channel(2);
+
+
+mode ANALYTIC_CLAUSE_MODE;
+
+// Parenthesis — the closing ')' of the over(...) pops the mode.
+ANALYTIC_LPAREN:                    '(' -> type(LPAREN);
+ANALYTIC_RPAREN:                    ')' -> type(RPAREN), popMode;
+ANALYTIC_COMMA:                     ',' -> type(COMMA);
+
+// Multi-word keywords must appear before single-word ones and before CODE.
+PARTITION_BY:                       'partition by';
+ORDER_BY:                           'order by';
+DATA_POINTS:                        'data points';
+CURRENT_DATA_POINT:                 'current data point';
+RANGE:                              'range';
+BETWEEN:                            'between';
+ANALYTIC_AND:                       'and' -> type(AND);
+PRECEDING:                          'preceding';
+FOLLOWING:                          'following';
+UNBOUNDED:                          'unbounded';
+ASC:                                'asc';
+DESC:                               'desc';
+
+// A time-period code on a `range` bound, e.g. `11 M preceding`. Must precede
+// the property code so that the bare letters are not lexed as identifiers.
+ANALYTIC_TIME_PERIOD:               TIME_PERIOD -> type(TIME_PERIOD);
+
+// Component / property identifiers (mirrors GROUPING_CLAUSE_MODE).
+ANALYTIC_ROW_COMPONENT:             'r' -> type(ROW_COMPONENT);
+ANALYTIC_COL_COMPONENT:             'c' -> type(COL_COMPONENT);
+ANALYTIC_SHEET_COMPONENT:           's' -> type(SHEET_COMPONENT);
+ANALYTIC_PROPERTY_CODE:             CODE -> type(PROPERTY_CODE);
+ANALYTIC_ESCAPED_IDENTIFIER:        '`' [A-Za-z0-9_.+]+ '`' -> type(ESCAPED_IDENTIFIER);
+
+ANALYTIC_INTEGER_LITERAL:           INTEGER_LITERAL -> type(INTEGER_LITERAL);
+
+ANALYTIC_WS:                        [ \t\r\n\u000C]+ -> channel(2);
 
 
 mode SET_OPERAND_MODE;
