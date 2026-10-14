@@ -1,0 +1,2323 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Comprehensive documentation for the Data Point Model Expression Language" name="description"/>
+<meta content="EBA and EIOPA" name="author"/>
+<link href="../09-string-operators/" rel="prev"/>
+<link href="../11-clause-operators/" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.16" name="generator"/>
+<title>Time - DPM Expression Language (DPM-XL) Documentation</title>
+<link href="../../assets/stylesheets/main.7e37652d.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../static/style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#10-time-operators">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="DPM Expression Language (DPM-XL) Documentation" class="md-header__button md-logo" data-md-component="logo" href="../.." title="DPM Expression Language (DPM-XL) Documentation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            DPM Expression Language (DPM-XL) Documentation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Time
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<a aria-label="Share" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="Share">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4" fill="currentColor"></path></svg>
+</div>
+<div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../information-model/01-introduction/">
+          
+  
+  
+  Information Model
+
+        </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../01-introduction/">
+          
+  
+  
+  Operators
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../grammar/01-introduction/">
+          
+  
+  
+  Grammar
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../script-format/01-introduction/">
+          
+  
+  
+  Script Format
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="DPM Expression Language (DPM-XL) Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="DPM Expression Language (DPM-XL) Documentation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    DPM Expression Language (DPM-XL) Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4" fill="currentColor"></path></svg>
+</div>
+<div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+<span class="md-ellipsis">
+    Information Model
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Information Model
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../information-model/01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../information-model/02-information-model/">
+<span class="md-ellipsis">
+    Information Model
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../information-model/03-data-selection/">
+<span class="md-ellipsis">
+    DPM-XL Data Selection
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../information-model/04-null-treatment/">
+<span class="md-ellipsis">
+    Null handling
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../information-model/05-dpm-ml/">
+<span class="md-ellipsis">
+    DPM-ML
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+<span class="md-ellipsis">
+    Operators
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Operators
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../02-general-behaviour/">
+<span class="md-ellipsis">
+    General behaviour
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-selection-operators/">
+<span class="md-ellipsis">
+    Selection
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-numeric-operators/">
+<span class="md-ellipsis">
+    Numeric
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-comparison-operators/">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../06-logical-operators/">
+<span class="md-ellipsis">
+    Logical
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../07-aggregate-operators/">
+<span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../08-conditional-operators/">
+<span class="md-ellipsis">
+    Conditional
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../09-string-operators/">
+<span class="md-ellipsis">
+    String
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Time
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Time
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#101-time-shift">
+<span class="md-ellipsis">
+      10.1 Time Shift
+    </span>
+</a>
+<nav aria-label="10.1 Time Shift" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1011-syntax">
+<span class="md-ellipsis">
+      10.1.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1012-input-parameters">
+<span class="md-ellipsis">
+      10.1.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1013-output">
+<span class="md-ellipsis">
+      10.1.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1014-semantics">
+<span class="md-ellipsis">
+      10.1.4 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1015-additional-constraints">
+<span class="md-ellipsis">
+      10.1.5 Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1016-behaviour">
+<span class="md-ellipsis">
+      10.1.6 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1017-examples">
+<span class="md-ellipsis">
+      10.1.7 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#102-date-component-extraction">
+<span class="md-ellipsis">
+      10.2 Date-component Extraction
+    </span>
+</a>
+<nav aria-label="10.2 Date-component Extraction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1021-common-syntax-typing-and-behaviour">
+<span class="md-ellipsis">
+      10.2.1 Common Syntax, Typing and Behaviour
+    </span>
+</a>
+<nav aria-label="10.2.1 Common Syntax, Typing and Behaviour" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10211-syntax">
+<span class="md-ellipsis">
+      10.2.1.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10212-input-parameters">
+<span class="md-ellipsis">
+      10.2.1.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10213-output">
+<span class="md-ellipsis">
+      10.2.1.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10214-common-semantics">
+<span class="md-ellipsis">
+      10.2.1.4 Common Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10215-common-null-semantics">
+<span class="md-ellipsis">
+      10.2.1.5 Common Null Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10216-common-additional-constraints">
+<span class="md-ellipsis">
+      10.2.1.6 Common Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10217-common-behaviour">
+<span class="md-ellipsis">
+      10.2.1.7 Common Behaviour
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1022-year-year">
+<span class="md-ellipsis">
+      10.2.2 Year (year)
+    </span>
+</a>
+<nav aria-label="10.2.2 Year (year)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10221-syntax">
+<span class="md-ellipsis">
+      10.2.2.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10222-semantics">
+<span class="md-ellipsis">
+      10.2.2.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10223-behaviour">
+<span class="md-ellipsis">
+      10.2.2.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10224-examples">
+<span class="md-ellipsis">
+      10.2.2.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1023-semester-semester">
+<span class="md-ellipsis">
+      10.2.3 Semester (semester)
+    </span>
+</a>
+<nav aria-label="10.2.3 Semester (semester)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10231-syntax">
+<span class="md-ellipsis">
+      10.2.3.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10232-semantics">
+<span class="md-ellipsis">
+      10.2.3.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10233-behaviour">
+<span class="md-ellipsis">
+      10.2.3.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10234-examples">
+<span class="md-ellipsis">
+      10.2.3.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1024-quarter-quarter">
+<span class="md-ellipsis">
+      10.2.4 Quarter (quarter)
+    </span>
+</a>
+<nav aria-label="10.2.4 Quarter (quarter)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10241-syntax">
+<span class="md-ellipsis">
+      10.2.4.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10242-semantics">
+<span class="md-ellipsis">
+      10.2.4.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10243-behaviour">
+<span class="md-ellipsis">
+      10.2.4.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10244-examples">
+<span class="md-ellipsis">
+      10.2.4.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1025-month-month">
+<span class="md-ellipsis">
+      10.2.5 Month (month)
+    </span>
+</a>
+<nav aria-label="10.2.5 Month (month)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10251-syntax">
+<span class="md-ellipsis">
+      10.2.5.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10252-semantics">
+<span class="md-ellipsis">
+      10.2.5.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10253-behaviour">
+<span class="md-ellipsis">
+      10.2.5.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10254-examples">
+<span class="md-ellipsis">
+      10.2.5.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1026-week-week">
+<span class="md-ellipsis">
+      10.2.6 Week (week)
+    </span>
+</a>
+<nav aria-label="10.2.6 Week (week)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10261-syntax">
+<span class="md-ellipsis">
+      10.2.6.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10262-semantics">
+<span class="md-ellipsis">
+      10.2.6.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10263-behaviour">
+<span class="md-ellipsis">
+      10.2.6.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10264-examples">
+<span class="md-ellipsis">
+      10.2.6.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1027-day-day">
+<span class="md-ellipsis">
+      10.2.7 Day (day)
+    </span>
+</a>
+<nav aria-label="10.2.7 Day (day)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10271-syntax">
+<span class="md-ellipsis">
+      10.2.7.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10272-semantics">
+<span class="md-ellipsis">
+      10.2.7.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10273-behaviour">
+<span class="md-ellipsis">
+      10.2.7.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10274-examples">
+<span class="md-ellipsis">
+      10.2.7.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#103-date-constructor-date">
+<span class="md-ellipsis">
+      10.3 Date Constructor (date)
+    </span>
+</a>
+<nav aria-label="10.3 Date Constructor (date)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1031-syntax">
+<span class="md-ellipsis">
+      10.3.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1032-input-parameters">
+<span class="md-ellipsis">
+      10.3.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1033-output">
+<span class="md-ellipsis">
+      10.3.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1034-semantics">
+<span class="md-ellipsis">
+      10.3.4 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1035-additional-constraints">
+<span class="md-ellipsis">
+      10.3.5 Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1036-behaviour">
+<span class="md-ellipsis">
+      10.3.6 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1037-examples">
+<span class="md-ellipsis">
+      10.3.7 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#104-annualise">
+<span class="md-ellipsis">
+      10.4 Annualise
+    </span>
+</a>
+<nav aria-label="10.4 Annualise" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1041-syntax">
+<span class="md-ellipsis">
+      10.4.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1042-input-parameters">
+<span class="md-ellipsis">
+      10.4.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1043-output">
+<span class="md-ellipsis">
+      10.4.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1044-semantics">
+<span class="md-ellipsis">
+      10.4.4 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1045-additional-constraints">
+<span class="md-ellipsis">
+      10.4.5 Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1046-behaviour">
+<span class="md-ellipsis">
+      10.4.6 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1047-examples">
+<span class="md-ellipsis">
+      10.4.7 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../11-clause-operators/">
+<span class="md-ellipsis">
+    Clause
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../12-assignment-operators/">
+<span class="md-ellipsis">
+    Assignment
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../13-set-operators/">
+<span class="md-ellipsis">
+    Set
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Grammar
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Grammar
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../grammar/01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_5" type="checkbox"/>
+<label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+<span class="md-ellipsis">
+    Script Format
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_5_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_5">
+<span class="md-nav__icon md-icon"></span>
+            Script Format
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../script-format/01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../script-format/02-structure/">
+<span class="md-ellipsis">
+    Structure and Concepts
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../script-format/03-document-sections/">
+<span class="md-ellipsis">
+    Document Sections
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../script-format/04-ast-reference/">
+<span class="md-ellipsis">
+    AST Reference
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../script-format/05-conformance/">
+<span class="md-ellipsis">
+    Conformance
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#101-time-shift">
+<span class="md-ellipsis">
+      10.1 Time Shift
+    </span>
+</a>
+<nav aria-label="10.1 Time Shift" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1011-syntax">
+<span class="md-ellipsis">
+      10.1.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1012-input-parameters">
+<span class="md-ellipsis">
+      10.1.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1013-output">
+<span class="md-ellipsis">
+      10.1.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1014-semantics">
+<span class="md-ellipsis">
+      10.1.4 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1015-additional-constraints">
+<span class="md-ellipsis">
+      10.1.5 Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1016-behaviour">
+<span class="md-ellipsis">
+      10.1.6 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1017-examples">
+<span class="md-ellipsis">
+      10.1.7 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#102-date-component-extraction">
+<span class="md-ellipsis">
+      10.2 Date-component Extraction
+    </span>
+</a>
+<nav aria-label="10.2 Date-component Extraction" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1021-common-syntax-typing-and-behaviour">
+<span class="md-ellipsis">
+      10.2.1 Common Syntax, Typing and Behaviour
+    </span>
+</a>
+<nav aria-label="10.2.1 Common Syntax, Typing and Behaviour" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10211-syntax">
+<span class="md-ellipsis">
+      10.2.1.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10212-input-parameters">
+<span class="md-ellipsis">
+      10.2.1.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10213-output">
+<span class="md-ellipsis">
+      10.2.1.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10214-common-semantics">
+<span class="md-ellipsis">
+      10.2.1.4 Common Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10215-common-null-semantics">
+<span class="md-ellipsis">
+      10.2.1.5 Common Null Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10216-common-additional-constraints">
+<span class="md-ellipsis">
+      10.2.1.6 Common Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10217-common-behaviour">
+<span class="md-ellipsis">
+      10.2.1.7 Common Behaviour
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1022-year-year">
+<span class="md-ellipsis">
+      10.2.2 Year (year)
+    </span>
+</a>
+<nav aria-label="10.2.2 Year (year)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10221-syntax">
+<span class="md-ellipsis">
+      10.2.2.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10222-semantics">
+<span class="md-ellipsis">
+      10.2.2.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10223-behaviour">
+<span class="md-ellipsis">
+      10.2.2.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10224-examples">
+<span class="md-ellipsis">
+      10.2.2.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1023-semester-semester">
+<span class="md-ellipsis">
+      10.2.3 Semester (semester)
+    </span>
+</a>
+<nav aria-label="10.2.3 Semester (semester)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10231-syntax">
+<span class="md-ellipsis">
+      10.2.3.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10232-semantics">
+<span class="md-ellipsis">
+      10.2.3.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10233-behaviour">
+<span class="md-ellipsis">
+      10.2.3.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10234-examples">
+<span class="md-ellipsis">
+      10.2.3.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1024-quarter-quarter">
+<span class="md-ellipsis">
+      10.2.4 Quarter (quarter)
+    </span>
+</a>
+<nav aria-label="10.2.4 Quarter (quarter)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10241-syntax">
+<span class="md-ellipsis">
+      10.2.4.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10242-semantics">
+<span class="md-ellipsis">
+      10.2.4.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10243-behaviour">
+<span class="md-ellipsis">
+      10.2.4.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10244-examples">
+<span class="md-ellipsis">
+      10.2.4.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1025-month-month">
+<span class="md-ellipsis">
+      10.2.5 Month (month)
+    </span>
+</a>
+<nav aria-label="10.2.5 Month (month)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10251-syntax">
+<span class="md-ellipsis">
+      10.2.5.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10252-semantics">
+<span class="md-ellipsis">
+      10.2.5.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10253-behaviour">
+<span class="md-ellipsis">
+      10.2.5.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10254-examples">
+<span class="md-ellipsis">
+      10.2.5.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1026-week-week">
+<span class="md-ellipsis">
+      10.2.6 Week (week)
+    </span>
+</a>
+<nav aria-label="10.2.6 Week (week)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10261-syntax">
+<span class="md-ellipsis">
+      10.2.6.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10262-semantics">
+<span class="md-ellipsis">
+      10.2.6.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10263-behaviour">
+<span class="md-ellipsis">
+      10.2.6.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10264-examples">
+<span class="md-ellipsis">
+      10.2.6.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1027-day-day">
+<span class="md-ellipsis">
+      10.2.7 Day (day)
+    </span>
+</a>
+<nav aria-label="10.2.7 Day (day)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10271-syntax">
+<span class="md-ellipsis">
+      10.2.7.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10272-semantics">
+<span class="md-ellipsis">
+      10.2.7.2 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10273-behaviour">
+<span class="md-ellipsis">
+      10.2.7.3 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#10274-examples">
+<span class="md-ellipsis">
+      10.2.7.4 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#103-date-constructor-date">
+<span class="md-ellipsis">
+      10.3 Date Constructor (date)
+    </span>
+</a>
+<nav aria-label="10.3 Date Constructor (date)" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1031-syntax">
+<span class="md-ellipsis">
+      10.3.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1032-input-parameters">
+<span class="md-ellipsis">
+      10.3.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1033-output">
+<span class="md-ellipsis">
+      10.3.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1034-semantics">
+<span class="md-ellipsis">
+      10.3.4 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1035-additional-constraints">
+<span class="md-ellipsis">
+      10.3.5 Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1036-behaviour">
+<span class="md-ellipsis">
+      10.3.6 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1037-examples">
+<span class="md-ellipsis">
+      10.3.7 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#104-annualise">
+<span class="md-ellipsis">
+      10.4 Annualise
+    </span>
+</a>
+<nav aria-label="10.4 Annualise" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1041-syntax">
+<span class="md-ellipsis">
+      10.4.1 Syntax
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1042-input-parameters">
+<span class="md-ellipsis">
+      10.4.2 Input Parameters
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1043-output">
+<span class="md-ellipsis">
+      10.4.3 Output
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1044-semantics">
+<span class="md-ellipsis">
+      10.4.4 Semantics
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1045-additional-constraints">
+<span class="md-ellipsis">
+      10.4.5 Additional Constraints
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1046-behaviour">
+<span class="md-ellipsis">
+      10.4.6 Behaviour
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#1047-examples">
+<span class="md-ellipsis">
+      10.4.7 Examples
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/dpm-alliance/dpm-xl-docs/raw/0.11/docs/operators/10-time-operators.md" title="View source of this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
+</a>
+<h1 id="10-time-operators">10 Time Operators<a class="headerlink" href="#10-time-operators" title="Permanent link">¶</a></h1>
+<h2 id="101-time-shift">10.1 Time Shift<a class="headerlink" href="#101-time-shift" title="Permanent link">¶</a></h2>
+<h3 id="1011-syntax">10.1.1 Syntax<a class="headerlink" href="#1011-syntax" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>time_shift(</strong> op, period, numberPeriods, {var} <strong>)</strong></p>
+</blockquote>
+<h3 id="1012-input-parameters">10.1.2 Input Parameters<a class="headerlink" href="#1012-input-parameters" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>op: rset &lt;*&gt; | scal &lt;date&gt;</p>
+<p>period: time_period_code</p>
+<p>numberPeriods: scal &lt;int&gt;</p>
+<p>var: scal &lt;prop&gt;</p>
+</blockquote>
+<p>where <code>time_period_code</code> is one of the following bare keyword tokens:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Period</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A</code></td>
+<td>Annual (year)</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>Semi-annual (semester)</td>
+</tr>
+<tr>
+<td><code>Q</code></td>
+<td>Quarterly</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>Monthly</td>
+</tr>
+<tr>
+<td><code>W</code></td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>Daily</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1013-output">10.1.3 Output<a class="headerlink" href="#1013-output" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>rset &lt;*&gt; | scal &lt;date&gt;</p>
+</blockquote>
+<h3 id="1014-semantics">10.1.4 Semantics<a class="headerlink" href="#1014-semantics" title="Permanent link">¶</a></h3>
+<p>Changes the dates of the var <em>Component</em> of the <em>Recordset</em> op by adding (or subtracting) numberPeriods of the given period unit.</p>
+<h3 id="1015-additional-constraints">10.1.5 Additional Constraints<a class="headerlink" href="#1015-additional-constraints" title="Permanent link">¶</a></h3>
+<ul>
+<li>
+<p>If op is a <em>Recordset</em>, then</p>
+</li>
+<li>
+<p>var must be provided,</p>
+</li>
+<li>must belong to the <em>Recordset</em> op, and</li>
+<li>
+<p>must be of <em>Date</em> type.</p>
+</li>
+<li>
+<p>If op is a <em>Scalar</em>, then var must be omitted.</p>
+</li>
+</ul>
+<h3 id="1016-behaviour">10.1.6 Behaviour<a class="headerlink" href="#1016-behaviour" title="Permanent link">¶</a></h3>
+<p>Returns a <em>Recordset</em> with the same data structure and number of <em>Records</em> as the input op. The dates for the <em>Component</em> var are modified by adding the numberPeriods (subtracting, if negative) of the given period unit.</p>
+<h3 id="1017-examples">10.1.7 Examples<a class="headerlink" href="#1017-examples" title="Permanent link">¶</a></h3>
+<p>Considering the following <em>Recordset</em>, generated from the selection {tT1, r010-020, c010-020}:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="k">r</th>
+<th id="k">c</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022-01-01</td>
+<td>010</td>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>010</td>
+<td>020</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>010</td>
+<td>010</td>
+<td>300</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>010</td>
+<td>020</td>
+<td>400</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>020</td>
+<td>010</td>
+<td>500</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>020</td>
+<td>020</td>
+<td>600</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>020</td>
+<td>010</td>
+<td>700</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>020</td>
+<td>020</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<p><code>time_shift({tT1, r010-020, c010-020}, Q, 1, refPeriod)</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="k">r</th>
+<th id="k">c</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022-04-01</td>
+<td>010</td>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>010</td>
+<td>020</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>010</td>
+<td>010</td>
+<td>300</td>
+</tr>
+<tr>
+<td>2022-04-01</td>
+<td>010</td>
+<td>020</td>
+<td>400</td>
+</tr>
+<tr>
+<td>2022-07-01</td>
+<td>020</td>
+<td>010</td>
+<td>500</td>
+</tr>
+<tr>
+<td>2022-07-01</td>
+<td>020</td>
+<td>020</td>
+<td>600</td>
+</tr>
+<tr>
+<td>2022-07-01</td>
+<td>020</td>
+<td>010</td>
+<td>700</td>
+</tr>
+<tr>
+<td>2022-07-01</td>
+<td>020</td>
+<td>020</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<p><code>time_shift({tT1, r010-020, c010-020}, Q, -1, refPeriod)</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="k">r</th>
+<th id="k">c</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2021-10-01</td>
+<td>010</td>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2021-10-01</td>
+<td>010</td>
+<td>020</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2021-10-01</td>
+<td>010</td>
+<td>010</td>
+<td>300</td>
+</tr>
+<tr>
+<td>2021-10-01</td>
+<td>010</td>
+<td>020</td>
+<td>400</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>020</td>
+<td>010</td>
+<td>500</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>020</td>
+<td>020</td>
+<td>600</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>020</td>
+<td>010</td>
+<td>700</td>
+</tr>
+<tr>
+<td>2022-01-01</td>
+<td>020</td>
+<td>020</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<h2 id="102-date-component-extraction">10.2 Date-component Extraction<a class="headerlink" href="#102-date-component-extraction" title="Permanent link">¶</a></h2>
+<p>The <em>Operators</em> in this section extract a single calendar component (year, semester, quarter, month, week or day) from a <em>Date</em>. They all share the same syntax, input/output types and null-propagation behaviour; they differ only in the component returned and in how they handle <em>Date</em> notations that do not pin down the requested component.</p>
+<h3 id="1021-common-syntax-typing-and-behaviour">10.2.1 Common Syntax, Typing and Behaviour<a class="headerlink" href="#1021-common-syntax-typing-and-behaviour" title="Permanent link">¶</a></h3>
+<h4 id="10211-syntax">10.2.1.1 Syntax<a class="headerlink" href="#10211-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>\&lt;op&gt;(</strong> op <strong>)</strong></p>
+</blockquote>
+<p>where <code>&lt;op&gt;</code> is one of <code>year</code>, <code>semester</code>, <code>quarter</code>, <code>month</code>, <code>week</code>, <code>day</code>.</p>
+<h4 id="10212-input-parameters">10.2.1.2 Input Parameters<a class="headerlink" href="#10212-input-parameters" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>op: rset &lt;date&gt; | scal &lt;date&gt;</p>
+</blockquote>
+<h4 id="10213-output">10.2.1.3 Output<a class="headerlink" href="#10213-output" title="Permanent link">¶</a></h4>
+<blockquote>
+<p>rset &lt;int&gt; | scal &lt;int&gt;</p>
+</blockquote>
+<p>If op is a <em>Recordset</em>, the result is a <em>Recordset</em> with the same <em>Key Components</em> and <em>Records</em> as op, whose <em>Fact Component</em> is the extracted Integer value (or null). If op is a <em>Scalar</em>, the result is an Integer <em>Scalar</em>.</p>
+<h4 id="10214-common-semantics">10.2.1.4 Common Semantics<a class="headerlink" href="#10214-common-semantics" title="Permanent link">¶</a></h4>
+<p>Week numbers follow the ISO-8601 convention (week 1 is the week containing the first Thursday of the year; weeks range 1..53).</p>
+<h4 id="10215-common-null-semantics">10.2.1.5 Common Null Semantics<a class="headerlink" href="#10215-common-null-semantics" title="Permanent link">¶</a></h4>
+<ul>
+<li>If op is null, the result is null.</li>
+</ul>
+<h4 id="10216-common-additional-constraints">10.2.1.6 Common Additional Constraints<a class="headerlink" href="#10216-common-additional-constraints" title="Permanent link">¶</a></h4>
+<ul>
+<li>op must be of <em>Date</em> type.</li>
+</ul>
+<h4 id="10217-common-behaviour">10.2.1.7 Common Behaviour<a class="headerlink" href="#10217-common-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="../02-general-behaviour/#21-unary-operators">Unary <em>Operators'</em> standard behaviour</a>.</li>
+<li>If op is a <em>Recordset</em>, the <em>Operator</em> is applied to every <em>Record</em>'s <em>Fact</em> value (a <em>Date</em>) and the result is a <em>Recordset</em> with the same <em>Key Components</em> and <em>Records</em> whose <em>Fact Component</em> is the extracted Integer. <em>Attribute Components</em> are not propagated.</li>
+</ul>
+<h3 id="1022-year-year">10.2.2 Year (year)<a class="headerlink" href="#1022-year-year" title="Permanent link">¶</a></h3>
+<h4 id="10221-syntax">10.2.2.1 Syntax<a class="headerlink" href="#10221-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>year(</strong> op <strong>)</strong></p>
+</blockquote>
+<h4 id="10222-semantics">10.2.2.2 Semantics<a class="headerlink" href="#10222-semantics" title="Permanent link">¶</a></h4>
+<p>Returns the calendar year of op (e.g. <code>2022</code>).</p>
+<h4 id="10223-behaviour">10.2.2.3 Behaviour<a class="headerlink" href="#10223-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="#1021-common-syntax-typing-and-behaviour">Date-component Extraction <em>Operators</em>' common behaviour</a>.</li>
+</ul>
+<h4 id="10224-examples">10.2.2.4 Examples<a class="headerlink" href="#10224-examples" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>year(#2022-03-15#)</code> → <code>2022</code></li>
+<li><code>year(null)</code> → <code>null</code></li>
+<li><code>{tT1}[where year(refPeriod) = 2022]</code> — filters <em>Records</em> whose <code>refPeriod</code> falls in 2022.</li>
+</ul>
+<p>Considering the following <em>Recordset</em> (the selection of a <em>Variable</em> whose <em>Fact</em> is the maturity date of each loan):</p>
+<p><code>{vmaturity}</code></p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>#2024-03-15#</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>#2025-06-30#</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>#2023-12-31#</td>
+</tr>
+</tbody>
+</table>
+<p><code>year({vmaturity})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>2025</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>2023</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1023-semester-semester">10.2.3 Semester (semester)<a class="headerlink" href="#1023-semester-semester" title="Permanent link">¶</a></h3>
+<h4 id="10231-syntax">10.2.3.1 Syntax<a class="headerlink" href="#10231-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>semester(</strong> op <strong>)</strong></p>
+</blockquote>
+<h4 id="10232-semantics">10.2.3.2 Semantics<a class="headerlink" href="#10232-semantics" title="Permanent link">¶</a></h4>
+<p>Returns the semester index (1 for January–June, 2 for July–December).</p>
+<h4 id="10233-behaviour">10.2.3.3 Behaviour<a class="headerlink" href="#10233-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="#1021-common-syntax-typing-and-behaviour">Date-component Extraction <em>Operators</em>' common behaviour</a>.</li>
+</ul>
+<h4 id="10234-examples">10.2.3.4 Examples<a class="headerlink" href="#10234-examples" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>semester(#2022-03-15#)</code> → <code>1</code></li>
+<li><code>semester(#2022-08-01#)</code> → <code>2</code></li>
+</ul>
+<p>For the <em>Recordset</em> <code>{vmaturity}</code> of <a href="#10224-examples">§10.2.2.4</a>, <code>semester({vmaturity})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>1</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>2</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1024-quarter-quarter">10.2.4 Quarter (quarter)<a class="headerlink" href="#1024-quarter-quarter" title="Permanent link">¶</a></h3>
+<h4 id="10241-syntax">10.2.4.1 Syntax<a class="headerlink" href="#10241-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>quarter(</strong> op <strong>)</strong></p>
+</blockquote>
+<h4 id="10242-semantics">10.2.4.2 Semantics<a class="headerlink" href="#10242-semantics" title="Permanent link">¶</a></h4>
+<p>Returns the quarter index (1..4).</p>
+<h4 id="10243-behaviour">10.2.4.3 Behaviour<a class="headerlink" href="#10243-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="#1021-common-syntax-typing-and-behaviour">Date-component Extraction <em>Operators</em>' common behaviour</a>.</li>
+</ul>
+<h4 id="10244-examples">10.2.4.4 Examples<a class="headerlink" href="#10244-examples" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>quarter(#2022-03-15#)</code> → <code>1</code></li>
+<li><code>{tT1}[where quarter(refPeriod) in {1, 2}]</code> — first-half-year <em>Records</em>.</li>
+</ul>
+<p>For the <em>Recordset</em> <code>{vmaturity}</code> of <a href="#10224-examples">§10.2.2.4</a>, <code>quarter({vmaturity})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>1</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>2</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1025-month-month">10.2.5 Month (month)<a class="headerlink" href="#1025-month-month" title="Permanent link">¶</a></h3>
+<h4 id="10251-syntax">10.2.5.1 Syntax<a class="headerlink" href="#10251-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>month(</strong> op <strong>)</strong></p>
+</blockquote>
+<h4 id="10252-semantics">10.2.5.2 Semantics<a class="headerlink" href="#10252-semantics" title="Permanent link">¶</a></h4>
+<p>Returns the month of year (1..12).</p>
+<h4 id="10253-behaviour">10.2.5.3 Behaviour<a class="headerlink" href="#10253-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="#1021-common-syntax-typing-and-behaviour">Date-component Extraction <em>Operators</em>' common behaviour</a>.</li>
+</ul>
+<h4 id="10254-examples">10.2.5.4 Examples<a class="headerlink" href="#10254-examples" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>month(#2022-03-15#)</code> → <code>3</code></li>
+</ul>
+<p>For the <em>Recordset</em> <code>{vmaturity}</code> of <a href="#10224-examples">§10.2.2.4</a>, <code>month({vmaturity})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>3</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>6</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1026-week-week">10.2.6 Week (week)<a class="headerlink" href="#1026-week-week" title="Permanent link">¶</a></h3>
+<h4 id="10261-syntax">10.2.6.1 Syntax<a class="headerlink" href="#10261-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>week(</strong> op <strong>)</strong></p>
+</blockquote>
+<h4 id="10262-semantics">10.2.6.2 Semantics<a class="headerlink" href="#10262-semantics" title="Permanent link">¶</a></h4>
+<p>Returns the ISO-8601 week number (1..53).</p>
+<h4 id="10263-behaviour">10.2.6.3 Behaviour<a class="headerlink" href="#10263-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="#1021-common-syntax-typing-and-behaviour">Date-component Extraction <em>Operators</em>' common behaviour</a>.</li>
+</ul>
+<h4 id="10264-examples">10.2.6.4 Examples<a class="headerlink" href="#10264-examples" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>week(#2022-03-15#)</code> → <code>11</code></li>
+<li><code>week(#2022-01-01#)</code> → <code>52</code> (the first day of 2022 belongs to ISO week 52 of 2021)</li>
+</ul>
+<p>For the <em>Recordset</em> <code>{vmaturity}</code> of <a href="#10224-examples">§10.2.2.4</a>, <code>week({vmaturity})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>11</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>26</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>52</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1027-day-day">10.2.7 Day (day)<a class="headerlink" href="#1027-day-day" title="Permanent link">¶</a></h3>
+<h4 id="10271-syntax">10.2.7.1 Syntax<a class="headerlink" href="#10271-syntax" title="Permanent link">¶</a></h4>
+<blockquote>
+<p><strong>day(</strong> op <strong>)</strong></p>
+</blockquote>
+<h4 id="10272-semantics">10.2.7.2 Semantics<a class="headerlink" href="#10272-semantics" title="Permanent link">¶</a></h4>
+<p>Returns the day of month (1..31).</p>
+<h4 id="10273-behaviour">10.2.7.3 Behaviour<a class="headerlink" href="#10273-behaviour" title="Permanent link">¶</a></h4>
+<ul>
+<li><a href="#1021-common-syntax-typing-and-behaviour">Date-component Extraction <em>Operators</em>' common behaviour</a>.</li>
+</ul>
+<h4 id="10274-examples">10.2.7.4 Examples<a class="headerlink" href="#10274-examples" title="Permanent link">¶</a></h4>
+<ul>
+<li><code>day(#2022-03-15#)</code> → <code>15</code></li>
+<li><code>day(#2022-01-01#)</code> → <code>1</code></li>
+<li><code>day(null)</code> → <code>null</code></li>
+</ul>
+<p>For the <em>Recordset</em> <code>{vmaturity}</code> of <a href="#10224-examples">§10.2.2.4</a>, <code>day({vmaturity})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L001</td>
+<td>15</td>
+</tr>
+<tr>
+<td>L002</td>
+<td>30</td>
+</tr>
+<tr>
+<td>L003</td>
+<td>31</td>
+</tr>
+</tbody>
+</table>
+<h2 id="103-date-constructor-date">10.3 Date Constructor (date)<a class="headerlink" href="#103-date-constructor-date" title="Permanent link">¶</a></h2>
+<h3 id="1031-syntax">10.3.1 Syntax<a class="headerlink" href="#1031-syntax" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>date(</strong> year, month, day <strong>)</strong></p>
+</blockquote>
+<h3 id="1032-input-parameters">10.3.2 Input Parameters<a class="headerlink" href="#1032-input-parameters" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>year: rset &lt;int&gt; | scal &lt;int&gt;</p>
+<p>month: rset &lt;int&gt; | scal &lt;int&gt;</p>
+<p>day: rset &lt;int&gt; | scal &lt;int&gt;</p>
+</blockquote>
+<h3 id="1033-output">10.3.3 Output<a class="headerlink" href="#1033-output" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>rset &lt;date&gt; | scal &lt;date&gt;</p>
+</blockquote>
+<h3 id="1034-semantics">10.3.4 Semantics<a class="headerlink" href="#1034-semantics" title="Permanent link">¶</a></h3>
+<p>Builds a <em>Date</em> (notation <code>#YYYY-MM-DD#</code>, see <a href="../../information-model/02-information-model/#242-conventions-to-write-scalars">§2.4.2</a>) from the three Integer parts.</p>
+<p>This <em>Operator</em> is the sanctioned path to obtain a <em>Date</em> from Integers: the casting table in <a href="../../information-model/02-information-model/#232-casting">§2.3.2</a> marks Integer → Date as <em>Not possible</em>.</p>
+<h3 id="1035-additional-constraints">10.3.5 Additional Constraints<a class="headerlink" href="#1035-additional-constraints" title="Permanent link">¶</a></h3>
+<ul>
+<li>year, month and day must be of <em>Integer</em> type.</li>
+<li>Any combination of <em>Scalar</em> and <em>Recordset</em> operands is allowed, provided the <em>Recordset</em> operands satisfy the constraints in <a href="../02-general-behaviour/#22-binary-operators">§2.2 Binary Operators</a>, generalised to three operands: <em>Recordset</em> operands must share <em>Key Components</em> (or one's <em>Key Components</em> must be a superset of the others'), and <em>Standard Keys</em> must contain matching values.</li>
+</ul>
+<h3 id="1036-behaviour">10.3.6 Behaviour<a class="headerlink" href="#1036-behaviour" title="Permanent link">¶</a></h3>
+<ul>
+<li><a href="../02-general-behaviour/#22-binary-operators">Binary <em>Operators</em>' standard behaviour</a>, generalised to three operands.</li>
+<li>If all three operands are <em>Scalars</em>, the result is a <em>Scalar Date</em> built from the three values.</li>
+<li>If any operand is a <em>Recordset</em>, the result is a <em>Recordset</em> whose <em>Key Components</em> are the common <em>Key Components</em> of the <em>Recordset</em> operands (or those of the Reference <em>Recordset</em> if one's <em>Keys</em> are a superset of the others'), and whose <em>Fact Component</em> is the Date built per <em>Record</em>. Per-<em>Record</em> construction uses the inner join of the <em>Recordset</em> operands on their common <em>Key Components</em>; <em>Scalar</em> operands are broadcast to every <em>Record</em>. <em>Attribute Components</em> are not propagated.</li>
+<li>If any of year, month or day is null on a given <em>Record</em> (or <em>Scalar</em>), the resulting <em>Date</em> for that <em>Record</em> (or <em>Scalar</em>) is null.</li>
+<li>If the three values do not form a valid calendar date — month outside 1..12, or day outside the valid range for that month and year (accounting for leap years; e.g. <code>date(2025, 2, 30)</code>) — the resulting <em>Date</em> is null.</li>
+</ul>
+<h3 id="1037-examples">10.3.7 Examples<a class="headerlink" href="#1037-examples" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>date(2025, 12, 31)</code> → <code>#2025-12-31#</code></li>
+<li><code>date(2024, 2, 29)</code> → <code>#2024-02-29#</code> (2024 is a leap year)</li>
+<li><code>date(2025, 2, 30)</code> → <code>null</code> (not a valid date)</li>
+<li><code>date(2025, 13, 1)</code> → <code>null</code> (month out of range)</li>
+<li><code>date(null, 1, 1)</code> → <code>null</code></li>
+<li><code>date(year(refPeriod), 1, 1)</code> — first day of each <em>Record</em>'s reference year (round-trips with the extraction family of <a href="#102-date-component-extraction">§10.2</a>).</li>
+</ul>
+<p>Considering the following <em>Recordsets</em> (selections of three <em>Variables</em> sharing the same <em>Key Components</em>):</p>
+<p><code>{vyyyy}</code></p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>2024</td>
+</tr>
+<tr>
+<td>B</td>
+<td>2025</td>
+</tr>
+</tbody>
+</table>
+<p><code>{vmm}</code></p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>2</td>
+</tr>
+<tr>
+<td>B</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p><code>{vdd}</code></p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>29</td>
+</tr>
+<tr>
+<td>B</td>
+<td>31</td>
+</tr>
+</tbody>
+</table>
+<p><code>date({vyyyy}, {vmm}, {vdd})</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>#2024-02-29#</td>
+</tr>
+<tr>
+<td>B</td>
+<td>#2025-12-31#</td>
+</tr>
+</tbody>
+</table>
+<p>Mixing <em>Recordsets</em> and <em>Scalars</em> is also allowed; the <em>Scalar</em> is broadcast. <code>date({vyyyy}, 1, 1)</code> returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">id</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>#2024-01-01#</td>
+</tr>
+<tr>
+<td>B</td>
+<td>#2025-01-01#</td>
+</tr>
+</tbody>
+</table>
+<h2 id="104-annualise">10.4 Annualise<a class="headerlink" href="#104-annualise" title="Permanent link">¶</a></h2>
+<h3 id="1041-syntax">10.4.1 Syntax<a class="headerlink" href="#1041-syntax" title="Permanent link">¶</a></h3>
+<blockquote>
+<p><strong>annualise(</strong> op, fyEnd, var <strong>)</strong></p>
+</blockquote>
+<h3 id="1042-input-parameters">10.4.2 Input Parameters<a class="headerlink" href="#1042-input-parameters" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>op: rset &lt;num&gt; | scal &lt;num&gt;</p>
+<p>fyEnd: scal &lt;int&gt;</p>
+<p>var: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="1043-output">10.4.3 Output<a class="headerlink" href="#1043-output" title="Permanent link">¶</a></h3>
+<blockquote>
+<p>rset &lt;num&gt; | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="1044-semantics">10.4.4 Semantics<a class="headerlink" href="#1044-semantics" title="Permanent link">¶</a></h3>
+<p>Annualise scales each numeric value in op up to its full-year equivalent based on where the <em>Record</em>'s reference month sits within the surrounding <em>financial year</em>. The scaling is computed in <strong>whole months</strong>: a <em>financial year</em> always spans 12 months, and each value is grossed up by the ratio of 12 to the number of months elapsed since the start of the <em>financial year</em>.</p>
+<p>The relevant quantities are:</p>
+<div class="mermaid">flowchart LR
+    subgraph FY["Financial Year — 12 months"]
+      direction LR
+      fyStart["fyStart (month after fyEnd)"] -- "elapsed months" --&gt; m["reference month m"]
+      m -- "remaining months" --&gt; fyEndMonth["fyEnd"]
+    end
+</div>
+<p>where, for each <em>Record</em>:</p>
+<ul>
+<li><code>m</code> is the month of the <em>Record</em>'s reference date — the month component (1..12) of the value of <code>var</code> for that <em>Record</em>. Only the month is used; the day within the month does not affect the result.</li>
+<li><code>fyEnd</code> is the month code of the last month of the <em>financial year</em>: an integer in 1..12 (e.g., <code>12</code> for a calendar <em>financial year</em>, <code>3</code> for a <em>financial year</em> ending in March).</li>
+<li><code>elapsed</code> is the number of months from the start of the <em>financial year</em> up to and including month <code>m</code>. The <em>financial year</em> starts in the month following <code>fyEnd</code>, so:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>elapsed = 12 - (fyEnd - m)   if fyEnd &gt;= m
+<a href="#__codelineno-0-2" id="__codelineno-0-2" name="__codelineno-0-2"></a>elapsed = m - fyEnd          if fyEnd &lt;  m
+</code></pre></div>
+<p>The annualised value for each <em>Record</em> is then:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>annualised = value * (12 / elapsed)
+</code></pre></div>
+<h3 id="1045-additional-constraints">10.4.5 Additional Constraints<a class="headerlink" href="#1045-additional-constraints" title="Permanent link">¶</a></h3>
+<ul>
+<li><code>fyEnd</code> must be an integer in the range 1..12. Any other value raises a runtime error.</li>
+<li><code>var</code> must be provided, must belong to op, as a <em>Key</em> or <em>Attribute Component</em> of the <em>Recordset</em>, and must be of <em>Date</em> type. Only its month component is used.</li>
+<li>The <em>Fact Component</em> of op (or the <em>Scalar</em>'s value) must be numeric.</li>
+<li>If the reference date for a <em>Record</em> is <code>null</code>, the annualised value for that <em>Record</em> is <code>null</code>.
+.</li>
+</ul>
+<h3 id="1046-behaviour">10.4.6 Behaviour<a class="headerlink" href="#1046-behaviour" title="Permanent link">¶</a></h3>
+<p>Returns a <em>Recordset</em> (or <em>Scalar</em>) with the same <em>Structure</em> and number of <em>Records</em> as op. The <em>Fact Component</em> of each <em>Record</em> is replaced by its annualised value, computed independently per <em>Record</em>. <em>Key</em> and <em>Attribute Components</em> are preserved unchanged.</p>
+<h3 id="1047-examples">10.4.7 Examples<a class="headerlink" href="#1047-examples" title="Permanent link">¶</a></h3>
+<p>Considering the following <em>Recordset</em>, generated from the selection <code>{tP01, r010, c010}</code> and reporting partial-year balances at different cut-off dates within a calendar <em>financial year</em>:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022-03-31</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2022-06-30</td>
+<td>250</td>
+</tr>
+<tr>
+<td>2022-09-30</td>
+<td>400</td>
+</tr>
+<tr>
+<td>2022-12-31</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+<p><code>annualise({tP01, r010, c010}, 12, refPeriod)</code> — calendar <em>financial year</em> (ends in December) — returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022-03-31</td>
+<td>400.00</td>
+</tr>
+<tr>
+<td>2022-06-30</td>
+<td>500.00</td>
+</tr>
+<tr>
+<td>2022-09-30</td>
+<td>533.33</td>
+</tr>
+<tr>
+<td>2022-12-31</td>
+<td>600.00</td>
+</tr>
+</tbody>
+</table>
+<p>(For the first <em>Record</em>: <code>m = 3</code>, <code>fyEnd = 12</code>, and since <code>fyEnd &gt;= m</code>, <code>elapsed = 12 - (12 - 3) = 3</code> months, so <code>100 * 12 / 3 = 400.00</code>. The last <em>Record</em> sits in month <code>fyEnd</code>, so <code>elapsed = 12</code> and the value is unchanged.)</p>
+<p><code>annualise({tP01, r010, c010}, 3, refPeriod)</code> — <em>financial year</em> ending in March — returns:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022-03-31</td>
+<td>100.00</td>
+</tr>
+<tr>
+<td>2022-06-30</td>
+<td>1000.00</td>
+</tr>
+<tr>
+<td>2022-09-30</td>
+<td>800.00</td>
+</tr>
+<tr>
+<td>2022-12-31</td>
+<td>800.00</td>
+</tr>
+</tbody>
+</table>
+<p>(For 2022-03-31: <code>m = 3</code>, <code>fyEnd = 3</code>, and since <code>fyEnd &gt;= m</code>, <code>elapsed = 12 - (3 - 3) = 12</code> months — it sits in month <code>fyEnd</code>, so the value is unchanged. For 2022-06-30: <code>m = 6</code>, <code>fyEnd = 3</code>, and since <code>fyEnd &lt; m</code>, <code>elapsed = 6 - 3 = 3</code> months, so <code>250 * 12 / 3 = 1000.00</code>. Note: with <code>fyEnd = 3</code>, the first cut-off belongs to a different <em>financial year</em> from the other three.)</p>
+<p>For a <em>Scalar</em> operand, the contextual <code>refPeriod</code> of the instance (always latent — see §2.2.3.1.4) is passed explicitly as <code>var</code>:</p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>annualise({tP01, r010, c010}, 12, refPeriod)
+</code></pre></div>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.view"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": ["latest"], "provider": "mike"}}</script>
+<script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.8.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

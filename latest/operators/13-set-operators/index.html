@@ -1,0 +1,2658 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Data Point Model Expression Language">
+      
+      
+        <meta name="author" content="EBA and EIOPA">
+      
+      
+      
+        <link rel="prev" href="../12-assignment-operators/">
+      
+      
+        <link rel="next" href="../../grammar/01-introduction/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Set - DPM Expression Language (DPM-XL) Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../static/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#13-set-operators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DPM Expression Language (DPM-XL) Documentation" class="md-header__button md-logo" aria-label="DPM Expression Language (DPM-XL) Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DPM Expression Language (DPM-XL) Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Set
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../information-model/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Information Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Operators
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../grammar/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Grammar
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../script-format/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Script Format
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DPM Expression Language (DPM-XL) Documentation" class="md-nav__button md-logo" aria-label="DPM Expression Language (DPM-XL) Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DPM Expression Language (DPM-XL) Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Information Model
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Information Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/02-information-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Information Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/03-data-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DPM-XL Data Selection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/04-null-treatment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Null handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/05-dpm-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DPM-ML
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operators
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-general-behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General behaviour
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-selection-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-numeric-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numeric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-comparison-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-logical-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-aggregate-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-conditional-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-string-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Time
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-clause-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clause
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-assignment-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assignment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Set
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Set
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#131-set-operators-general-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Set Operators' General Behaviour
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 Set Operators&#39; General Behaviour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1311-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1312-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1313-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1314-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1315-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1316-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#132-set-of-set_of" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Set of (set_of)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.2 Set of (set_of)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1321-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1322-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1323-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1324-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1325-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1326-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1327-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#133-union-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 Union (union)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3 Union (union)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1331-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1332-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1333-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1334-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1335-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1336-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1337-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#134-intersection-intersect" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4 Intersection (intersect)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4 Intersection (intersect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1341-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1342-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1343-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1344-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1345-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1346-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1347-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#135-set-difference-setdiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5 Set Difference (setdiff)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.5 Set Difference (setdiff)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1351-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1352-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1353-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1354-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1355-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1356-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1357-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#136-symmetric-difference-symdiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6 Symmetric Difference (symdiff)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.6 Symmetric Difference (symdiff)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1361-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1362-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1363-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1364-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1365-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1366-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1367-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#137-set-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7 Set Equality (=, !=)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.7 Set Equality (=, !=)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1371-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1372-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1373-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1374-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1375-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1376-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1377-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Grammar
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Grammar
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../grammar/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Script Format
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Script Format
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script-format/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script-format/02-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Structure and Concepts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script-format/03-document-sections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Document Sections
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script-format/04-ast-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AST Reference
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../script-format/05-conformance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conformance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#131-set-operators-general-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1 Set Operators' General Behaviour
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.1 Set Operators&#39; General Behaviour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1311-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1312-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1313-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1314-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1315-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1316-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.1.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#132-set-of-set_of" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2 Set of (set_of)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.2 Set of (set_of)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1321-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1322-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1323-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1324-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1325-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1326-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1327-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.2.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#133-union-union" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3 Union (union)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.3 Union (union)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1331-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1332-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1333-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1334-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1335-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1336-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1337-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.3.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#134-intersection-intersect" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4 Intersection (intersect)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.4 Intersection (intersect)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1341-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1342-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1343-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1344-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1345-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1346-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1347-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.4.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#135-set-difference-setdiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5 Set Difference (setdiff)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.5 Set Difference (setdiff)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1351-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1352-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1353-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1354-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1355-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1356-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1357-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.5.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#136-symmetric-difference-symdiff" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6 Symmetric Difference (symdiff)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.6 Symmetric Difference (symdiff)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1361-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1362-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1363-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1364-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1365-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1366-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1367-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.6.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#137-set-equality" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7 Set Equality (=, !=)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13.7 Set Equality (=, !=)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1371-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1372-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1373-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1374-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1375-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1376-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1377-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      13.7.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/dpm-alliance/dpm-xl-docs/raw/0.11/docs/operators/13-set-operators.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="13-set-operators">13 Set Operators<a class="headerlink" href="#13-set-operators" title="Permanent link">&para;</a></h1>
+<p>Set <em>Operators</em> construct and combine <em>Scalar Sets</em> (see §2.2.2). A <em>Scalar Set</em> is an unordered, duplicate-free collection of <em>Scalar</em> values that share a single <em>Data Type</em>. Until now, <em>Scalar Sets</em> could only be written as literals (<code>{v1, v2, ...}</code>, or <code>{}</code> for the empty set) or obtained from a <em>Subcategory</em>, and were consumed only by the <code>in</code> <em>Operator</em> (§5.8). The <em>Operators</em> in this section make <em>Scalar Sets</em> first-class:</p>
+<ul>
+<li><strong><code>set_of</code></strong> derives a <em>Scalar Set</em> from the <em>Fact Component</em> of a <em>Recordset</em>.</li>
+<li><strong><code>union</code></strong>, <strong><code>intersect</code></strong>, <strong><code>setdiff</code></strong> and <strong><code>symdiff</code></strong> combine <em>Scalar Sets</em>.</li>
+</ul>
+<p>The cardinality of a <em>Scalar Set</em> (its number of distinct elements) is obtained with the <code>count</code> <em>Operator</em> (§7.3), which accepts a <code>scalar_set</code> in addition to a <em>Recordset</em>.</p>
+<p>Each combining <em>Operator</em> (<code>union</code>, <code>intersect</code>, <code>setdiff</code>, <code>symdiff</code>) is illustrated below with a Venn diagram of two example sets, <code>set 1 = {1, 2, 3}</code> and <code>set 2 = {3, 4, 5}</code>, in which the shaded region marks the elements that end up in the result.</p>
+<p>A set-valued expression — a literal, a <em>Subcategory</em>, a <code>set-*</code> <em>Parameter</em>, or the result of any <em>Operator</em> in this section — may appear as the right-hand side of <code>in</code>, as the <em>Operand</em> of <code>count</code>, as an <em>Operand</em> of the binary and variadic set <em>Operators</em> (so they nest freely, e.g. <code>union(set_of(A), setdiff(B, C))</code>), and as an <em>Operand</em> of the equality <em>Operators</em> <code>=</code> and <code>!=</code> (see <a href="#137-set-equality">Set Equality</a>).</p>
+<p>Where a set <em>Operand</em> is written as a <em>Recordset</em> or <em>Subcategory</em> selection, it is implicitly read as the <em>Scalar Set</em> of its values — equivalent to wrapping it in <code>set_of</code> (§13.2). So <code>union({tC_28.00, c020}[get qINC], {tC_29.00, c0030}[get qINC])</code> is accepted directly, without an explicit <code>set_of</code> around each selection.</p>
+<p>These are <strong>semantic</strong> rules, not syntactic ones: the grammar accepts an ordinary expression in every set position, and semantic analysis is responsible for the type restrictions. In particular, set-valued expressions are <strong>not</strong> <em>Scalars</em> or <em>Recordsets</em>, so — apart from set equality — they cannot be combined with scalar/recordset <em>Operators</em>: arithmetic and the ordering comparisons (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>) are not defined on <em>Scalar Sets</em>, and a comparison such as <code>{c020} = setdiff(A, B)</code> (a <em>Recordset</em> against a <em>Scalar Set</em>) is rejected by semantic analysis even though it parses.</p>
+<h2 id="131-set-operators-general-behaviour">13.1 Set Operators' General Behaviour<a class="headerlink" href="#131-set-operators-general-behaviour" title="Permanent link">&para;</a></h2>
+<h3 id="1311-syntax">13.1.1 Syntax<a class="headerlink" href="#1311-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>setOperator (</strong> s1, s2 {, s3}* <strong>)</strong></p>
+</blockquote>
+<h3 id="1312-input-parameters">13.1.2 Input Parameters<a class="headerlink" href="#1312-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1, s2, ...: scalar_set &lt;<em>&gt; | subcategory | rset &lt;</em>&gt;</p>
+</blockquote>
+<h3 id="1313-output">13.1.3 Output<a class="headerlink" href="#1313-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scalar_set &lt;T&gt;</p>
+</blockquote>
+<h3 id="1314-semantics">13.1.4 Semantics<a class="headerlink" href="#1314-semantics" title="Permanent link">&para;</a></h3>
+<p>The binary and variadic set <em>Operators</em> combine their <em>Operands</em> into a new <em>Scalar Set</em>. Membership is decided element-wise using the equality <em>Operator</em> (<code>=</code>), so two elements are "the same" exactly when they compare equal under <code>=</code>; for intervals, this inherits the interval semantics of <code>=</code> (see §5.2). The result is always a <em>Scalar Set</em>: unordered and duplicate-free.</p>
+<h3 id="1315-additional-constraints">13.1.5 Additional Constraints<a class="headerlink" href="#1315-additional-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li>All elements within a <em>Scalar Set</em> must share a single <em>Data Type</em>, considering implicit casting.</li>
+<li>For a binary or variadic set <em>Operator</em>, the <em>Operands</em> must have compatible element <em>Data Types</em>. The element <em>Data Type</em> of the result is the maximum common <em>Data Type</em> of the <em>Operands</em>, determined by the implicit casting hierarchy (§2.3.2) — e.g. combining an Integer set with a Number set yields a Number set.</li>
+<li>A <em>Subcategory</em> <em>Operand</em> is implicitly treated as a <em>Scalar Set</em> of its member items, consistently with the <code>in</code> <em>Operator</em> (§5.8).</li>
+<li>A <em>Recordset</em> <em>Operand</em> is implicitly treated as the <em>Scalar Set</em> of its <em>Fact Component</em> values, exactly as if wrapped in <code>set_of</code> (§13.2). To take the set of a <em>Key</em> or <em>Attribute Component</em> instead, move it into the <em>Fact</em> first with the <a href="../11-clause-operators/#113-get">get</a> clause — e.g. <code>union(A[get CNT], B[get CNT])</code>.</li>
+<li><code>null</code> is <strong>not</strong> a valid set element. Set <em>Operators</em> never introduce <code>null</code>; any <code>null</code> arising at construction time (e.g. from <code>set_of</code>) is dropped.</li>
+</ul>
+<h3 id="1316-behaviour">13.1.6 Behaviour<a class="headerlink" href="#1316-behaviour" title="Permanent link">&para;</a></h3>
+<p>Set <em>Operators</em> operate purely on the values of their <em>Operands</em>; they do not carry <em>Key</em> or <em>Attribute Components</em>, since their result is a <em>Scalar Set</em>, not a <em>Recordset</em>. The result contains each distinct value at most once.</p>
+<h2 id="132-set-of-set_of">13.2 Set of (set_of)<a class="headerlink" href="#132-set-of-set_of" title="Permanent link">&para;</a></h2>
+<h3 id="1321-syntax">13.2.1 Syntax<a class="headerlink" href="#1321-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>set_of(</strong> op <strong>)</strong></p>
+</blockquote>
+<h3 id="1322-input-parameters">13.2.2 Input Parameters<a class="headerlink" href="#1322-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;*&gt;</p>
+</blockquote>
+<h3 id="1323-output">13.2.3 Output<a class="headerlink" href="#1323-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scalar_set &lt;T&gt; — where T is the <em>Data Type</em> of the <em>Fact Component</em> of op.</p>
+</blockquote>
+<h3 id="1324-semantics">13.2.4 Semantics<a class="headerlink" href="#1324-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the <em>Scalar Set</em> of distinct, non-null values taken by the <em>Fact Component</em> across the <em>Records</em> of op.</p>
+<p>To obtain the set of values of a <em>Key</em> or <em>Attribute Component</em>, first move that <em>Component</em> into the <em>Fact</em> with the <a href="../11-clause-operators/#113-get">get</a> clause <em>Operator</em>, then apply <code>set_of</code> — e.g. <code>set_of(op[get CNT])</code>.</p>
+<h3 id="1325-additional-constraints">13.2.5 Additional Constraints<a class="headerlink" href="#1325-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="1326-behaviour">13.2.6 Behaviour<a class="headerlink" href="#1326-behaviour" title="Permanent link">&para;</a></h3>
+<p>Each <em>Record</em> of op contributes its <em>Fact</em> value. Duplicate values collapse to a single element, and <em>Records</em> whose <em>Fact</em> value is <code>null</code> contribute nothing. The result is a <em>Scalar Set</em> whose element <em>Data Type</em> is that of the <em>Fact Component</em> of op.</p>
+<h3 id="1327-examples">13.2.7 Examples<a class="headerlink" href="#1327-examples" title="Permanent link">&para;</a></h3>
+<p>Considering the following <em>Recordset</em>, generated from the selection <code>{tT1, r010-020}</code>:</p>
+<table>
+<thead>
+<tr>
+<th id="k">refPeriod</th>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022Q1</td>
+<td>010</td>
+<td>ES</td>
+<td>100</td>
+</tr>
+<tr>
+<td>2022Q1</td>
+<td>010</td>
+<td>PT</td>
+<td>200</td>
+</tr>
+<tr>
+<td>2022Q1</td>
+<td>010</td>
+<td>DE</td>
+<td>300</td>
+</tr>
+<tr>
+<td>2022Q1</td>
+<td>010</td>
+<td>IT</td>
+<td>400</td>
+</tr>
+<tr>
+<td>2022Q2</td>
+<td>020</td>
+<td>ES</td>
+<td>500</td>
+</tr>
+<tr>
+<td>2022Q2</td>
+<td>020</td>
+<td>PT</td>
+<td>600</td>
+</tr>
+<tr>
+<td>2022Q2</td>
+<td>020</td>
+<td>DE</td>
+<td>700</td>
+</tr>
+<tr>
+<td>2022Q2</td>
+<td>020</td>
+<td>IT</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<p><code>set_of({tT1, r010-020})</code> results in <code>{100, 200, 300, 400, 500, 600, 700, 800}</code> — the distinct <em>Fact</em> values.</p>
+<p><code>set_of({tT1, r010-020}[get CNT])</code> results in <code>{"ES", "PT", "DE", "IT"}</code> — the <code>get</code> clause first moves <code>CNT</code> into the <em>Fact</em>.</p>
+<h2 id="133-union-union">13.3 Union (union)<a class="headerlink" href="#133-union-union" title="Permanent link">&para;</a></h2>
+<h3 id="1331-syntax">13.3.1 Syntax<a class="headerlink" href="#1331-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>union(</strong> s1, s2 {, s3}* <strong>)</strong></p>
+</blockquote>
+<h3 id="1332-input-parameters">13.3.2 Input Parameters<a class="headerlink" href="#1332-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1, s2, ...: scalar_set &lt;*&gt; | subcategory</p>
+</blockquote>
+<h3 id="1333-output">13.3.3 Output<a class="headerlink" href="#1333-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scalar_set &lt;T&gt;</p>
+</blockquote>
+<h3 id="1334-semantics">13.3.4 Semantics<a class="headerlink" href="#1334-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the <em>Scalar Set</em> of elements present in <strong>any</strong> of the <em>Operands</em>. <code>union</code> accepts two or more <em>Operands</em>.</p>
+<h3 id="1335-additional-constraints">13.3.5 Additional Constraints<a class="headerlink" href="#1335-additional-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1336-behaviour">13.3.6 Behaviour<a class="headerlink" href="#1336-behaviour" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1337-examples">13.3.7 Examples<a class="headerlink" href="#1337-examples" title="Permanent link">&para;</a></h3>
+<p><img alt="Venn diagram for union" src="../../images/venn-union.svg" /></p>
+<ul>
+<li><code>union({1, 2, 3}, {3, 4, 5})</code> results in <code>{1, 2, 3, 4, 5}</code>.</li>
+<li><code>union({1}, {2}, {3})</code> results in <code>{1, 2, 3}</code>.</li>
+</ul>
+<h2 id="134-intersection-intersect">13.4 Intersection (intersect)<a class="headerlink" href="#134-intersection-intersect" title="Permanent link">&para;</a></h2>
+<h3 id="1341-syntax">13.4.1 Syntax<a class="headerlink" href="#1341-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>intersect(</strong> s1, s2 {, s3}* <strong>)</strong></p>
+</blockquote>
+<h3 id="1342-input-parameters">13.4.2 Input Parameters<a class="headerlink" href="#1342-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1, s2, ...: scalar_set &lt;*&gt; | subcategory</p>
+</blockquote>
+<h3 id="1343-output">13.4.3 Output<a class="headerlink" href="#1343-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scalar_set &lt;T&gt;</p>
+</blockquote>
+<h3 id="1344-semantics">13.4.4 Semantics<a class="headerlink" href="#1344-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the <em>Scalar Set</em> of elements present in <strong>all</strong> of the <em>Operands</em>. <code>intersect</code> accepts two or more <em>Operands</em>.</p>
+<h3 id="1345-additional-constraints">13.4.5 Additional Constraints<a class="headerlink" href="#1345-additional-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1346-behaviour">13.4.6 Behaviour<a class="headerlink" href="#1346-behaviour" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1347-examples">13.4.7 Examples<a class="headerlink" href="#1347-examples" title="Permanent link">&para;</a></h3>
+<p><img alt="Venn diagram for intersect" src="../../images/venn-intersect.svg" /></p>
+<ul>
+<li><code>intersect({1, 2, 3}, {3, 4, 5})</code> results in <code>{3}</code>.</li>
+<li><code>intersect({1, 2, 3}, {2, 3, 4}, {3, 4, 5})</code> results in <code>{3}</code>.</li>
+</ul>
+<h2 id="135-set-difference-setdiff">13.5 Set Difference (setdiff)<a class="headerlink" href="#135-set-difference-setdiff" title="Permanent link">&para;</a></h2>
+<h3 id="1351-syntax">13.5.1 Syntax<a class="headerlink" href="#1351-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>setdiff(</strong> s1, s2 <strong>)</strong></p>
+</blockquote>
+<h3 id="1352-input-parameters">13.5.2 Input Parameters<a class="headerlink" href="#1352-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1, s2: scalar_set &lt;*&gt; | subcategory</p>
+</blockquote>
+<h3 id="1353-output">13.5.3 Output<a class="headerlink" href="#1353-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scalar_set &lt;T&gt;</p>
+</blockquote>
+<h3 id="1354-semantics">13.5.4 Semantics<a class="headerlink" href="#1354-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the <em>Scalar Set</em> of elements in <code>s1</code> that are <strong>not</strong> in <code>s2</code>. <code>setdiff</code> is binary and <strong>not</strong> symmetric: the order of the <em>Operands</em> matters.</p>
+<h3 id="1355-additional-constraints">13.5.5 Additional Constraints<a class="headerlink" href="#1355-additional-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1356-behaviour">13.5.6 Behaviour<a class="headerlink" href="#1356-behaviour" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1357-examples">13.5.7 Examples<a class="headerlink" href="#1357-examples" title="Permanent link">&para;</a></h3>
+<p><img alt="Venn diagram for set difference" src="../../images/venn-setdiff.svg" /></p>
+<ul>
+<li><code>setdiff({1, 2, 3}, {3, 4, 5})</code> results in <code>{1, 2}</code>.</li>
+<li><code>setdiff({3, 4, 5}, {1, 2, 3})</code> results in <code>{4, 5}</code>.</li>
+</ul>
+<h2 id="136-symmetric-difference-symdiff">13.6 Symmetric Difference (symdiff)<a class="headerlink" href="#136-symmetric-difference-symdiff" title="Permanent link">&para;</a></h2>
+<h3 id="1361-syntax">13.6.1 Syntax<a class="headerlink" href="#1361-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>symdiff(</strong> s1, s2 <strong>)</strong></p>
+</blockquote>
+<h3 id="1362-input-parameters">13.6.2 Input Parameters<a class="headerlink" href="#1362-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1, s2: scalar_set &lt;*&gt; | subcategory</p>
+</blockquote>
+<h3 id="1363-output">13.6.3 Output<a class="headerlink" href="#1363-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scalar_set &lt;T&gt;</p>
+</blockquote>
+<h3 id="1364-semantics">13.6.4 Semantics<a class="headerlink" href="#1364-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the <em>Scalar Set</em> of elements in <strong>exactly one</strong> of <code>s1</code> or <code>s2</code> — equivalently, <code>setdiff(union(s1, s2), intersect(s1, s2))</code>. <code>symdiff</code> is binary and symmetric.</p>
+<h3 id="1365-additional-constraints">13.6.5 Additional Constraints<a class="headerlink" href="#1365-additional-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1366-behaviour">13.6.6 Behaviour<a class="headerlink" href="#1366-behaviour" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="#131-set-operators-general-behaviour">Set <em>Operators</em>' general behaviour</a>.</li>
+</ul>
+<h3 id="1367-examples">13.6.7 Examples<a class="headerlink" href="#1367-examples" title="Permanent link">&para;</a></h3>
+<p><img alt="Venn diagram for symmetric difference" src="../../images/venn-symdiff.svg" /></p>
+<ul>
+<li><code>symdiff({1, 2, 3}, {3, 4, 5})</code> results in <code>{1, 2, 4, 5}</code>.</li>
+<li><code>symdiff({1, 2}, {1, 2})</code> results in <code>{}</code> (the empty set).</li>
+</ul>
+<h2 id="137-set-equality">13.7 Set Equality (=, !=)<a class="headerlink" href="#137-set-equality" title="Permanent link">&para;</a></h2>
+<p>The equality <em>Operators</em> <code>=</code> and <code>!=</code> accept two set-valued <em>Operands</em> and compare them as <em>Scalar Sets</em>, returning a single Boolean. This is the only comparison defined on <em>Scalar Sets</em>: the ordering <em>Operators</em> (<code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>) and the arithmetic <em>Operators</em> are <strong>not</strong> defined on sets.</p>
+<h3 id="1371-syntax">13.7.1 Syntax<a class="headerlink" href="#1371-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1 <strong>=</strong> s2</p>
+<p>s1 <strong>!=</strong> s2</p>
+</blockquote>
+<h3 id="1372-input-parameters">13.7.2 Input Parameters<a class="headerlink" href="#1372-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>s1, s2: scalar_set &lt;*&gt; | subcategory</p>
+</blockquote>
+<h3 id="1373-output">13.7.3 Output<a class="headerlink" href="#1373-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>scal &lt;boo&gt;</p>
+</blockquote>
+<h3 id="1374-semantics">13.7.4 Semantics<a class="headerlink" href="#1374-semantics" title="Permanent link">&para;</a></h3>
+<p><code>s1 = s2</code> returns <code>true</code> when the two <em>Scalar Sets</em> contain exactly the same elements — every element of <code>s1</code> is in <code>s2</code> and every element of <code>s2</code> is in <code>s1</code> — and <code>false</code> otherwise. <code>s1 != s2</code> is its negation. Membership is decided with the same element-wise equality as the other set <em>Operators</em> (§13.1.4); order and duplicates are irrelevant, since both <em>Operands</em> are <em>Scalar Sets</em>.</p>
+<p>The empty set is written <code>{}</code>. Comparing against it tests emptiness: <code>s = {}</code> is <code>true</code> exactly when <code>s</code> has no elements.</p>
+<h3 id="1375-additional-constraints">13.7.5 Additional Constraints<a class="headerlink" href="#1375-additional-constraints" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The two <em>Operands</em> must have compatible element <em>Data Types</em>, following the same rule as the combining set <em>Operators</em> (§13.1.5).</li>
+<li>Set equality applies when <strong>both</strong> <em>Operands</em> are set-valued (a set literal, a set <em>Operator</em> result, a <code>set-*</code> <em>Parameter</em>, or a <em>Subcategory</em>). When both <em>Operands</em> are instead <em>Scalars</em> or <em>Recordsets</em>, <code>=</code> and <code>!=</code> denote the ordinary <a href="../05-comparison-operators/#52-equal">comparison</a> (§5.2, §5.3); a comparison that mixes a <em>Scalar Set</em> with a <em>Scalar</em> or <em>Recordset</em> is rejected by semantic analysis. The grammar does not distinguish these cases — the choice is made from the <em>Operand</em> types. For instance, <code>{c020} = {c030}</code> is a <em>Recordset</em> comparison when <code>c020</code>/<code>c030</code> are ordinary <em>Recordset</em> selections; wrap an <em>Operand</em> in <code>set_of</code> (or use a set literal or set <em>Operator</em>) to make the comparison set-valued.</li>
+</ul>
+<h3 id="1376-behaviour">13.7.6 Behaviour<a class="headerlink" href="#1376-behaviour" title="Permanent link">&para;</a></h3>
+<p>Both <em>Operands</em> are evaluated to <em>Scalar Sets</em> and compared by value; the result is a single Boolean <em>Scalar</em>.</p>
+<h3 id="1377-examples">13.7.7 Examples<a class="headerlink" href="#1377-examples" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>{1, 2, 3} = {3, 2, 1}</code> results in <code>true</code> (order does not matter).</li>
+<li><code>{1, 2} = {1, 2, 3}</code> results in <code>false</code>.</li>
+<li><code>symdiff({1, 2}, {1, 2}) = {}</code> results in <code>true</code> (equal sets have an empty symmetric difference).</li>
+<li><code>setdiff({tT1, r010}[get CNT], {tT2, r020}[get CNT]) = {}</code> results in <code>true</code> when every <code>CNT</code> value of the first selection also appears in the second — i.e. the first set is a subset of the second. Each selection is coerced to its <em>Scalar Set</em> (§13.1.5), so no explicit <code>set_of</code> is needed.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.view"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": ["latest"], "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>
