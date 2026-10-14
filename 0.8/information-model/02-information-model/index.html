@@ -1,0 +1,1348 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="Comprehensive documentation for the Data Point Model Expression Language" name="description"/>
+<meta content="EBA and EIOPA" name="author"/>
+<link href="../01-introduction/" rel="prev"/>
+<link href="../03-data-selection/" rel="next"/>
+<link href="../../assets/images/favicon.png" rel="icon"/>
+<meta content="mkdocs-1.6.1, mkdocs-material-9.6.16" name="generator"/>
+<title>Information Model - DPM Expression Language (DPM-XL) Documentation</title>
+<link href="../../assets/stylesheets/main.7e37652d.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.06af60db.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback" rel="stylesheet"/>
+<style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+<link href="../../style.css" rel="stylesheet"/>
+<script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+</head>
+<body data-md-color-accent="blue" data-md-color-primary="indigo" data-md-color-scheme="default" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#2-information-model">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<div data-md-color-scheme="default" data-md-component="outdated" hidden="">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header__inner md-grid">
+<a aria-label="DPM Expression Language (DPM-XL) Documentation" class="md-header__button md-logo" data-md-component="logo" href="../.." title="DPM Expression Language (DPM-XL) Documentation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+<label class="md-header__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+</label>
+<div class="md-header__title" data-md-component="header-title">
+<div class="md-header__ellipsis">
+<div class="md-header__topic">
+<span class="md-ellipsis">
+            DPM Expression Language (DPM-XL) Documentation
+          </span>
+</div>
+<div class="md-header__topic" data-md-component="header-topic">
+<span class="md-ellipsis">
+            
+              Information Model
+            
+          </span>
+</div>
+</div>
+</div>
+<form class="md-header__option" data-md-component="palette">
+<input aria-label="Switch to dark mode" class="md-option" data-md-color-accent="blue" data-md-color-media="(prefers-color-scheme: light)" data-md-color-primary="indigo" data-md-color-scheme="default" id="__palette_0" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_1" hidden="" title="Switch to dark mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+<input aria-label="Switch to light mode" class="md-option" data-md-color-accent="blue" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-primary="indigo" data-md-color-scheme="slate" id="__palette_1" name="__palette" type="radio"/>
+<label class="md-header__button md-icon" for="__palette_0" hidden="" title="Switch to light mode">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+</label>
+</form>
+<script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+<label class="md-header__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+</label>
+<nav aria-label="Search" class="md-search__options">
+<a aria-label="Share" class="md-search__icon md-icon" data-clipboard="" data-clipboard-text="" data-md-component="search-share" href="javascript:void(0)" tabindex="-1" title="Share">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+</a>
+<button aria-label="Clear" class="md-search__icon md-icon" tabindex="-1" title="Clear" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+</button>
+</nav>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="" tabindex="0">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list" role="presentation"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md-header__source">
+<a class="md-source" data-md-component="source" href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4" fill="currentColor"></path></svg>
+</div>
+<div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<nav aria-label="Tabs" class="md-tabs" data-md-component="tabs">
+<div class="md-grid">
+<ul class="md-tabs__list">
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../..">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+</li>
+<li class="md-tabs__item md-tabs__item--active">
+<a class="md-tabs__link" href="../01-introduction/">
+          
+  
+  
+  Information Model
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../operators/01-introduction/">
+          
+  
+  
+  Operators
+
+        </a>
+</li>
+<li class="md-tabs__item">
+<a class="md-tabs__link" href="../../grammar/01-introduction/">
+          
+  
+  
+  Grammar
+
+        </a>
+</li>
+</ul>
+</div>
+</nav>
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary md-nav--lifted" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="DPM Expression Language (DPM-XL) Documentation" class="md-nav__button md-logo" data-md-component="logo" href="../.." title="DPM Expression Language (DPM-XL) Documentation">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
+</a>
+    DPM Expression Language (DPM-XL) Documentation
+  </label>
+<div class="md-nav__source">
+<a class="md-source" data-md-component="source" href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository">
+<div class="md-source__icon md-icon">
+<svg viewbox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4" fill="currentColor"></path></svg>
+</div>
+<div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+</div>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+<span class="md-ellipsis">
+    Home
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" id="__nav_2" type="checkbox"/>
+<label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+<span class="md-ellipsis">
+    Information Model
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="true" aria-labelledby="__nav_2_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_2">
+<span class="md-nav__icon md-icon"></span>
+            Information Model
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" id="__toc" type="checkbox"/>
+<label class="md-nav__link md-nav__link--active" for="__toc">
+<span class="md-ellipsis">
+    Information Model
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<a class="md-nav__link md-nav__link--active" href="./">
+<span class="md-ellipsis">
+    Information Model
+    
+  </span>
+</a>
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#21-operations">
+<span class="md-ellipsis">
+      2.1 Operations
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22-language-artifacts">
+<span class="md-ellipsis">
+      2.2 Language Artifacts
+    </span>
+</a>
+<nav aria-label="2.2 Language Artifacts" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#221-scalars">
+<span class="md-ellipsis">
+      2.2.1 Scalars
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#222-scalar-sets">
+<span class="md-ellipsis">
+      2.2.2 Scalar Sets
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#223-recordsets">
+<span class="md-ellipsis">
+      2.2.3 Recordsets
+    </span>
+</a>
+<nav aria-label="2.2.3 Recordsets" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2231-key-components">
+<span class="md-ellipsis">
+      2.2.3.1 Key Components
+    </span>
+</a>
+<nav aria-label="2.2.3.1 Key Components" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22311-standard-dpm-xl-key-components">
+<span class="md-ellipsis">
+      2.2.3.1.1 Standard DPM-XL Key Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22312-standard-dpm-ml-key-components">
+<span class="md-ellipsis">
+      2.2.3.1.2 Standard DPM-ML Key Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22313-dpm-key-components">
+<span class="md-ellipsis">
+      2.2.3.1.3 DPM Key Components
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2232-fact-component">
+<span class="md-ellipsis">
+      2.2.3.2 Fact Component
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2233-attribute-components">
+<span class="md-ellipsis">
+      2.2.3.3 Attribute Components
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#224-examples">
+<span class="md-ellipsis">
+      2.2.4 Examples
+    </span>
+</a>
+<nav aria-label="2.2.4 Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2241-closed-variable-selection">
+<span class="md-ellipsis">
+      2.2.4.1 Closed Variable Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2242-open-variable-selection">
+<span class="md-ellipsis">
+      2.2.4.2 Open Variable Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2243-variable-set-selection">
+<span class="md-ellipsis">
+      2.2.4.3 Variable Set Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2244-key-variable-selection">
+<span class="md-ellipsis">
+      2.2.4.4 Key Variable Selection
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#23-data-types">
+<span class="md-ellipsis">
+      2.3 Data Types
+    </span>
+</a>
+<nav aria-label="2.3 Data Types" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#231-correspondences-with-dpm-data-types">
+<span class="md-ellipsis">
+      2.3.1 Correspondences with DPM Data Types
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#232-casting">
+<span class="md-ellipsis">
+      2.3.2 Casting
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#233-conventions-to-write-scalars">
+<span class="md-ellipsis">
+      2.3.3 Conventions to Write Scalars
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../03-data-selection/">
+<span class="md-ellipsis">
+    DPM-XL Data Selection
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../04-null-treatment/">
+<span class="md-ellipsis">
+    Null handling
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../05-dpm-ml/">
+<span class="md-ellipsis">
+    DPM-ML
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_3" type="checkbox"/>
+<label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+<span class="md-ellipsis">
+    Operators
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_3_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_3">
+<span class="md-nav__icon md-icon"></span>
+            Operators
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/02-general-behaviour/">
+<span class="md-ellipsis">
+    General behaviour
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/03-selection-operators/">
+<span class="md-ellipsis">
+    Selection
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/04-numeric-operators/">
+<span class="md-ellipsis">
+    Numeric
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/05-comparison-operators/">
+<span class="md-ellipsis">
+    Comparison
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/06-logical-operators/">
+<span class="md-ellipsis">
+    Logical
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/07-aggregate-operators/">
+<span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/08-conditional-operators/">
+<span class="md-ellipsis">
+    Conditional
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/09-string-operators/">
+<span class="md-ellipsis">
+    String
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/10-time-operators/">
+<span class="md-ellipsis">
+    Time
+    
+  </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../operators/11-clause-operators/">
+<span class="md-ellipsis">
+    Clause
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle md-toggle--indeterminate" id="__nav_4" type="checkbox"/>
+<label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+<span class="md-ellipsis">
+    Grammar
+    
+  </span>
+<span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-expanded="false" aria-labelledby="__nav_4_label" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="__nav_4">
+<span class="md-nav__icon md-icon"></span>
+            Grammar
+          </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../grammar/01-introduction/">
+<span class="md-ellipsis">
+    Introduction
+    
+  </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="__toc">
+<span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+<ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#21-operations">
+<span class="md-ellipsis">
+      2.1 Operations
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22-language-artifacts">
+<span class="md-ellipsis">
+      2.2 Language Artifacts
+    </span>
+</a>
+<nav aria-label="2.2 Language Artifacts" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#221-scalars">
+<span class="md-ellipsis">
+      2.2.1 Scalars
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#222-scalar-sets">
+<span class="md-ellipsis">
+      2.2.2 Scalar Sets
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#223-recordsets">
+<span class="md-ellipsis">
+      2.2.3 Recordsets
+    </span>
+</a>
+<nav aria-label="2.2.3 Recordsets" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2231-key-components">
+<span class="md-ellipsis">
+      2.2.3.1 Key Components
+    </span>
+</a>
+<nav aria-label="2.2.3.1 Key Components" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22311-standard-dpm-xl-key-components">
+<span class="md-ellipsis">
+      2.2.3.1.1 Standard DPM-XL Key Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22312-standard-dpm-ml-key-components">
+<span class="md-ellipsis">
+      2.2.3.1.2 Standard DPM-ML Key Components
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#22313-dpm-key-components">
+<span class="md-ellipsis">
+      2.2.3.1.3 DPM Key Components
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2232-fact-component">
+<span class="md-ellipsis">
+      2.2.3.2 Fact Component
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2233-attribute-components">
+<span class="md-ellipsis">
+      2.2.3.3 Attribute Components
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#224-examples">
+<span class="md-ellipsis">
+      2.2.4 Examples
+    </span>
+</a>
+<nav aria-label="2.2.4 Examples" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2241-closed-variable-selection">
+<span class="md-ellipsis">
+      2.2.4.1 Closed Variable Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2242-open-variable-selection">
+<span class="md-ellipsis">
+      2.2.4.2 Open Variable Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2243-variable-set-selection">
+<span class="md-ellipsis">
+      2.2.4.3 Variable Set Selection
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#2244-key-variable-selection">
+<span class="md-ellipsis">
+      2.2.4.4 Key Variable Selection
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#23-data-types">
+<span class="md-ellipsis">
+      2.3 Data Types
+    </span>
+</a>
+<nav aria-label="2.3 Data Types" class="md-nav">
+<ul class="md-nav__list">
+<li class="md-nav__item">
+<a class="md-nav__link" href="#231-correspondences-with-dpm-data-types">
+<span class="md-ellipsis">
+      2.3.1 Correspondences with DPM Data Types
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#232-casting">
+<span class="md-ellipsis">
+      2.3.2 Casting
+    </span>
+</a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="#233-conventions-to-write-scalars">
+<span class="md-ellipsis">
+      2.3.3 Conventions to Write Scalars
+    </span>
+</a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content" data-md-component="content">
+<article class="md-content__inner md-typeset">
+<a class="md-content__button md-icon" href="https://github.com/dpm-alliance/dpm-xl-docs/raw/0.8/docs/information-model/02-information-model.md" title="View source of this page">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"></path></svg>
+</a>
+<h1 id="2-information-model">2 Information Model<a class="headerlink" href="#2-information-model" title="Permanent link">¶</a></h1>
+<h2 id="21-operations">2.1 Operations<a class="headerlink" href="#21-operations" title="Permanent link">¶</a></h2>
+<div class="mermaid">classDiagram
+    class Script
+    class Operation
+    class Result
+    class Operand
+    class Operator
+    class LanguageArtifact
+    class Output
+    Class Input
+
+    Script *-- Operation
+    Operation --&gt; "1..1" Result : Produces
+    Operation --&gt; "0..n" Operand : Acts on
+    Operation --&gt; "0..n" Operator: Uses
+    Result --|&gt; LanguageArtifact
+    Operand --|&gt; LanguageArtifact
+    Operator --&gt; "1..1" Output : Produces
+    Operator --&gt; "0..n" Input : Uses
+    Output --&gt; Input
+    Operand --&gt; Input
+
+    style Script fill:#0098f6
+    style Operation fill:#0098f6
+    style Result fill:#0098f6
+    style Operand fill:#0098f6
+    style Operator fill:#0098f6
+    style LanguageArtifact fill:#04f286
+    style Input fill:#0098f6
+    style Output fill:#0098f6
+</div>
+<p>The DPM <em>Operations</em> serve to write <em>Scripts</em>, which are computer programs that constitute a run-time and are composed of <em>Operations</em>.</p>
+<p><em>Operations</em> are expressions that use input <em>Operands</em> and/or <em>Operators</em> to produce a result.</p>
+<p>Expressions are finite combinations of symbols that are well-formed according to the syntactical rules of the language. Expressions compose some <em>Operands</em> in a certain order by means of the <em>Operators</em> of the language, to obtain the desired result. The symbols of the expression designate <em>Operators</em>, <em>Operands</em>, and the order of application of the <em>Operators</em>.</p>
+<p><em>Operators</em> specify a type of operation to be performed on some input <em>Operands</em> (exceptionally, there may be <em>Operators</em> that do not take <em>Operands</em> as input, e.g., an <em>Operator</em> to get the current time) to generate an output. The output produced by one <em>Operator</em> may be used as input for another <em>Operator</em> (i.e., <em>Operators</em> can be nested).</p>
+<p><em>Operands</em> are specific artifacts from the DPM Expression Language referenced in an expression as input.</p>
+<p>The result produced by an <em>Operation</em> is also a specific artifact from the DPM Expression Language.</p>
+<h2 id="22-language-artifacts">2.2 Language Artifacts<a class="headerlink" href="#22-language-artifacts" title="Permanent link">¶</a></h2>
+<div class="mermaid">classDiagram
+    class LanguageArtifact
+    class Recordset
+    class Scalar
+    class ScalarSet
+    class DataType
+
+    Recordset --|&gt; LanguageArtifact
+    Scalar --|&gt; LanguageArtifact
+    ScalarSet --|&gt; LanguageArtifact
+
+    Recordset --&gt; DataType : Defined on
+    Scalar --&gt; DataType : Defined on
+    ScalarSet --&gt; "1..n" Scalar
+
+    style LanguageArtifact fill:#04f286
+    style Recordset fill:#04f286
+    style Scalar fill:#04f286
+    style ScalarSet fill:#04f286
+    style DataType fill:#ecdc0a
+</div>
+<p>DPM Expression Language calculations can operate on and generate as results three different types of <em>Artifacts</em>.</p>
+<h3 id="221-scalars">2.2.1 Scalars<a class="headerlink" href="#221-scalars" title="Permanent link">¶</a></h3>
+<p><em>Scalars</em> are individual values of a certain <em>Data Type</em>.</p>
+<h3 id="222-scalar-sets">2.2.2 Scalar Sets<a class="headerlink" href="#222-scalar-sets" title="Permanent link">¶</a></h3>
+<p><em>Scalar Sets</em> are sets of <em>Scalar</em> values defined on the same <em>Data Type</em>. <em>Scalar Sets</em> are typically used with the in operator.</p>
+<h3 id="223-recordsets">2.2.3 Recordsets<a class="headerlink" href="#223-recordsets" title="Permanent link">¶</a></h3>
+<div class="mermaid">classDiagram
+    class Recordset
+    class Records
+    class Structure
+    class Component
+    class KeyComponent
+    class FactComponent
+    class AttributeComponent
+    class DataType
+
+    Recordset *-- Records
+    Recordset --&gt; Structure : Structured by
+    Structure *-- Component
+    Component --&gt; DataType : Defined on
+    KeyComponent --|&gt; Component
+    FactComponent --|&gt; Component
+    AttributeComponent --|&gt; Component
+
+
+
+    style Recordset fill:#04f286
+    style Records fill:#04f286
+    style Structure fill:#04f286
+    style Component fill:#04f286
+    style KeyComponent fill:#04f286
+    style FactComponent fill:#04f286
+    style AttributeComponent fill:#04f286
+    style DataType fill:#ecdc0a
+</div>
+<p><em>Recordsets</em> are collections of <em>Records</em> that share a same <em>Structure</em>. Technically, <em>Recordsets</em> are two-dimensional labelled data structures (tabular), which can be assimilated to Relational Tables or Data Frames. The columns (fields) of the <em>Recordset</em> are provided by the <em>Components</em> of its <em>Structure</em>. The rows of the <em>Recordset</em> are its composing <em>Records</em>.</p>
+<p>The <em>Structure</em> of the <em>Recordset</em> is a collection of <em>Components</em>, which can have one of three roles: <em>Key</em>, <em>Fact</em> or <em>Attribute</em>. Each <em>Component</em> has a name, which must be unique within the <em>Recordset</em>. <em>Key</em> and <em>Attribute Components</em> are defined on a <em>Data Type</em>. <em>Fact Components</em> may be defined on more than one <em>Data Type</em>, when more than one <em>Variable</em> is selected. In any case, the <em>Data Type</em> is known for each selected <em>Variable</em>.</p>
+<p>Each <em>Record</em> of the <em>Recordset</em> is individually identified by the combination of the values for its <em>Key Components</em>.</p>
+<p>A <em>Recordset</em> having no <em>Key Components</em> behaves like a <em>Scalar</em>.</p>
+<p>A <em>Recordset</em> may have no records.</p>
+<h4 id="2231-key-components">2.2.3.1 Key Components<a class="headerlink" href="#2231-key-components" title="Permanent link">¶</a></h4>
+<div class="mermaid">classDiagram
+    class KeyComponent
+    class StandardKey
+    class DpmKey
+    class DpmXlStandardKey
+    class DpmMlStandardKey
+    class RowKey
+    class ColumnKey
+    class SheetKey
+    class XIndexKey
+    class YIndexKey
+    class ZIndexKey
+
+    StandardKey --|&gt; KeyComponent
+    DpmKey --|&gt; KeyComponent
+    DpmXlStandardKey --|&gt; StandardKey
+    DpmMlStandardKey --|&gt; StandardKey
+    RowKey --|&gt; DpmXlStandardKey
+    ColumnKey --|&gt; DpmXlStandardKey
+    SheetKey --|&gt; DpmXlStandardKey
+    XIndexKey --|&gt; DpmMlStandardKey
+    YIndexKey --|&gt; DpmMlStandardKey
+    ZIndexKey --|&gt; DpmMlStandardKey    
+
+    style KeyComponent fill:#04f286
+    style StandardKey fill:#04f286
+    style DpmKey fill:#04f286
+    style DpmXlStandardKey fill:#04f286
+    style DpmMlStandardKey fill:#04f286
+    style RowKey fill:#04f286
+    style ColumnKey fill:#04f286
+    style SheetKey fill:#04f286
+    style XIndexKey fill:#04f286
+    style YIndexKey fill:#04f286
+    style ZIndexKey fill:#04f286
+</div>
+<p><em>Key Components</em> may be <em>Standard</em> or <em>DPM</em>. <em>Standard Key Components</em> are different for DPM-ML and DPM-XL, although their behaviour is the same.</p>
+<p><em>Standard Key Components</em> are common to all the <em>Recordsets</em>, independently on how the <em>Variables</em> are defined in the DPM. For each <em>Recordset</em>, there may be 0 or 1 occurrence of each subtype of <em>Standard Key Component</em>.</p>
+<h5 id="22311-standard-dpm-xl-key-components">2.2.3.1.1 Standard DPM-XL Key Components<a class="headerlink" href="#22311-standard-dpm-xl-key-components" title="Permanent link">¶</a></h5>
+<ul>
+<li><strong>Row Key</strong>: Identifies the Row Ordinate from a Report Table where the selected <em>Variable</em> is located. Arises in <em>Variable Set</em> Selections, when more than one Row for one Report Table is selected. The name for the <em>Component</em> is "r". It is defined on the String <em>Data Type</em>.</li>
+<li><strong>Column Key</strong>: Identifies the Column Ordinate from a Report Table where the selected <em>Variable</em> is located. Arises in <em>Variable Set</em> Selections, when more than one Column for one Report Table is selected. The name for the <em>Component</em> is "c". It is defined on the String <em>Data Type</em>.</li>
+<li><strong>Sheet Key</strong>: Identifies the Sheet Ordinate from a Report Table where the selected <em>Variable</em> is located. Arises in <em>Variable Set</em> Selections, when more than one Sheet for one Report Table is selected. The name for the <em>Component</em> is "s". It is defined on the String <em>Data Type</em>.</li>
+</ul>
+<h5 id="22312-standard-dpm-ml-key-components">2.2.3.1.2 Standard DPM-ML Key Components<a class="headerlink" href="#22312-standard-dpm-ml-key-components" title="Permanent link">¶</a></h5>
+<p>Regarding the DPM-ML, the <em>Standard Components</em> are three indexes, which do not represent any DPM object. They just serve to make sure that the right <em>Variables</em> are matched together when used with an <em>Operator</em>. The names for these <em>Components</em> are "x", "y" and "z". Note that these indexes do not necessarily correspond to rows, columns, and sheets. During the conversion from DPM-XL, the values of the indexes for each <em>Variable</em> shall be provided according to algorithms.</p>
+<h5 id="22313-dpm-key-components">2.2.3.1.3 DPM Key Components<a class="headerlink" href="#22313-dpm-key-components" title="Permanent link">¶</a></h5>
+<p><em>DPM Key Components</em> are specific to how data is defined in the DPM. Arise when Open <em>Variables</em> are selected, and a <em>Recordset</em> will have one <em>DPM Key Component</em> per each <em>Key Variable</em> associated to the selected <em>Variables</em>.</p>
+<p>The name for the <em>DPM Key Components</em> is the Code of the Property associated to the DPM <em>Key Variable</em>.</p>
+<h4 id="2232-fact-component">2.2.3.2 Fact Component<a class="headerlink" href="#2232-fact-component" title="Permanent link">¶</a></h4>
+<p>A <em>Recordset</em> has one mandatory, and only one, <em>Fact Component</em>. The name for the <em>Component</em> is "f". Its <em>Data Type</em> depends on the <em>Data Type</em> of the selected <em>Variables</em>.</p>
+<p>If a DPM <em>Key Variable</em> is selected, the resulting <em>Recordset</em> will have the values for that <em>Variable</em> in the <em>Fact Component</em>, on top of having them in their corresponding <em>Key Component</em>. See example in section 2.2.4.4.</p>
+<h4 id="2233-attribute-components">2.2.3.3 Attribute Components<a class="headerlink" href="#2233-attribute-components" title="Permanent link">¶</a></h4>
+<p><em>Attribute Components</em> provide additional information to the <em>Fact</em> value.</p>
+<p>DPM <em>Attribute Components</em> are specific to how data is defined in the DPM. Arise when a <em>Variable</em> with associated <em>Attribute Variable</em> is selected. A <em>Recordset</em> will have one DPM <em>Attribute Component</em> per each Property or Metric associated to any <em>Attribute Variable</em> associated to the selected <em>Variables</em>.</p>
+<p>The name for the DPM <em>Attribute Components</em> is the Code of the Property associated to the DPM <em>Attribute Variable</em>.</p>
+<h3 id="224-examples">2.2.4 Examples<a class="headerlink" href="#224-examples" title="Permanent link">¶</a></h3>
+<p><em>Recordsets</em> arise from Open <em>Variable</em> selections or from selection of multiple <em>Variables</em>.</p>
+<h4 id="2241-closed-variable-selection">2.2.4.1 Closed Variable Selection<a class="headerlink" href="#2241-closed-variable-selection" title="Permanent link">¶</a></h4>
+<p>For instance, taking as an example EBA's Table F 01.01:</p>
+<p><img alt="image" src="../../immages/information-model-01.png"/></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-0-1" id="__codelineno-0-1" name="__codelineno-0-1"></a>{tF_01.01, r0010, c0010}
+</code></pre></div>
+<p>In the context of a single instance (i.e., disregarding the "ref_date" and the "subject"), selects a <em>Recordset</em> without <em>Key Components</em>, which works as a <em>Scalar</em> with value 100.</p>
+<p>In the context of data with multiple dates and/or reference dates, and supposing that the data refer to the subject with code "id123" and to the date 31/12/2020, and that it has been reported with a 1 precision (attribute):</p>
+<table>
+<thead>
+<tr>
+<th id="k">subject</th>
+<th id="k">ref_date</th>
+<th id="f">f</th>
+<th id="a">p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id123</td>
+<td>2020-12-31</td>
+<td>100</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2242-open-variable-selection">2.2.4.2 Open Variable Selection<a class="headerlink" href="#2242-open-variable-selection" title="Permanent link">¶</a></h4>
+<p><img alt="image" src="../../immages/information-model-02.png"/></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-1-1" id="__codelineno-1-1" name="__codelineno-1-1"></a>{F 40.01 c0031}
+</code></pre></div>
+<p>Selects an Open <em>Variable</em>. In this illustrative example, yields a <em>Recordset</em> with three <em>Records</em>. The <em>Recordset</em>, in the context of a single instance, has two DPM <em>Key Components</em>, because the selected <em>Variable</em> (the one rendered in Column 0031 of Report Table F 40.01) is associated in the DPM to a <em>Key</em> with two <em>Key Variables</em>. These <em>Key Variables</em> are associated to Properties with codes "LIN" (rendered in Column 0011) and "TYC" (rendered in Column 0015).</p>
+<p>The following table represents the <em>Recordset</em>:</p>
+<table>
+<thead>
+<tr>
+<th id="k">LIN</th>
+<th id="k">TYC</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>123456</td>
+<td>LEI</td>
+<td>Name 1</td>
+</tr>
+<tr>
+<td>123456</td>
+<td>ISIN</td>
+<td>Name 2</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>LEI</td>
+<td>Name 3</td>
+</tr>
+</tbody>
+</table>
+<h4 id="2243-variable-set-selection">2.2.4.3 Variable Set Selection<a class="headerlink" href="#2243-variable-set-selection" title="Permanent link">¶</a></h4>
+<p><img alt="image" src="../../immages/information-model-03.png"/></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-2-1" id="__codelineno-2-1" name="__codelineno-2-1"></a>{F 20.05 r0020-0030, c0010}
+</code></pre></div>
+<p>This case selects a set of <em>Variables</em> because the selection includes more than one Row. This implies that the <em>Row Key Component</em> applies to this <em>Recordset</em>. Besides, the selected <em>Variables</em> are associated to a <em>Key</em> with a single <em>Key Variable</em>, which is associated to a property with code "RCP".</p>
+<table>
+<thead>
+<tr>
+<th id="k">RCP</th>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES</td>
+<td>0020</td>
+<td>200</td>
+</tr>
+<tr>
+<td>ES</td>
+<td>0030</td>
+<td>300</td>
+</tr>
+<tr>
+<td>PT</td>
+<td>0020</td>
+<td>500</td>
+</tr>
+<tr>
+<td>PT</td>
+<td>0030</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+<p>In this case, the <em>Recordset</em> for the DPM-ML would be slightly different because of the change in the <em>Standard Key Component</em>. Instead of the row, we would have any of the three indexes. For instance, using the x index:</p>
+<table>
+<thead>
+<tr>
+<th id="k">RCP</th>
+<th id="k">x</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES</td>
+<td>1</td>
+<td>200</td>
+</tr>
+<tr>
+<td>ES</td>
+<td>2</td>
+<td>300</td>
+</tr>
+<tr>
+<td>PT</td>
+<td>1</td>
+<td>500</td>
+</tr>
+<tr>
+<td>PT</td>
+<td>2</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the important thing for DPM-ML to be consistent is that all the <em>Records</em> with the same row share the same index.</p>
+<h4 id="2244-key-variable-selection">2.2.4.4 Key Variable Selection<a class="headerlink" href="#2244-key-variable-selection" title="Permanent link">¶</a></h4>
+<p><img alt="image" src="../../immages/information-model-04.png"/></p>
+<div class="highlight"><pre><span></span><code><a href="#__codelineno-3-1" id="__codelineno-3-1" name="__codelineno-3-1"></a>{F 40.01 c0015}
+</code></pre></div>
+<p>Selects an Open <em>Key Variable</em>. The <em>Recordset</em>, in the context of a single instance, has two DPM <em>Key Components</em>, because the selected <em>Variable</em> (the one rendered in Column 0015 of Report Table F 40.01) is associated in the DPM to a <em>Key</em> with two <em>Key Variables</em> (in fact, it is part of the <em>Key</em>). These <em>Key Variables</em> are associated to Properties with codes "LIN" (rendered in Column 0011) and "TYC" (rendered in Column 0015).</p>
+<p>The following table represents the <em>Recordset</em>:</p>
+<table>
+<thead>
+<tr>
+<th id="k">LIN</th>
+<th id="k">TYC</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>123456</td>
+<td>LEI</td>
+<td>LEI</td>
+</tr>
+<tr>
+<td>123456</td>
+<td>ISIN</td>
+<td>ISIN</td>
+</tr>
+<tr>
+<td>1111</td>
+<td>LEI</td>
+<td>LEI</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the resulting <em>Recordset</em> has the values for the type of code two times, one as <em>Key Component</em> and another as <em>Fact Component</em>. This is necessary to allow doing calculations on the <em>Fact</em> while keeping all the <em>Records</em> in the <em>Recordset</em> uniquely identified.</p>
+<h2 id="23-data-types">2.3 Data Types<a class="headerlink" href="#23-data-types" title="Permanent link">¶</a></h2>
+<p>DPM <em>Operations</em> data types are defined with the principle: Create only a data type if they have different behaviour to other data types with at least one <em>Operator</em>.</p>
+<p>The data types are:</p>
+<ul>
+<li><strong>String</strong>: Sequence of alphanumeric characters of any length.</li>
+<li><strong>Number</strong>: Is a rational number of any magnitude and precision, also used as approximation of a real number. Numbers can be treated as points or as intervals. Intervals are defined as a centre plus and minus a radius (c ± r). The centre is the input value provided. The radius is calculated based on the precision of the number as <code>10⁻ᵖ/2</code>.</li>
+<li><strong>Integer</strong>: Positive and negative integer numbers and zero. It Is a subtype of the type Number. As Number subtypes, Integers can be treated as intervals.</li>
+<li><strong>Time interval</strong> denotes time intervals of any duration and expressed with a precision. According to ISO 8601 (ISO standard for the representation of dates and times), a time interval is the intervening time between two time points.</li>
+<li><strong>Date</strong> is a subtype of the type Time which denotes time points expressed at any precision, which are time intervals starting and ending in the same time point (i.e., intervals of zero duration). A value of type Date includes all the parts needed to identify a time point at the desired precision, like the year, the month, the day, the hour, the minute and so on (for example, 2018-04-05 is the fifth of April 2018, at the precision of the day).</li>
+<li><strong>Time period</strong> is a subtype of the type Time, and denotes non-overlapping time intervals having a regular duration (for example the years, the quarters of years, the months, the weeks and so on). A value of the type Time Period is composite and must include all the parts needed to identify a regular time period at the desired precision; in particular, the Time Period type includes the explicit indication of the kind of regular period considered (e.g., "day", "week", "month", "quarter" …). For example, the value 2018M04, assuming that "M" stands for "month", denotes the month n.4 of the 2018 (April 2018). Moreover, 2018Q2, assuming that "Q" stands for "quarter", denotes the second quarter of 2018. In these examples, the letters M and Q are used to denote the kind of period through its duration.</li>
+<li><strong>Boolean</strong>: denotes a logical binary state, meaning either <code>true</code> or <code>false</code>.</li>
+<li><strong>Category items</strong>: A reference to the code of a Category Item.</li>
+<li><strong>Subcategories</strong>: A reference to the code of a Subcategory.</li>
+</ul>
+<h3 id="231-correspondences-with-dpm-data-types">2.3.1 Correspondences with DPM Data Types<a class="headerlink" href="#231-correspondences-with-dpm-data-types" title="Permanent link">¶</a></h3>
+<p>The DPM provides a wider list of data types. This is because greater granularity in the data typology may be useful for reporting or representation purposes (e.g., a monetary amount requires a currency attribute, while a pure number does not).</p>
+<p>For each DPM data type there is one, and only one DPM-XL <em>Data type</em>.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Code</strong></th>
+<th><strong>Name</strong></th>
+<th><strong>DPM-XL type</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>i</td>
+<td>integer</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>r</td>
+<td>decimal</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>s</td>
+<td>string (non empty)</td>
+<td>String</td>
+</tr>
+<tr>
+<td>b</td>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>t</td>
+<td>true</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>dt</td>
+<td>date time</td>
+<td>Date</td>
+</tr>
+<tr>
+<td>d</td>
+<td>date</td>
+<td>Date</td>
+</tr>
+<tr>
+<td>e</td>
+<td>enumeration</td>
+<td>Category Items</td>
+</tr>
+<tr>
+<td>m</td>
+<td>monetary</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>p</td>
+<td>percentage</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>u</td>
+<td>URI</td>
+<td>String</td>
+</tr>
+<tr>
+<td>o</td>
+<td>ordinals</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>es</td>
+<td>string (including empty string)</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<h3 id="232-casting">2.3.2 Casting<a class="headerlink" href="#232-casting" title="Permanent link">¶</a></h3>
+<p>The casting between data types is possible. Casting can be done explicitly, if the cast <em>Operator</em> is used, or implicitly when it is allowed. The following table contains all the casting options.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>String</th>
+<th>Number</th>
+<th>Integer</th>
+<th>Time interval</th>
+<th>Date</th>
+<th>Time period</th>
+<th>Duration</th>
+<th>Boolean</th>
+<th>Item</th>
+<th>Subcategory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>String</strong></td>
+<td></td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Explicit</td>
+</tr>
+<tr>
+<td><strong>Number</strong></td>
+<td>Implicit</td>
+<td></td>
+<td>Explicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Integer</strong></td>
+<td>Implicit</td>
+<td>Implicit</td>
+<td></td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Time interval</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td></td>
+<td>Explicit</td>
+<td>Explicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Date</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Implicit</td>
+<td></td>
+<td>Explicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Time period</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td></td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td></td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Boolean</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td></td>
+<td>Not possible</td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Item</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td></td>
+<td>Not possible</td>
+</tr>
+<tr>
+<td><strong>Subcategory</strong></td>
+<td>Implicit</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td>Not possible</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="233-conventions-to-write-scalars">2.3.3 Conventions to Write Scalars<a class="headerlink" href="#233-conventions-to-write-scalars" title="Permanent link">¶</a></h3>
+<p>To the effects of DPM-XL, when writing <em>Scalars</em>, the following conventions should be followed:</p>
+<ul>
+<li><strong>String</strong>: Between double quotes ("this is a string") or single quotes ('this is also a string')</li>
+<li><strong>Number</strong>: Sequence of numeric digits. Dot (".") shall be used to separate the decimal and the integer part.</li>
+<li><strong>Integer</strong>: Sequence of numeric digits.</li>
+<li><strong>Time</strong> Follows ISO 8601 (ISO standard for the representation of dates and times). Dates shall be written between hashes (#). A valid time representation is #2021-11-25/2021-12-25#</li>
+<li><strong>Date</strong> #2021-11-25#.</li>
+<li><strong>Time period</strong> #2021Q4#.</li>
+<li><strong>Duration</strong> Following ISO8601: P[n]Y[n]M[n]DT[n]H[n]M[n]S. E.g.,: #P3Y6M4DT12H30M5S#</li>
+<li><strong>Boolean</strong>: true or false.</li>
+<li><strong>DPM objects</strong>: A string between brackets with two arguments, first the type and second the code. E.g., [item, eba_RT:x11], [subcategory, eba_CU:iso_currencies]</li>
+</ul>
+</article>
+</div>
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+</div>
+<button class="md-top md-icon" data-md-component="top" hidden="" type="button">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+</main>
+<footer class="md-footer">
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+      Material for MkDocs
+    </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<div class="md-dialog" data-md-component="dialog">
+<div class="md-dialog__inner md-typeset"></div>
+</div>
+<script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.view"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+<script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+<script type="module">import mermaid from "https://unpkg.com/mermaid@11.8.0/dist/mermaid.esm.min.mjs";
+mermaid.initialize({});</script></body>
+</html>

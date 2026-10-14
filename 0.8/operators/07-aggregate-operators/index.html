@@ -1,0 +1,2384 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Data Point Model Expression Language">
+      
+      
+        <meta name="author" content="EBA and EIOPA">
+      
+      
+      
+        <link rel="prev" href="../06-logical-operators/">
+      
+      
+        <link rel="next" href="../08-conditional-operators/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Aggregate - DPM Expression Language (DPM-XL) Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-aggregate-operators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DPM Expression Language (DPM-XL) Documentation" class="md-header__button md-logo" aria-label="DPM Expression Language (DPM-XL) Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DPM Expression Language (DPM-XL) Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Aggregate
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../information-model/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Information Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Operators
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../grammar/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Grammar
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DPM Expression Language (DPM-XL) Documentation" class="md-nav__button md-logo" aria-label="DPM Expression Language (DPM-XL) Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DPM Expression Language (DPM-XL) Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Information Model
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Information Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/02-information-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Information Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/03-data-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DPM-XL Data Selection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/04-null-treatment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Null handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/05-dpm-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DPM-ML
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operators
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-general-behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General behaviour
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-selection-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-numeric-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numeric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-comparison-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-logical-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-aggregate-operators-general-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Aggregate Operators' General Behaviour
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Aggregate Operators&#39; General Behaviour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#713-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#714-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#715-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#716-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#717-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-sum-sum" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Sum (sum)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Sum (sum)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#723-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#724-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#725-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#726-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-count-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Count (count)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 Count (count)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#733-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#734-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#735-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#736-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-minimum-value-min_aggr" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Minimum Value (min_aggr)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 Minimum Value (min_aggr)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#743-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#744-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#745-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#746-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-maximum-value-max_aggr" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Maximum Value (max_aggr)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.5 Maximum Value (max_aggr)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#751-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#752-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#753-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#754-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#755-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#756-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#76-average-avg" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6 Average (avg)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.6 Average (avg)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#761-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#762-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#763-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#764-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#765-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#766-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#77-median-value-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7 Median Value (median)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.7 Median Value (median)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#771-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#772-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#773-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#774-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#775-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#776-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-conditional-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-string-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Time
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-clause-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clause
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Grammar
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Grammar
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../grammar/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-aggregate-operators-general-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1 Aggregate Operators' General Behaviour
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Aggregate Operators&#39; General Behaviour">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#713-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#714-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#715-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#716-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#717-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.1.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-sum-sum" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2 Sum (sum)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 Sum (sum)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#723-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#724-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#725-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#726-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.2.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-count-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3 Count (count)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 Count (count)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#733-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#734-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#735-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#736-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.3.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-minimum-value-min_aggr" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4 Minimum Value (min_aggr)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.4 Minimum Value (min_aggr)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#741-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#742-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#743-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#744-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#745-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#746-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.4.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-maximum-value-max_aggr" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5 Maximum Value (max_aggr)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.5 Maximum Value (max_aggr)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#751-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#752-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#753-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#754-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#755-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#756-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.5.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#76-average-avg" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6 Average (avg)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.6 Average (avg)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#761-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#762-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#763-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#764-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#765-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#766-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.6.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#77-median-value-median" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7 Median Value (median)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.7 Median Value (median)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#771-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#772-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#773-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#774-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#775-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#776-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      7.7.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/dpm-alliance/dpm-xl-docs/raw/0.8/docs/operators/07-aggregate-operators.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="7-aggregate-operators">7 Aggregate Operators<a class="headerlink" href="#7-aggregate-operators" title="Permanent link">&para;</a></h1>
+<h2 id="71-aggregate-operators-general-behaviour">7.1 Aggregate Operators' General Behaviour<a class="headerlink" href="#71-aggregate-operators-general-behaviour" title="Permanent link">&para;</a></h2>
+<h3 id="711-syntax">7.1.1 Syntax<a class="headerlink" href="#711-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>aggregateOperator (</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="712-input-parameters">7.1.2 Input Parameters<a class="headerlink" href="#712-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;*&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="713-output">7.1.3 Output<a class="headerlink" href="#713-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;*&gt;</p>
+</blockquote>
+<h3 id="714-semantics">7.1.4 Semantics<a class="headerlink" href="#714-semantics" title="Permanent link">&para;</a></h3>
+<p>Aggregate <em>Operators</em> perform operations on the measures of the <em>Operand</em> <em>Recordset</em>, calculating the required aggregated values for groups of <em>Records</em>. The groups of <em>Records</em> to be aggregated are specified through the grouping clause. If no grouping clause is used, the operation shall be calculated on all the <em>Records</em>, resulting in a <em>Scalar</em>.</p>
+<h3 id="715-additional-constraints">7.1.5 Additional Constraints<a class="headerlink" href="#715-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>The allowed <em>Data Types</em> depend on the specific <em>Operator</em> according to the following table:</p>
+<table>
+<thead>
+<tr>
+<th><em>Operator</em></th>
+<th><em>Operand</em> Type</th>
+<th>Result Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sum</td>
+<td>Number</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>Count</td>
+<td>Any</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>Min</td>
+<td>Any</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>Any</td>
+<td>Any</td>
+</tr>
+<tr>
+<td>Average</td>
+<td>Number</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>Median</td>
+<td>Number</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+<p>The <em>Components</em> in the grouping by clause shall be present in the <em>Operand</em>.</p>
+<h3 id="716-behaviour">7.1.6 Behaviour<a class="headerlink" href="#716-behaviour" title="Permanent link">&para;</a></h3>
+<p>Aggregate <em>Operations</em> generate a <em>Recordset</em> or a <em>Scalar</em>, depending on the grouping clause.</p>
+<p>If the grouping clause exists, the structure of the resulting <em>Recordset</em> has as <em>Key Components</em> the <em>Components</em> in the group by</p>
+<p>The result may be:</p>
+<ul>
+<li>A <em>Recordset</em>, for which the resulting structure contains as <em>Key</em> dimensions the <em>Components</em> included in the group by clause.</li>
+<li>A <em>Scalar</em>, if the grouping clause is omitted.</li>
+</ul>
+<h3 id="717-examples">7.1.7 Examples<a class="headerlink" href="#717-examples" title="Permanent link">&para;</a></h3>
+<p>Supposing the following <em>Recordset</em> with name rs1:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">c</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>010</td>
+<td>PT</td>
+<td>100</td>
+</tr>
+<tr>
+<td>010</td>
+<td>020</td>
+<td>PT</td>
+<td>200</td>
+</tr>
+<tr>
+<td>020</td>
+<td>010</td>
+<td>PT</td>
+<td>300</td>
+</tr>
+<tr>
+<td>020</td>
+<td>020</td>
+<td>PT</td>
+<td>400</td>
+</tr>
+<tr>
+<td>010</td>
+<td>010</td>
+<td>DE</td>
+<td>500</td>
+</tr>
+<tr>
+<td>010</td>
+<td>020</td>
+<td>DE</td>
+<td>600</td>
+</tr>
+<tr>
+<td>020</td>
+<td>010</td>
+<td>DE</td>
+<td>700</td>
+</tr>
+<tr>
+<td>020</td>
+<td>020</td>
+<td>DE</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<p><code>sum(rs1 group by r)</code> results in:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>1400</td>
+</tr>
+<tr>
+<td>020</td>
+<td>2200</td>
+</tr>
+</tbody>
+</table>
+<p><code>sum(rs1 group by r, CNT)</code> results in:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>PT</td>
+<td>300</td>
+</tr>
+<tr>
+<td>020</td>
+<td>PT</td>
+<td>700</td>
+</tr>
+<tr>
+<td>010</td>
+<td>DE</td>
+<td>1100</td>
+</tr>
+<tr>
+<td>020</td>
+<td>DE</td>
+<td>1500</td>
+</tr>
+</tbody>
+</table>
+<p><code>count(rs1)</code> results in: <code>8</code> (<em>Scalar</em>)</p>
+<h2 id="72-sum-sum">7.2 Sum (sum)<a class="headerlink" href="#72-sum-sum" title="Permanent link">&para;</a></h2>
+<h3 id="721-syntax">7.2.1 Syntax<a class="headerlink" href="#721-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>sum(</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="722-input-parameters">7.2.2 Input Parameters<a class="headerlink" href="#722-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;num + interval&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="723-output">7.2.3 Output<a class="headerlink" href="#723-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="724-semantics">7.2.4 Semantics<a class="headerlink" href="#724-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the sum of the input values. Follows the general semantics of aggregate <em>Operators</em>.</p>
+<p>For intervals:</p>
+<ul>
+<li>The centre is calculated as the sum of the all the centers of the <em>Operands</em>.</li>
+<li>The radius is calculated as the sum of all the radiuses of the <em>Operands</em>.</li>
+</ul>
+<h3 id="725-additional-constraints">7.2.5 Additional Constraints<a class="headerlink" href="#725-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="726-behaviour">7.2.6 Behaviour<a class="headerlink" href="#726-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="#71-aggregate-operators-general-behaviour">Aggregate <em>Operators'</em> general behaviour</a>.</p>
+<h2 id="73-count-count">7.3 Count (count)<a class="headerlink" href="#73-count-count" title="Permanent link">&para;</a></h2>
+<h3 id="731-syntax">7.3.1 Syntax<a class="headerlink" href="#731-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>count(</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="732-input-parameters">7.3.2 Input Parameters<a class="headerlink" href="#732-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;*&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="733-output">7.3.3 Output<a class="headerlink" href="#733-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="734-semantics">7.3.4 Semantics<a class="headerlink" href="#734-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the number of <em>Records</em> in the <em>Recordset</em> or groups of <em>Records</em>. Follows the general semantics of aggregate <em>Operators</em>.</p>
+<h3 id="735-additional-constraints">7.3.5 Additional Constraints<a class="headerlink" href="#735-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="736-behaviour">7.3.6 Behaviour<a class="headerlink" href="#736-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="#71-aggregate-operators-general-behaviour">Aggregate <em>Operators'</em> general behaviour</a>.</p>
+<p>Note: Aggregate <em>Operators</em> generally ignore null values. This behavior can be overridden by using the nvl <em>Operator</em>.</p>
+<h2 id="74-minimum-value-min_aggr">7.4 Minimum Value (min_aggr)<a class="headerlink" href="#74-minimum-value-min_aggr" title="Permanent link">&para;</a></h2>
+<h3 id="741-syntax">7.4.1 Syntax<a class="headerlink" href="#741-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>min_aggr(</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="742-input-parameters">7.4.2 Input Parameters<a class="headerlink" href="#742-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;*&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="743-output">7.4.3 Output<a class="headerlink" href="#743-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="744-semantics">7.4.4 Semantics<a class="headerlink" href="#744-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the minimum value of the input values. Follows the general semantics of aggregate <em>Operators</em>.</p>
+<p>For intervals:</p>
+<ul>
+<li>The centre is calculated as the minimum value of the all the centers of the <em>Operands</em>.</li>
+<li>The radius is the radius of the <em>Operand</em> that has the minimum centre.</li>
+</ul>
+<h3 id="745-additional-constraints">7.4.5 Additional Constraints<a class="headerlink" href="#745-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="746-behaviour">7.4.6 Behaviour<a class="headerlink" href="#746-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="#71-aggregate-operators-general-behaviour">Aggregate <em>Operators'</em> general behaviour</a>.</p>
+<h2 id="75-maximum-value-max_aggr">7.5 Maximum Value (max_aggr)<a class="headerlink" href="#75-maximum-value-max_aggr" title="Permanent link">&para;</a></h2>
+<h3 id="751-syntax">7.5.1 Syntax<a class="headerlink" href="#751-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>max_aggr(</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="752-input-parameters">7.5.2 Input Parameters<a class="headerlink" href="#752-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;*&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="753-output">7.5.3 Output<a class="headerlink" href="#753-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="754-semantics">7.5.4 Semantics<a class="headerlink" href="#754-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the maximum value of the input values. Follows the general semantics of aggregate <em>Operators</em>.</p>
+<p>For intervals:
+- The centre is calculated as the maximum value of the all the centers of the <em>Operands</em>.
+- The radius is the radius of the <em>Operand</em> that has the maximum centre.</p>
+<h3 id="755-additional-constraints">7.5.5 Additional Constraints<a class="headerlink" href="#755-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="756-behaviour">7.5.6 Behaviour<a class="headerlink" href="#756-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="#71-aggregate-operators-general-behaviour">Aggregate <em>Operators'</em> general behaviour.</a></p>
+<h2 id="76-average-avg">7.6 Average (avg)<a class="headerlink" href="#76-average-avg" title="Permanent link">&para;</a></h2>
+<h3 id="761-syntax">7.6.1 Syntax<a class="headerlink" href="#761-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>avg(</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="762-input-parameters">7.6.2 Input Parameters<a class="headerlink" href="#762-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;num&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="763-output">7.6.3 Output<a class="headerlink" href="#763-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="764-semantics">7.6.4 Semantics<a class="headerlink" href="#764-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the average of the input values. Follows the general semantics of aggregate <em>Operators</em>.</p>
+<h3 id="765-additional-constraints">7.6.5 Additional Constraints<a class="headerlink" href="#765-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="766-behaviour">7.6.6 Behaviour<a class="headerlink" href="#766-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="#71-aggregate-operators-general-behaviour">Aggregate <em>Operators'</em> general behaviour</a>.</p>
+<h2 id="77-median-value-median">7.7 Median Value (median)<a class="headerlink" href="#77-median-value-median" title="Permanent link">&para;</a></h2>
+<h3 id="771-syntax">7.7.1 Syntax<a class="headerlink" href="#771-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>median(</strong> op {<strong>group by</strong> groupingId {, groupingId}*} <strong>)</strong></p>
+</blockquote>
+<h3 id="772-input-parameters">7.7.2 Input Parameters<a class="headerlink" href="#772-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op: rset &lt;num&gt;</p>
+<p>groupingId: scal &lt;prop&gt;</p>
+</blockquote>
+<h3 id="773-output">7.7.3 Output<a class="headerlink" href="#773-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;num&gt;</p>
+</blockquote>
+<h3 id="774-semantics">7.7.4 Semantics<a class="headerlink" href="#774-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the median of the input values. Follows the general semantics of aggregate <em>Operators</em>.</p>
+<h3 id="775-additional-constraints">7.7.5 Additional Constraints<a class="headerlink" href="#775-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>None.</p>
+<h3 id="776-behaviour">7.7.6 Behaviour<a class="headerlink" href="#776-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="#71-aggregate-operators-general-behaviour">Aggregate <em>Operators'</em> general behaviour</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.view"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>
