@@ -1,0 +1,2369 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Comprehensive documentation for the Data Point Model Expression Language">
+      
+      
+        <meta name="author" content="EBA and EIOPA">
+      
+      
+      
+        <link rel="prev" href="../07-aggregate-operators/">
+      
+      
+        <link rel="next" href="../09-string-operators/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.16">
+    
+    
+      
+        <title>Conditional - DPM Expression Language (DPM-XL) Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../static/style.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8-conditional-operators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="DPM Expression Language (DPM-XL) Documentation" class="md-header__button md-logo" aria-label="DPM Expression Language (DPM-XL) Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DPM Expression Language (DPM-XL) Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Conditional
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../information-model/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Information Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Operators
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../grammar/01-introduction/" class="md-tabs__link">
+          
+  
+  
+  Grammar
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DPM Expression Language (DPM-XL) Documentation" class="md-nav__button md-logo" aria-label="DPM Expression Language (DPM-XL) Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    DPM Expression Language (DPM-XL) Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/dpm-alliance/dpm-xl-docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dpm-alliance/dpm-xl-docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Information Model
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Information Model
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/02-information-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Information Model
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/03-data-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DPM-XL Data Selection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/04-null-treatment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Null handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../information-model/05-dpm-ml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    DPM-ML
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operators
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Operators
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-general-behaviour/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    General behaviour
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-selection-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Selection
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-numeric-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Numeric
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-comparison-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparison
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-logical-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Logical
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-aggregate-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Aggregate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Conditional
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81-if-then-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 If-then-else
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 If-then-else">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#811-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#812-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#813-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#814-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#815-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#816-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#817-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.7 Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1.7 Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-scalar-condition-scalar-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1: Scalar condition, scalar branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-scalar-condition-recordset-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2: Scalar condition, recordset branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-recordset-condition-scalar-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3: Recordset condition, scalar branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-recordset-condition-recordset-branches-with-same-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 4: Recordset condition, recordset branches with same keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-forbidden-scalar-condition-with-mixed-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 5: Forbidden — scalar condition with mixed branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-recordset-condition-with-more-keys-than-the-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 6: Recordset condition with more keys than the branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-omitted-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 7: Omitted else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-forbidden-branches-with-incompatible-key-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 8: Forbidden — branches with incompatible key structures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-null-literal-exception-then-branch-with-more-keys-than-the-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 9: Null literal exception — then branch with more keys than the condition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-null-substitute-nvl" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Null Substitute (nvl)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Null Substitute (nvl)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#823-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#824-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#825-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#826-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#827-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Filter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Filter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#831-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#832-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#833-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#834-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#835-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#836-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#837-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-string-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    String
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-time-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Time
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-clause-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Clause
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-assignment-operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Assignment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Grammar
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Grammar
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../grammar/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81-if-then-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1 If-then-else
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1 If-then-else">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#811-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#812-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#813-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#814-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#815-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#816-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#817-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.1.7 Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.1.7 Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-1-scalar-condition-scalar-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 1: Scalar condition, scalar branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-2-scalar-condition-recordset-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 2: Scalar condition, recordset branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-3-recordset-condition-scalar-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 3: Recordset condition, scalar branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-4-recordset-condition-recordset-branches-with-same-keys" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 4: Recordset condition, recordset branches with same keys
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-5-forbidden-scalar-condition-with-mixed-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 5: Forbidden — scalar condition with mixed branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-6-recordset-condition-with-more-keys-than-the-branches" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 6: Recordset condition with more keys than the branches
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-7-omitted-else" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 7: Omitted else
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-8-forbidden-branches-with-incompatible-key-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 8: Forbidden — branches with incompatible key structures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-9-null-literal-exception-then-branch-with-more-keys-than-the-condition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example 9: Null literal exception — then branch with more keys than the condition
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-null-substitute-nvl" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2 Null Substitute (nvl)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Null Substitute (nvl)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#823-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#824-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#825-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#826-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#827-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.2.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3 Filter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Filter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#831-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.1 Syntax
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#832-input-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.2 Input Parameters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#833-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.3 Output
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#834-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.4 Semantics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#835-additional-constraints" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.5 Additional Constraints
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#836-behaviour" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.6 Behaviour
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#837-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      8.3.7 Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+    
+      
+    
+    <a href="https://github.com/dpm-alliance/dpm-xl-docs/raw/0.10/docs/operators/08-conditional-operators.md" title="View source of this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.2 8.2 0 0 1-1.23-2"/></svg>
+    </a>
+  
+
+
+<h1 id="8-conditional-operators">8 Conditional Operators<a class="headerlink" href="#8-conditional-operators" title="Permanent link">&para;</a></h1>
+<h2 id="81-if-then-else">8.1 If-then-else<a class="headerlink" href="#81-if-then-else" title="Permanent link">&para;</a></h2>
+<h3 id="811-syntax">8.1.1 Syntax<a class="headerlink" href="#811-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>if</strong> conditionExpression <strong>then</strong> thenExpression {<strong>else</strong> elseExpression} <strong>endif</strong></p>
+</blockquote>
+<h3 id="812-input-parameters">8.1.2 Input Parameters<a class="headerlink" href="#812-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>conditionExpression: rset | scal &lt;boo&gt;</p>
+<p>thenExpression: rset | scal &lt;*&gt;</p>
+<p>elseExpression: rset | scal &lt;*&gt;</p>
+</blockquote>
+<h3 id="813-output">8.1.3 Output<a class="headerlink" href="#813-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;*&gt;</p>
+</blockquote>
+<h3 id="814-semantics">8.1.4 Semantics<a class="headerlink" href="#814-semantics" title="Permanent link">&para;</a></h3>
+<p>The result combines values selected from the thenExpression where the conditionExpression evaluates to <code>true</code>, with values selected from the elseExpression where the conditionExpression evaluates to <code>false</code> or <code>null</code>. <em>Records</em> are matched between the conditionExpression and each branch by inner join. When the elseExpression is omitted, <em>Records</em> where the conditionExpression is not <code>true</code> are excluded from the result. The formal evaluation is given in §8.1.6.</p>
+<h3 id="815-additional-constraints">8.1.5 Additional Constraints<a class="headerlink" href="#815-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>The additional constraints ensure that the structure of the output is known at compile time and that no <em>Record</em> in the result can have a <code>null</code> value in any <em>Key Component</em>.</p>
+<p>To the effects of these additional constraints, <em>Scalars</em> are treated as <em>Recordsets</em> with zero <em>Key Components</em>.</p>
+<ul>
+<li><strong>Data Type compatibility</strong>: The thenExpression and elseExpression (when provided) must be of the same <em>Data Type</em>, or of <em>Data Types</em> that admit implicit casting per the casting rules in <a href="../../information-model/02-information-model/#232-casting">§2.3.2</a>. When implicit casting applies, the resulting <em>Data Type</em> is that common <em>Data Type</em>.</li>
+<li><strong>Structure compatibility with the condition</strong>: The <em>Key Components</em> of the thenExpression must be compatible with those of the conditionExpression — that is, one set must be equal to, or a subset of, the other, following the same rule as for <a href="../02-general-behaviour/#2231-constraints">binary <em>Operators</em> on two <em>Recordsets</em></a>. If the elseExpression is provided, the same restriction applies to the elseExpression together with the conditionExpression.</li>
+<li><strong>Matched join structure</strong>: When the elseExpression is provided, the <em>Key Components</em> of the thenExpression and the elseExpression must satisfy one of: a) they are the same; or b) both are equal to, or a subset of, those of the conditionExpression.</li>
+<li><strong>Null literal exception</strong>: When thenExpression or elseExpression is <code>null</code> (explicit or, in the case of elseExpression, implicit because not used), it is possible for the other expression to have a set of key components that is a superset of the conditionExpression. This is allowed because null records are not added to the output, and therefore no records with null value for <em>Key components</em> may arise.</li>
+</ul>
+<h3 id="816-behaviour">8.1.6 Behaviour<a class="headerlink" href="#816-behaviour" title="Permanent link">&para;</a></h3>
+<p>Throughout this section, <code>join(x, y)</code> denotes the inner join of <a href="../02-general-behaviour/#2233-records">§2.2.3.3</a>; its result is a <em>Recordset</em> whose <em>Key Components</em> are the superset of those of x and y (which, under the <em>Structure compatibility with the condition</em> constraint, equals the <em>Key Components</em> of whichever operand is the superset). This makes the <em>Matched join structure</em> constraint of §8.1.5 equivalent to requiring that <code>join(conditionExpression, thenExpression)</code> and <code>join(conditionExpression, elseExpression)</code> have the same structure: case (a) gives both joins the <em>Key Components</em> <code>conditionExpression ∪ thenExpression = conditionExpression ∪ elseExpression</code>; case (b) gives both joins the <em>Key Components</em> of the conditionExpression.</p>
+<ul>
+<li><strong>Structure</strong>:<ul>
+<li>If all operands are <em>Scalars</em> (zero <em>Key Components</em>), the result is a <em>Scalar</em>; otherwise the result is a <em>Recordset</em>.</li>
+<li>The structure of the output shall contain the largest set of <em>Key Components</em> of the input structures.</li>
+</ul>
+</li>
+<li><strong>Evaluation</strong>: <ul>
+<li>The expression is evaluated as the disjoint union of two sets of <em>Records</em>:<ul>
+<li>The <em>Records</em> of <code>join(conditionExpression, thenExpression)</code> for which the conditionExpression evaluates to <code>true</code>, with the value of the <em>Fact Component</em> taken from the thenExpression.</li>
+<li>When the elseExpression is provided: the <em>Records</em> of <code>join(conditionExpression, elseExpression)</code> for which the conditionExpression evaluates to <code>false</code> or <code>null</code>, with the value taken from the elseExpression.</li>
+</ul>
+</li>
+<li>The two sets are disjoint by construction (they select complementary <em>Records</em> of the conditionExpression) and share the same structure by the <em>Matched join structure</em> constraint.</li>
+</ul>
+</li>
+<li><strong>Omitted else</strong>: <em>Records</em> where the conditionExpression evaluates to <code>false</code> or <code>null</code> are not included in the result.</li>
+</ul>
+<p>The following table summarises the allowed combinations, the additional constraint that applies beyond pairwise structure compatibility, and the resulting structure:</p>
+<p>To the effects of this table:</p>
+<ul>
+<li>An explicit <code>else null</code> is treated as a missing else.</li>
+<li>When thenExpression or elseExpression is the literal <code>null</code>, the <em>Null literal exception</em> of §8.1.5 may further relax the constraints in the corresponding row, since no <em>Records</em> are contributed by a null branch.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Then</th>
+<th>Else</th>
+<th>Additional constraint</th>
+<th>Result structure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Scalar</em></td>
+<td><em>Scalar</em></td>
+<td>—</td>
+<td>—</td>
+<td><em>Scalar</em></td>
+</tr>
+<tr>
+<td><em>Scalar</em></td>
+<td><em>Scalar</em></td>
+<td><em>Scalar</em></td>
+<td>—</td>
+<td><em>Scalar</em></td>
+</tr>
+<tr>
+<td><em>Scalar</em></td>
+<td><em>Recordset</em></td>
+<td>—</td>
+<td>—</td>
+<td><em>Recordset</em> (keys of then)</td>
+</tr>
+<tr>
+<td><em>Scalar</em></td>
+<td><em>Recordset</em></td>
+<td><em>Recordset</em></td>
+<td>then and else must have the same <em>Key Components</em></td>
+<td><em>Recordset</em> (common keys of then and else)</td>
+</tr>
+<tr>
+<td><em>Scalar</em></td>
+<td><em>Scalar</em></td>
+<td><em>Recordset</em></td>
+<td>Forbidden — join structures differ</td>
+<td>—</td>
+</tr>
+<tr>
+<td><em>Scalar</em></td>
+<td><em>Recordset</em></td>
+<td><em>Scalar</em></td>
+<td>Forbidden — join structures differ</td>
+<td>—</td>
+</tr>
+<tr>
+<td><em>Recordset</em></td>
+<td><em>Scalar</em></td>
+<td>—</td>
+<td>—</td>
+<td><em>Recordset</em> (keys of condition)</td>
+</tr>
+<tr>
+<td><em>Recordset</em></td>
+<td><em>Scalar</em></td>
+<td><em>Scalar</em></td>
+<td>—</td>
+<td><em>Recordset</em> (keys of condition)</td>
+</tr>
+<tr>
+<td><em>Recordset</em></td>
+<td><em>Scalar</em></td>
+<td><em>Recordset</em></td>
+<td><em>Key Components</em> of else ⊆ those of condition</td>
+<td><em>Recordset</em> (keys of condition)</td>
+</tr>
+<tr>
+<td><em>Recordset</em></td>
+<td><em>Recordset</em></td>
+<td>—</td>
+<td><em>Key Components</em> of then and condition: equal or one a subset of the other</td>
+<td><em>Recordset</em> (superset of keys)</td>
+</tr>
+<tr>
+<td><em>Recordset</em></td>
+<td><em>Recordset</em></td>
+<td><em>Scalar</em></td>
+<td><em>Key Components</em> of then ⊆ those of condition</td>
+<td><em>Recordset</em> (keys of condition)</td>
+</tr>
+<tr>
+<td><em>Recordset</em></td>
+<td><em>Recordset</em></td>
+<td><em>Recordset</em></td>
+<td><code>join(condition, then)</code> and <code>join(condition, else)</code> must share the same structure</td>
+<td><em>Recordset</em> (common join structure)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Relation to other operators</strong>: Under this definition, <code>if-then-else</code> subsumes several other operators as equivalent idioms:</p>
+<ul>
+<li><code>if A then B</code> (no else), when the <em>Key Components</em> of A are a subset of those of B, is equivalent to <code>filter(B, A)</code>.</li>
+<li><code>if isnull(A) then B else A</code> is equivalent to <code>nvl(A, B)</code> when A and B share the same data structure (the case in which <code>nvl</code> is applicable).</li>
+<li><code>if A = x then y else A</code> is a general pattern to replace a value <code>x</code> with <code>y</code>.</li>
+</ul>
+<h3 id="817-examples">8.1.7 Examples<a class="headerlink" href="#817-examples" title="Permanent link">&para;</a></h3>
+<h4 id="example-1-scalar-condition-scalar-branches">Example 1: Scalar condition, scalar branches<a class="headerlink" href="#example-1-scalar-condition-scalar-branches" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>if 10 &gt; 5 then 100 else 200 endif
+</code></pre></div>
+<p>Result: <code>100</code> (scalar). The condition is true, so the then branch is returned.</p>
+<h4 id="example-2-scalar-condition-recordset-branches">Example 2: Scalar condition, recordset branches<a class="headerlink" href="#example-2-scalar-condition-recordset-branches" title="Permanent link">&para;</a></h4>
+<p>Supposing <code>{tT1, r010-020}</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>And <code>{tT2, r010-020}</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>900</td>
+</tr>
+<tr>
+<td>020</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>if 10 &gt; 5 then {tT1, r010-020} else {tT2, r010-020} endif
+</code></pre></div>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>The condition is true, so the entire then recordset is returned.</p>
+<h4 id="example-3-recordset-condition-scalar-branches">Example 3: Recordset condition, scalar branches<a class="headerlink" href="#example-3-recordset-condition-scalar-branches" title="Permanent link">&para;</a></h4>
+<p>Supposing <code>{tT1, r010-020} &gt; 150</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>false</td>
+</tr>
+<tr>
+<td>020</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>if {tT1, r010-020} &gt; 150 then 1 else 0 endif
+</code></pre></div>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>0</td>
+</tr>
+<tr>
+<td>020</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>The condition is evaluated per record. The scalar branches are applied to each record based on its condition value.</p>
+<h4 id="example-4-recordset-condition-recordset-branches-with-same-keys">Example 4: Recordset condition, recordset branches with same keys<a class="headerlink" href="#example-4-recordset-condition-recordset-branches-with-same-keys" title="Permanent link">&para;</a></h4>
+<p>Supposing <code>{tT1, r010-020}</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>And <code>{tT2, r010-020}</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>900</td>
+</tr>
+<tr>
+<td>020</td>
+<td>800</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>if {tT1, r010-020} &gt; 150 then {tT1, r010-020} else {tT2, r010-020} endif
+</code></pre></div>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>900</td>
+</tr>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>Record 010 takes the else value (100 is not &gt; 150), record 020 takes the then value (200 &gt; 150).</p>
+<h4 id="example-5-forbidden-scalar-condition-with-mixed-branches">Example 5: Forbidden — scalar condition with mixed branches<a class="headerlink" href="#example-5-forbidden-scalar-condition-with-mixed-branches" title="Permanent link">&para;</a></h4>
+<p>The following expression is <strong>not allowed</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>if {tT1, r010} &gt; 150 then {tT2, r010-020} else 0 endif
+</code></pre></div>
+<p>The condition <code>{tT1, r010} &gt; 150</code> is a <em>Scalar</em> Boolean. The then branch is a <em>Recordset</em> with <em>Key Components</em> <code>{r}</code> and the else branch is a <em>Scalar</em> (zero <em>Key Components</em>). Applying the <em>Matched join structure</em> constraint: <code>join(condition, then)</code> has keys <code>{r}</code> while <code>join(condition, else)</code> has no keys. Since these structures differ, the expression is rejected. To fix this, either omit the else branch (records where the condition is <code>false</code> or <code>null</code> will not appear in the result) or replace the else branch with a <em>Recordset</em> sharing the same <em>Key Components</em> as the then branch.</p>
+<h4 id="example-6-recordset-condition-with-more-keys-than-the-branches">Example 6: Recordset condition with more keys than the branches<a class="headerlink" href="#example-6-recordset-condition-with-more-keys-than-the-branches" title="Permanent link">&para;</a></h4>
+<p>Supposing <code>{tT1, r010-020}</code> is an open table with a <em>Key Component</em> CNT, and the condition <code>{tT1, r010-020} &gt; 0</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>ES</td>
+<td>true</td>
+</tr>
+<tr>
+<td>010</td>
+<td>PT</td>
+<td>false</td>
+</tr>
+<tr>
+<td>020</td>
+<td>ES</td>
+<td>true</td>
+</tr>
+<tr>
+<td>020</td>
+<td>PT</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>And the then branch <code>{tT2, r010-020}</code> has only the r key:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>if {tT1, r010-020} &gt; 0 then {tT2, r010-020} else 0 endif
+</code></pre></div>
+<p>The condition has keys {r, CNT} and the then branch has keys {r}. The result has the structure of the superset (the condition), and the then/else values are matched via inner join on the common key (r):</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>ES</td>
+<td>100</td>
+</tr>
+<tr>
+<td>010</td>
+<td>PT</td>
+<td>0</td>
+</tr>
+<tr>
+<td>020</td>
+<td>ES</td>
+<td>200</td>
+</tr>
+<tr>
+<td>020</td>
+<td>PT</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<h4 id="example-7-omitted-else">Example 7: Omitted else<a class="headerlink" href="#example-7-omitted-else" title="Permanent link">&para;</a></h4>
+<p>Supposing <code>{tT1, r010-020}</code> yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>100</td>
+</tr>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>if {tT1, r010-020} &gt; 150 then {tT1, r010-020} endif
+</code></pre></div>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>020</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>Record <code>010</code> is excluded because its condition value is <code>false</code> (100 is not &gt; 150). Record <code>020</code> is included with its then value.</p>
+<h4 id="example-8-forbidden-branches-with-incompatible-key-structures">Example 8: Forbidden — branches with incompatible key structures<a class="headerlink" href="#example-8-forbidden-branches-with-incompatible-key-structures" title="Permanent link">&para;</a></h4>
+<p>Supposing <code>{tT1, r010-020}</code> has <em>Key Component</em> <code>r</code> and yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>200</td>
+</tr>
+<tr>
+<td>020</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p>And <code>{tT3, r010-020}</code> has <em>Key Components</em> <code>r</code> and <code>CNT</code> and yields:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>020</td>
+<td>ES</td>
+<td>500</td>
+</tr>
+<tr>
+<td>020</td>
+<td>PT</td>
+<td>600</td>
+</tr>
+</tbody>
+</table>
+<p>The following expression is <strong>not allowed</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>if {tT1, r010-020} &gt; 150 then 0 else {tT3, r020} endif
+</code></pre></div>
+<p><code>join(condition, then)</code> has keys <code>{r}</code> while <code>join(condition, else)</code> has keys <code>{r, CNT}</code>. Since the structures differ, the <em>Matched join structure</em> constraint rejects the expression at compile time. This prevents results where records of the condition would silently disappear because one branch cannot supply values for the key tuples required by the other (while the same records would be included if the elseExpression was omitted). To fix this, ensure both branches produce results with the same <em>Key Components</em> after joining with the condition.</p>
+<h4 id="example-9-null-literal-exception-then-branch-with-more-keys-than-the-condition">Example 9: Null literal exception — then branch with more keys than the condition<a class="headerlink" href="#example-9-null-literal-exception-then-branch-with-more-keys-than-the-condition" title="Permanent link">&para;</a></h4>
+<p>Supposing the condition <code>{tT1, r010-020} &gt; 0</code> yields a <em>Recordset</em> with key <code>{r}</code>:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>true</td>
+</tr>
+<tr>
+<td>020</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>And the then branch <code>{tT2, r010-020}</code> is an open table with keys <code>{r, CNT}</code>:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>ES</td>
+<td>100</td>
+</tr>
+<tr>
+<td>010</td>
+<td>PT</td>
+<td>200</td>
+</tr>
+<tr>
+<td>020</td>
+<td>ES</td>
+<td>300</td>
+</tr>
+<tr>
+<td>020</td>
+<td>PT</td>
+<td>400</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>if {tT1, r010-020} &gt; 0 then {tT2, r010-020} endif
+</code></pre></div>
+<p>With no <code>else</code> clause, the elseExpression is implicitly the literal <code>null</code>. The <em>Matched join structure</em> constraint would normally reject this — <code>join(condition, then)</code> has <em>Key Components</em> <code>{r, CNT}</code> while <code>join(condition, null)</code> has <code>{r}</code> — but the <em>Null literal exception</em> of §8.1.5 admits the case because the implicit-null branch contributes no <em>Records</em>, so no <em>Record</em> with a <code>null</code> value in a <em>Key Component</em> can arise.</p>
+<p>Result:</p>
+<table>
+<thead>
+<tr>
+<th id="k">r</th>
+<th id="k">CNT</th>
+<th id="f">f</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>010</td>
+<td>ES</td>
+<td>100</td>
+</tr>
+<tr>
+<td>010</td>
+<td>PT</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<p>The result takes the structure of the then branch, <code>{r, CNT}</code>. <em>Records</em> <code>(010, ES)</code> and <code>(010, PT)</code> are included (the condition is <code>true</code> for r = 010); <em>Records</em> with r = 020 are excluded because the condition is <code>false</code> and the implicit-null else branch contributes nothing.</p>
+<h2 id="82-null-substitute-nvl">8.2 Null Substitute (nvl)<a class="headerlink" href="#82-null-substitute-nvl" title="Permanent link">&para;</a></h2>
+<h3 id="821-syntax">8.2.1 Syntax<a class="headerlink" href="#821-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>nvl(</strong> op1, op2 <strong>)</strong></p>
+</blockquote>
+<h3 id="822-input-parameters">8.2.2 Input Parameters<a class="headerlink" href="#822-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>op1: rset | scal &lt;*&gt;</p>
+<p>op2: rset | scal &lt;*&gt;</p>
+</blockquote>
+<h3 id="823-output">8.2.3 Output<a class="headerlink" href="#823-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset | scal &lt;*&gt;</p>
+</blockquote>
+<h3 id="824-semantics">8.2.4 Semantics<a class="headerlink" href="#824-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns op2 when op1 is <code>null</code>, otherwise op1.</p>
+<h3 id="825-additional-constraints">8.2.5 Additional Constraints<a class="headerlink" href="#825-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>op1 and op2 need to be of the same type (<em>Scalar</em> or <em>Recordset</em>) and same <em>Data Type</em>.</p>
+<p>If op1 and op2 are of the <em>Recordset</em> type, they need to have the same data structure.</p>
+<h3 id="826-behaviour">8.2.6 Behaviour<a class="headerlink" href="#826-behaviour" title="Permanent link">&para;</a></h3>
+<p><a href="../02-general-behaviour/#22-binary-operators">Binary <em>Operators'</em> standard behaviour</a>.</p>
+<h3 id="827-examples">8.2.7 Examples<a class="headerlink" href="#827-examples" title="Permanent link">&para;</a></h3>
+<h2 id="83-filter">8.3 Filter<a class="headerlink" href="#83-filter" title="Permanent link">&para;</a></h2>
+<h3 id="831-syntax">8.3.1 Syntax<a class="headerlink" href="#831-syntax" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>filter(</strong> filteredOp, filteringOp <strong>)</strong></p>
+</blockquote>
+<h3 id="832-input-parameters">8.3.2 Input Parameters<a class="headerlink" href="#832-input-parameters" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>filteredOp: rset &lt;*&gt;</p>
+<p>filteringOp: rset &lt;boo&gt;</p>
+</blockquote>
+<h3 id="833-output">8.3.3 Output<a class="headerlink" href="#833-output" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>rset &lt;*&gt;</p>
+</blockquote>
+<h3 id="834-semantics">8.3.4 Semantics<a class="headerlink" href="#834-semantics" title="Permanent link">&para;</a></h3>
+<p>Returns the <em>Records</em> of the filteredOp <em>Recordset</em> for which their matching <em>Record</em> in filteringOp evaluates to <code>true</code>. <em>Records</em> whose matching value in filteringOp is <code>false</code> or <code>null</code> are excluded (per the null-as-false rule for filtering in <a href="../../information-model/04-null-treatment/#43-null-treatment">§4.3</a>).</p>
+<h3 id="835-additional-constraints">8.3.5 Additional Constraints<a class="headerlink" href="#835-additional-constraints" title="Permanent link">&para;</a></h3>
+<p>filteringOp must have the same <em>Key Components</em> as filteredOp or a subset of them.</p>
+<h3 id="836-behaviour">8.3.6 Behaviour<a class="headerlink" href="#836-behaviour" title="Permanent link">&para;</a></h3>
+<p>Returns a <em>Recordset</em> with the same data structure as filteredOp.</p>
+<p>An inner join between filteredOp and filteringOp is performed. The <em>Records</em> in filteredOp that match to a <em>Record</em> in filteringOp with true value are returned.</p>
+<h3 id="837-examples">8.3.7 Examples<a class="headerlink" href="#837-examples" title="Permanent link">&para;</a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.view"], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"alias": true, "default": ["latest"], "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.50899def.min.js"></script>
+      
+    
+  </body>
+</html>
